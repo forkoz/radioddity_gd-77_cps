@@ -43,7 +43,7 @@
 			// 
 			this.btnDownload.Location = new System.Drawing.Point(12, 35);
 			this.btnDownload.Name = "btnDownload";
-			this.btnDownload.Size = new System.Drawing.Size(123, 23);
+			this.btnDownload.Size = new System.Drawing.Size(125, 23);
 			this.btnDownload.TabIndex = 0;
 			this.btnDownload.Text = "Download";
 			this.btnDownload.UseVisualStyleBackColor = true;
@@ -71,16 +71,16 @@
 			// 
 			// txtRegionId
 			// 
-			this.txtRegionId.Location = new System.Drawing.Point(157, 37);
+			this.txtRegionId.Location = new System.Drawing.Point(160, 37);
 			this.txtRegionId.Name = "txtRegionId";
 			this.txtRegionId.Size = new System.Drawing.Size(100, 20);
 			this.txtRegionId.TabIndex = 3;
 			// 
 			// btnClear
 			// 
-			this.btnClear.Location = new System.Drawing.Point(263, 37);
+			this.btnClear.Location = new System.Drawing.Point(292, 35);
 			this.btnClear.Name = "btnClear";
-			this.btnClear.Size = new System.Drawing.Size(136, 23);
+			this.btnClear.Size = new System.Drawing.Size(125, 23);
 			this.btnClear.TabIndex = 4;
 			this.btnClear.Text = "Clear list";
 			this.btnClear.UseVisualStyleBackColor = true;
@@ -90,8 +90,9 @@
 			// 
 			this.lblMessage.Location = new System.Drawing.Point(12, 9);
 			this.lblMessage.Name = "lblMessage";
-			this.lblMessage.Size = new System.Drawing.Size(386, 23);
+			this.lblMessage.Size = new System.Drawing.Size(405, 23);
 			this.lblMessage.TabIndex = 5;
+			this.lblMessage.Text = "lblMessage";
 			// 
 			// dataGridView1
 			// 
