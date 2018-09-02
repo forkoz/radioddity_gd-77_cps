@@ -20,6 +20,7 @@ namespace DMR
 		private static byte[] SIG_PATTERN_BYTES;
 		private WebClient _wc;
 		private bool _isDownloading = false;
+		const int MAX_RECORDS = 10920;
 
 		public static void ClearStaticData()
 		{
@@ -142,7 +143,7 @@ namespace DMR
 				DataList = DataList.Distinct().ToList();
 
 				rebindData();
-				DataToCodeplug();
+				//DataToCodeplug();
 				Cursor.Current = Cursors.Default;
 	
 			}
@@ -160,7 +161,7 @@ namespace DMR
 
 		private void updateTotalNumberMessage()
 		{
-			string message = Settings.dicCommon["DMRIdContcatsTotal"];// "Total number of IDs = {0}. Max of 10920 can be uploaded";
+			string message = Settings.dicCommon["DMRIdContcatsTotal"];// "Total number of IDs = {0}. Max of MAX_RECORDS can be uploaded";
 			lblMessage.Text = string.Format(message, DataList.Count);
 		}
 
@@ -188,7 +189,7 @@ namespace DMR
 			CodeplugComms.startAddress = 0x30000;
 			CodeplugComms.transferLength = 0x20;
 			DialogResult result = commPrgForm.ShowDialog();
-			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, 0x20000);
+			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, 0x20);
 			if (!hasSig())
 			{
 				MessageBox.Show(Settings.dicCommon["EnableMemoryAccessMode"]);
@@ -201,11 +202,11 @@ namespace DMR
 			CodeplugComms.transferLength = 12 + (numRecords+2)*12;
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			result = commPrgForm.ShowDialog();
-			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, 0x20000);
+			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, CodeplugComms.transferLength);
 			File.WriteAllBytes("d:/test.dat", DMRIDForm.DMRIDBuffer);
 			radioToData();
 			rebindData();
-			DataToCodeplug();
+			//DataToCodeplug();
 		}
 
 		private void radioToData()
@@ -232,9 +233,10 @@ namespace DMR
 			}
 		}
 
+#if false
 		public static void DataToCodeplug()
 		{
-			int numRecords = Math.Min(DataList.Count,10920);// max records is 109020 (as thats all that will fit in 0x20000
+			int numRecords = Math.Min(DataList.Count,MAX_RECORDS);// max records is 109020 (as thats all that will fit in 0x20000
 			Array.Copy(SIG_PATTERN_BYTES, DMRIDBuffer, SIG_PATTERN_BYTES.Length);
 			Array.Copy(BitConverter.GetBytes(numRecords), 0, DMRIDBuffer, 8, 4);// Update number of records field
 			for (int i = 0; i< numRecords;i++)
@@ -242,26 +244,29 @@ namespace DMR
 				Array.Copy(DataList[i].getCodeplugData(), 0, DMRIDBuffer, 0x0c + i * 12, 12);
 			}
 		}
-
+#endif
 
 
 		private byte[] GenerateUploadData()
 		{
-			byte [] buffer = new byte[0x20000];
+			int numRecords = Math.Min(DataList.Count, MAX_RECORDS);
+			int dataSize = numRecords * 12 + 12;
+			dataSize = ((dataSize / 32)+1) * 32;
+			byte[] buffer = new byte[dataSize];
+
 			Array.Copy(SIG_PATTERN_BYTES, buffer, SIG_PATTERN_BYTES.Length);
-			int numRecords = Math.Min(DataList.Count, 10920);
 			Array.Copy(BitConverter.GetBytes(numRecords), 0, buffer, 8, 4);
+
 			if (DataList == null)
 			{
 				return buffer;
 			}
-			List<DMRDataItem> uploadList = new List<DMRDataItem>(DataList);
+			List<DMRDataItem> uploadList = new List<DMRDataItem>(DataList);// Need to make a copy so we can sort it and not screw up the list in the dataGridView
 			uploadList.Sort();
-			for (numRecords = 0; numRecords < uploadList.Count && numRecords < 10920; numRecords++)
+			for (int i = 0; i < numRecords; i++)
 			{
-				Array.Copy(uploadList[numRecords].getRadioData(), 0, buffer, 0x0c + numRecords * 12, 12);
+				Array.Copy(uploadList[i].getRadioData(), 0, buffer, 0x0c + i * 12, 12);
 			}
-			Array.Copy(BitConverter.GetBytes(numRecords), 0, buffer, 8, 4);// Update number of records field
 			return buffer;
 		}
 
@@ -283,7 +288,7 @@ namespace DMR
 		{
 			DataList = new List<DMRDataItem>();
 			rebindData();
-			DataToCodeplug();
+			//DataToCodeplug();
 
 		}
 
@@ -294,17 +299,21 @@ namespace DMR
 			CommPrgForm commPrgForm = new CommPrgForm(true);// true =  close download form as soon as download is complete
 			commPrgForm.StartPosition = FormStartPosition.CenterParent;
 			CodeplugComms.startAddress = 0x30000;
-			CodeplugComms.transferLength = 0x20;
+			CodeplugComms.transferLength = 32;
 			DialogResult result = commPrgForm.ShowDialog();
-			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, 0x20000);
+			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, 16);
 			if (!hasSig())
 			{
 				MessageBox.Show(Settings.dicCommon["EnableMemoryAccessMode"]); 
 				return;
 			}
 
-			Array.Copy(GenerateUploadData(), 0, MainForm.CommsBuffer, 0x30000, 0x20000);
-			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.DMRIDWrite;
+			byte []uploadData = GenerateUploadData();
+			Array.Copy(uploadData, 0, MainForm.CommsBuffer, 0x30000, (uploadData.Length/32)*32);
+			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataWrite;
+
+			CodeplugComms.startAddress = 0x30000;
+			CodeplugComms.transferLength = (uploadData.Length/32)*32;
 			commPrgForm.StartPosition = FormStartPosition.CenterParent;
 			result = commPrgForm.ShowDialog();
 		}
