@@ -1061,6 +1061,14 @@ namespace DMR
 			Settings.dicCommon.Add("IdAlreadyExists", Settings.SZ_ID_ALREADY_EXISTS);
 			Settings.dicCommon.Add("ContactNameDuplicate", Settings.SZ_CONTACT_DUPLICATE_NAME);
 
+
+			Settings.dicCommon.Add("EnableMemoryAccessMode", Settings.SZ_EnableMemoryAccessMode);
+			Settings.dicCommon.Add("dataRead", Settings.SZ_dataRead);
+			Settings.dicCommon.Add("dataWrite", Settings.SZ_dataWrite);
+			Settings.dicCommon.Add("DMRIdContcatsTotal", Settings.SZ_DMRIdContcatsTotal);
+			Settings.dicCommon.Add("ErrorParsingData", Settings.SZ_ErrorParsingData);
+			Settings.dicCommon.Add("DMRIdIntroMessage", Settings.SZ_DMRIdIntroMessage);
+
 			string text = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
 			if (File.Exists(text))
 			{
@@ -2646,7 +2654,7 @@ namespace DMR
 					convertCodeplug(array);					     //Convert layout from 3.0.6 to 3.1.x
 				}
 #endif        
-				MainForm.ByteToData(array);
+				MainForm.ByteToData(array,true);
 				this.InitTree();
 				this.Text = getMainTitleStub() + " " + fileName;
 			}
@@ -2891,7 +2899,10 @@ namespace DMR
 		private void tsbtnDMRID_Click(object sender, EventArgs e)
 		{
 			this.closeAllForms();
-			MessageBox.Show("This feature is currently in development");	
+
+			DMRIDForm dmrIdForm = new DMRIDForm();
+			dmrIdForm.Show();
+			return;
 		}
 
 
@@ -2939,7 +2950,7 @@ namespace DMR
             if (result == DialogResult.Yes)
             {
                 this.closeAllForms();
-                CommPrgForm commPrgForm = new CommPrgForm();
+                CommPrgForm commPrgForm = new CommPrgForm(false);
                 commPrgForm.StartPosition = FormStartPosition.CenterParent;
                 //commPrgForm.IsRead = true;
 				CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.codeplugRead;
@@ -2963,7 +2974,7 @@ namespace DMR
                 GeneralSetForm.data.KillState = 0;
                 this.method_3();
 				CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.codeplugWrite;
-                CommPrgForm commPrgForm = new CommPrgForm();
+                CommPrgForm commPrgForm = new CommPrgForm(false);
                 commPrgForm.StartPosition = FormStartPosition.CenterParent;
                 //commPrgForm.IsRead = false;
 
@@ -3201,6 +3212,9 @@ namespace DMR
 					Array.Copy(array2, 0, array, Settings.ADDR_EX_CH + (i - 1) * ChannelForm.SPACE_CH_GROUP, ChannelForm.SPACE_CH_GROUP);
 				}
 			}
+
+		//	Array.Copy(DMRIDFormNew.DMRIDBuffer, 0, array, 0x20000, 0x20000);// Save the CurrentDMRID to the codeplug.
+
 			return array;
 		}
 
@@ -3282,7 +3296,7 @@ namespace DMR
 #endif
 
 		// This function reads the binary data e.g codeplug file and stores the data into the internal storage structures
-		public static void ByteToData(byte[] eerom)
+		public static void ByteToData(byte[] eerom, bool isFromFile = false)
 		{
 			byte[] array = new byte[Settings.SPACE_DEVICE_INFO];
 			Array.Copy(eerom, Settings.ADDR_DEVICE_INFO, array, 0, array.Length);
@@ -3382,6 +3396,17 @@ namespace DMR
 			{
 				MessageBox.Show(ex.Message);
 			}
+
+/*
+			if (isFromFile && eerom.Length == 0x40000)
+			{
+				Array.Copy(eerom, 0x20000, DMRIDFormNew.DMRIDBuffer, 0, 0x20000);
+			}
+			else
+			{
+				DMRIDFormNew.ClearStaticData();
+			}
+ */
 		}
 
 		public static void DataVerify()

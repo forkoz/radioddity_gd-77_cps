@@ -730,7 +730,16 @@
       </Control>      
     </Controls>
   </DownloadContactsForm>
-	<Commons>
+  <DMRIDForm Text="DMR ID">
+    <Controls>
+      <Control Id="lblMessage" Text="Enter ID prefix code for your region and press Download, to append to the list" />
+      <Control Id="btnDownload" Text="Download" />
+      <Control Id="btnRead" Text="Read from GD-77" />
+      <Control Id="btnWrite" Text="Write to GD-77" />
+      <Control Id="btnClear" Text="Clear" />
+    </Controls>
+  </DMRIDForm>
+  <Commons>
 		<Item Id="None" Text="Rien" />
 		<Item Id="Selected" Text="Sélectionné" />
 		<Item Id="RadioIdNotEmpty" Text="L'ID radio ne peut être 'vide'!" />
@@ -777,6 +786,11 @@
     <Item Id="IdAlreadyExists" Text="ID already exists！" />
     <Item Id="IdOutOfRange" Text="ID out of range!" />
     <Item Id="IdNotEmpty" Text="ID can not be empty!" />
-    <Item Id="ContactNameDuplicate" Text="Warning. Duplicate contact name." />    
+    <Item Id="ContactNameDuplicate" Text="Warning. Duplicate contact name." />
+    <Item Id="EnableMemoryAccessMode" Text ="The GD-77 does not seem to be in Memory Access modeHold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver, and try again" />
+    <Item Id="dataRead" Text="Reading data from GD-77"/>
+    <Item Id="dataWrite" Text="Writing data to GD-77"/>
+    <Item Id="DMRIdContcatsTotal" Text="Total number of IDs = {0}. Max of 10920 can be uploaded" />
+    <Item Id="ErrorParsingData" Text="Error while parsing data" />
   </Commons>
 </Resource>

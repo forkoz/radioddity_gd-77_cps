@@ -30,8 +30,6 @@ internal class CodeplugComms
     private static readonly byte[] CMD_PRG =    new byte[7] { 2, (byte)'P', (byte)'R', (byte)'O', (byte)'G', (byte)'R', (byte)'A' };// 80,82,79,71,82,65}
 	private static readonly byte[] CMD_PRG2 =   new byte[2] {77,2};
 
-  
-
 	public int[] START_ADDR;
 	public int[] END_ADDR;
 
@@ -47,12 +45,12 @@ internal class CodeplugComms
 	}
 
 	[CompilerGenerated]
-	public void method_1(bool bool_0)
+	public void SetCancelComm(bool bool_0)
 	{
 		this._CancelComm = bool_0;
 	}
 
-	public enum CommunicationType { codeplugRead, codeplugWrite, DMRIDRead, DMRIDWrite, calibrationRead, calibrationWrite };
+	public enum CommunicationType { codeplugRead, codeplugWrite, DMRIDRead, DMRIDWrite, calibrationRead, calibrationWrite,dataRead,dataWrite };
 
 	public static CodeplugComms.CommunicationType CommunicationMode
 	{
@@ -60,23 +58,7 @@ internal class CodeplugComms
 		set;
 	}
 
-	/*
-    bool _IsRead;
-
-	[CompilerGenerated]
-	public bool getIsRead()
-	{
-		return this._IsRead;
-	}
-
-	[CompilerGenerated]
-	public void method_3(bool bool_0)
-	{
-		this._IsRead = bool_0;
-	}
-	*/
-
-	public bool method_4()
+	public bool isThreadAlive()
 	{
 		if (this.thread != null)
 		{
@@ -85,9 +67,9 @@ internal class CodeplugComms
 		return false;
 	}
 
-	public void method_5()
+	public void JoinThreadIfAlive()
 	{
-		if (this.method_4())
+		if (this.isThreadAlive())
 		{
 			this.thread.Join();
 		}
@@ -124,17 +106,15 @@ internal class CodeplugComms
 				transferLength = 0x10000;
 				this.thread = new Thread(writeData);
 				break;
+			case CommunicationType.dataWrite:
+				this.thread = new Thread(writeData);
+				break;
+			case CommunicationType.dataRead:
+				this.thread = new Thread(readData);
+				break;
+
 		}
-		/*
-		if (this.getIsRead())
-		{
-			this.thread = new Thread(this.readCodeplug);
-		}
-		else
-		{
-			this.thread = new Thread(this.writeCodeplug);
-		}
-		 */
+
 		if (this.thread != null)
 		{
 			this.thread.Start();
@@ -158,7 +138,7 @@ internal class CodeplugComms
 
 	public static int transferLength;
 	public static int startAddress;
-	public void readData()//(int startAddress, int transferLength)
+	public void readData()
 	{
 		byte[] usbBuf = new byte[160];// buffer for individual transfers
 		int blockLength = 0;
@@ -205,7 +185,7 @@ internal class CodeplugComms
 							// --------------- removed the password checking
 							blockLength = 32;// Max transfer length is 32 bytes
 							int currentPage = 0;
-							int bankSize = 65536;
+							int bankSize = 0x10000;//64k
 							int numBlocks = transferLength / blockLength;
 							int startBlock = startAddress / blockLength;
 							for (int block = startBlock; block < (startBlock + numBlocks); block++)
@@ -334,7 +314,7 @@ internal class CodeplugComms
 							// --------------- removed the password checking
 							blockLength = 32;// Max transfer length is 32 bytes
 							int currentPage = 0;
-							int bankSize = 65536;
+							int bankSize = 0x10000;// 64k
 							int numBlocks = transferLength / blockLength;
 							int startBlock = startAddress / blockLength;
 							for (int block = startBlock; block < (startBlock + numBlocks); block++)
@@ -368,7 +348,7 @@ internal class CodeplugComms
 								Array.Clear(usbBuf, 0, usbBuf.Length);
 								Buffer.BlockCopy(MainForm.CommsBuffer, (block * blockLength), data2, 4, blockLength);
 								specifiedDevice.SendData(data2, 0, 4 + 32);
-								//Console.WriteLine("Send Data to address 0x"+addr16.ToString("X"));
+
 
 								specifiedDevice.ReceiveData(usbBuf);
 								if (usbBuf[0] != CodeplugComms.CMD_ACK[0])
@@ -873,9 +853,6 @@ internal class CodeplugComms
 		Array.Copy(array3, 0, array2, Settings.ADDR_DEVICE_INFO + Settings.OFS_LAST_PRG_TIME, 6);
 		SpecifiedDevice specifiedDevice = SpecifiedDevice.FindSpecifiedDevice(HID_VID, 0x0073);
 
-//		writeflash();// Testing only
-//		return;
-
 		if (specifiedDevice == null)
 		{
 			if (this.OnFirmwareUpdateProgress != null)
@@ -1167,7 +1144,7 @@ internal class CodeplugComms
 	}
 
 	[MethodImpl(MethodImplOptions.Synchronized)]
-	public void method_9(Delegate1 delegate1_0)
+	public void SetProgressCallback(Delegate1 delegate1_0)
 	{
 		this.OnFirmwareUpdateProgress = (Delegate1)Delegate.Combine(this.OnFirmwareUpdateProgress, delegate1_0);
 	}
@@ -1180,9 +1157,7 @@ internal class CodeplugComms
 
 	public CodeplugComms()
 	{
-		
 		this.START_ADDR = new int[0];
 		this.END_ADDR = new int[0];
-		//base._002Ector();
 	}
 }

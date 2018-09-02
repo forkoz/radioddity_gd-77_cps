@@ -189,6 +189,15 @@ internal class Settings
 	public static string SZ_CALIBRATION_WRITE = "Writing calibration data to GD-77";
 	public static string SZ_CONTACT_DUPLICATE_NAME = "Warning. Duplicate contact name.";
 
+	public static string SZ_EnableMemoryAccessMode = "The GD-77 does not seem to be in Memory Access mode\nHold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver.\nand try again";
+    public static string SZ_dataRead = "Reading data from GD-77";
+    public static string SZ_dataWrite  ="Writing data to GD-77";
+    public static string SZ_DMRIdContcatsTotal = "Total number of IDs = {0}. Max of 10920 can be uploaded";
+    public static string SZ_ErrorParsingData = "Error while parsing data";
+    public static string SZ_DMRIdIntroMessage = "Data is downloaded from Ham-digital.org and appended any existing data";
+
+
+
 	public static int CUR_MODE;
 
 	public static uint[] MIN_FREQ;
@@ -207,7 +216,7 @@ internal class Settings
 
 	public static string CUR_PWD;
 
-	public static readonly uint EEROM_SPACE;
+	public static readonly uint EEROM_SPACE = 0x20000;//0x40000; // Increased to 256k (0x40000) to store DMR ID as well as codeplug   0x20000;// 0131072u;
 
 	public static readonly int SPACE_DEVICE_INFO;
 
@@ -1278,8 +1287,6 @@ internal class Settings
 
 	public static void smethod_68(Form form_0)
 	{
-		//XmlDocument xmlDocument = new XmlDocument();
-		//xmlDocument.Load(Settings._003CLangXml_003Ek__BackingField);
 		new Dictionary<string, string>();
 		string xpath = string.Format("/Resource/{0}", form_0.Name);
 		XmlNode xmlNode = _languageXML.SelectSingleNode(xpath);
@@ -1573,7 +1580,7 @@ internal class Settings
 		Settings.CUR_ZONE_GROUP = 0;
 		Settings.CUR_ZONE = 0;
 		Settings.CUR_PWD = "";
-		Settings.EEROM_SPACE = 131072u;
+
 		Settings.SPACE_DEVICE_INFO = Marshal.SizeOf(typeof(DeviceInfoForm.DeviceInfo));
 		Settings.ADDR_DEVICE_INFO = 128;
 		Settings.OFS_LAST_PRG_TIME = Marshal.OffsetOf(typeof(DeviceInfoForm.DeviceInfo), "lastPrgTime").ToInt32();

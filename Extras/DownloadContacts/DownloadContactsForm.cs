@@ -18,6 +18,7 @@ namespace DMR
 		public MainForm mainForm=null;
 		public TreeNode treeNode = null;
 		private bool _isDownloading = false;
+		WebClient _wc = null;
 
 		public DownloadContactsForm()
 		{
@@ -154,7 +155,7 @@ namespace DMR
 				// No nothing
 			}
 		}
-		WebClient _wc = null;
+
 
 		private void btnDownloadDMRMARC_Click(object sender, EventArgs e)
 		{

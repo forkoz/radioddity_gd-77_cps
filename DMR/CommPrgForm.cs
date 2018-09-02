@@ -7,32 +7,13 @@ namespace DMR
 {
 	public class CommPrgForm : Form
 	{
-		//private IContainer components;
 		private Label lblPrompt;
 		private ProgressBar prgComm;
 		private Button btnCancel;
         private Button btnOK;
-		private FirmwareUpdate firmwareUpdate;
-		//private Class10 portComm;
 		private CodeplugComms hidComm;
 		private bool _closeWhenFinished = false;
 
-		/*
-
-		public CodeplugComms.CommunicationType CommunicationMode
-		{
-			get;
-			set;
-		}
-		 * */
-		/*
-
-		public bool IsRead
-		{
-			get;
-			set;
-		}
-		*/
 		public bool IsSucess
 		{
 			get;
@@ -41,11 +22,6 @@ namespace DMR
 
 		protected override void Dispose(bool disposing)
 		{
-            /*
-			if (disposing && this.components != null)
-			{
-				this.components.Dispose();
-			}*/
 			base.Dispose(disposing);
 		}
 
@@ -62,8 +38,6 @@ namespace DMR
 			this.lblPrompt.Size = new Size(380, 26);
 			this.lblPrompt.TabIndex = 0;
             this.lblPrompt.TextAlign = ContentAlignment.MiddleCenter;
-            //this.lblPrompt.Text = "";// Percentage display goes here
-
 
 			this.prgComm.Location = new Point(43, 70);
 			this.prgComm.Margin = new Padding(3, 4, 3, 4);
@@ -92,7 +66,6 @@ namespace DMR
 
 
 			base.AutoScaleDimensions = new SizeF(7f, 16f);
-//			base.AutoScaleMode = AutoScaleMode.Font;
 			base.ClientSize = new Size(468, 214);
 			base.Controls.Add(this.btnCancel);
             base.Controls.Add(this.btnOK);
@@ -112,8 +85,6 @@ namespace DMR
 		{
 
 			this._closeWhenFinished = closeWhenFinished;
-			this.firmwareUpdate = new FirmwareUpdate();
-
 			this.hidComm = new CodeplugComms();
 			this.InitializeComponent();
 			base.Scale(Settings.smethod_6());
@@ -124,8 +95,6 @@ namespace DMR
 			Settings.smethod_68(this);
 			this.prgComm.Minimum = 0;
 			this.prgComm.Maximum = 100;
-
-			//this.hidComm.CommunicationMode = CommunicationMode;
 
 			switch (CodeplugComms.CommunicationMode)
 			{
@@ -148,6 +117,12 @@ namespace DMR
 				case CodeplugComms.CommunicationType.calibrationWrite:
 					this.Text = Settings.dicCommon["CalibrationWrite"];
 					break;
+				case CodeplugComms.CommunicationType.dataRead:
+					this.Text = Settings.dicCommon["dataRead"];
+					break;
+				case CodeplugComms.CommunicationType.dataWrite:
+					this.Text = Settings.dicCommon["dataWrite"];
+					break;
 			}
 
 			switch (CodeplugComms.CommunicationMode)
@@ -204,16 +179,16 @@ namespace DMR
 			}
 
 
-			this.hidComm.method_9(this.method_0);
+			this.hidComm.SetProgressCallback(this.progressCallback);
             this.hidComm.startCodeplugReadOrWriteInNewThread();
 		}
 
 		private void CommPrgForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			if (this.hidComm.method_4())
+			if (this.hidComm.isThreadAlive())
 			{
-				this.hidComm.method_1(true);
-				this.hidComm.method_5();
+				this.hidComm.SetCancelComm(true);
+				this.hidComm.JoinThreadIfAlive();
 			}
 		}
 
@@ -230,11 +205,11 @@ namespace DMR
         }
 
 
-		private void method_0(object sender, FirmwareUpdateProgressEventArgs e)
+		private void progressCallback(object sender, FirmwareUpdateProgressEventArgs e)
 		{
 			if (this.prgComm.InvokeRequired)
 			{
-				base.BeginInvoke(new EventHandler<FirmwareUpdateProgressEventArgs>(this.method_0), sender, e);
+				base.BeginInvoke(new EventHandler<FirmwareUpdateProgressEventArgs>(this.progressCallback), sender, e);
 			}
 			else if (e.Failed)
 			{
