@@ -2910,35 +2910,38 @@ namespace DMR
 		{
 			CommPrgForm commPrgForm;
 			this.closeAllForms();
-			if (DialogResult.OK != MessageBox.Show("Please make sure the GD-77 is in Memory Access mode.\nHold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver", "Enable Memory Access mode", MessageBoxButtons.OKCancel))
+			/*
+			if (DialogResult.OK != MessageBox.Show("Please make sure the GD-77 is in Memory Access mode. Hold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver", "Enable Memory Access mode", MessageBoxButtons.OKCancel))
 			{
 				return;
 			}
-
+			*/
 			MainForm.CommsBuffer = new byte[1024*1024];
 
-			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.calibrationRead;
-
+			// Pre-read to see if the calibration area appears to be readable.
+			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			commPrgForm = new CommPrgForm(true);// true =  close download form as soon as download is complete
 			commPrgForm.StartPosition = FormStartPosition.CenterParent;
-			DialogResult result= commPrgForm.ShowDialog();
+			CodeplugComms.startAddress = 0x8f000;
+			CodeplugComms.transferLength = 0x20;
+			DialogResult result = commPrgForm.ShowDialog();
 			if (MainForm.CommsBuffer[0x8f000] == 0x00 && MainForm.CommsBuffer[0x8f001] == 0x00)
 			{
-				MessageBox.Show("The GD-77 does not seem to be in Memory Access mode\nHold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver.\nand try again");
+				MessageBox.Show(Settings.dicCommon["EnableMemoryAccessMode"]);
 				return;
 			}
+
+
+			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.calibrationRead;
+			commPrgForm = new CommPrgForm(true);// true =  close download form as soon as download is complete
+			commPrgForm.StartPosition = FormStartPosition.CenterParent;
+			result= commPrgForm.ShowDialog();
+
 			if (DialogResult.OK == result)
 			{
 				CalibrationForm cf = new CalibrationForm();
 				cf.StartPosition = FormStartPosition.CenterParent;
-				if (DialogResult.OK == cf.ShowDialog())
-				{
-					CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.calibrationWrite;
-
-					commPrgForm = new CommPrgForm(true);// true =  close download form as soon as download is complete
-					commPrgForm.StartPosition = FormStartPosition.CenterParent;
-					commPrgForm.ShowDialog();
-				}
+				cf.ShowDialog();
 			}
 		}
 
