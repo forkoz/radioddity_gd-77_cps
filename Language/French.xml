@@ -6,7 +6,7 @@
 	<Language Id="Eng" Text="Français" />
 	<AboutForm Text="A propos">
 		<Controls>
-			<Control Id="lblVersion" Text="v3.0.6" />
+			<Control Id="lblVersion" Text="" />
 			<Control Id="lblCompany" Text="Radioddity and GD-77 Community" />
 			<Control Id="btnClose" Text="OK" />
 			<Control Id="lblTranslationCredit" Text="French version by Thierry - F1CXG" />
@@ -428,8 +428,11 @@
 			<MenuItem Id="tsmiLanguage" Text="Langue" />
 			<MenuItem Id="tsmiEnglish" Text="Anglais" />
 			<MenuItem Id="tsmiChinese" Text="Chinois" />
-      <MenuItem Id="tsmiExtras" Text="Extras" />      
-		</MenuStrip>
+      <MenuItem Id="tsmiExtras" Text="Extras" />
+      <MenuItem Id="tsmiContactsDownload" Text="Télécharger les contacts" />
+      <MenuItem Id="tsmiDMRID" Text="DMR ID" />
+      <MenuItem Id="tsmiCalibration" Text="Visualiseur d'étalonnage" />
+    </MenuStrip>
 		<ContextMenuStrip>
 			<MenuItem Id="tsmiAdd" Text="Ajoute" />
 			<MenuItem Id="tsmiClear" Text="Efface" />
@@ -732,11 +735,13 @@
   </DownloadContactsForm>
   <DMRIDForm Text="DMR ID">
     <Controls>
-      <Control Id="lblMessage" Text="Enter ID prefix code for your region and press Download, to append to the list" />
-      <Control Id="btnDownload" Text="Download" />
-      <Control Id="btnRead" Text="Read from GD-77" />
-      <Control Id="btnWrite" Text="Write to GD-77" />
-      <Control Id="btnClear" Text="Clear" />
+      <Control Id="lblMessage" Text="Entrez le code de préfixe d'ID pour votre région et appuyez sur Télécharger pour l'ajouter à la liste." />
+      <Control Id="lblRegionId" Text="Region" />
+      <Control Id="lblInactivityFilter" Text="Filtre d'inactivité (jours)" />
+      <Control Id="btnDownload" Text="Télécharger" />
+      <Control Id="btnRead" Text="RLire de GD-77" />
+      <Control Id="btnWrite" Text="Ecrit a GD-77" />
+      <Control Id="btnClear" Text="Effacer la liste" />
     </Controls>
   </DMRIDForm>
   <Commons>

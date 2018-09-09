@@ -6,7 +6,7 @@
 	<Language Id="Ukr" Text="Українська"/>
 	<AboutForm Text="Про програму">
 		<Controls>
-			<Control Id="lblVersion" Text="v3.0.6"/>
+			<Control Id="lblVersion" Text=""/>
 			<Control Id="lblCompany" Text="Radioddity and GD-77 Community"/>
 			<Control Id="btnClose" Text="ОК"/>
 			<Control Id="lblTranslationCredit" Text="Ukranian version by Sergiy - UR3PDA" />
@@ -438,7 +438,10 @@
 			<MenuItem Id="tsmiEnglish" Text="Українська"/>
 			<MenuItem Id="tsmiChinese" Text="Китайська"/>
 			<MenuItem Id="tsmiExtras" Text="Додаткові можливості"/>
-		</MenuStrip>
+      <MenuItem Id="tsmiContactsDownload" Text="Завантажте контакти" />
+      <MenuItem Id="tsmiDMRID" Text="DMR ID" />
+      <MenuItem Id="tsmiCalibration" Text="Калібрувальний глядач" />
+    </MenuStrip>
 		<ContextMenuStrip>
 			<MenuItem Id="tsmiAdd" Text="Додати"/>
 			<MenuItem Id="tsmiClear" Text="Очистити"/>
@@ -752,11 +755,13 @@
 	</DownloadContactsForm>
   <DMRIDForm Text="DMR ID">
     <Controls>
-      <Control Id="lblMessage" Text="Enter ID prefix code for your region and press Download, to append to the list" />
-      <Control Id="btnDownload" Text="Download" />
-      <Control Id="btnRead" Text="Read from GD-77" />
-      <Control Id="btnWrite" Text="Write to GD-77" />
-      <Control Id="btnClear" Text="Clear" />
+      <Control Id="lblMessage" Text="Введіть код префікса для свого регіону та натисніть Завантажити, щоб додати його до списку" />
+      <Control Id="lblRegionId" Text="Регіон" />
+      <Control Id="lblInactivityFilter" Text="Фільтр бездіяльності (днів)" />
+      <Control Id="btnDownload" Text="Завантажити" />
+      <Control Id="btnRead" Text="Читайте від GD-77" />
+      <Control Id="btnWrite" Text="Напишіть GD-77" />
+      <Control Id="btnClear" Text="Очистити список" />
     </Controls>
   </DMRIDForm>  
 	<Commons>

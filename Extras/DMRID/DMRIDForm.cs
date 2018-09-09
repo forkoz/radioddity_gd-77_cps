@@ -33,16 +33,10 @@ namespace DMR
 			InitializeComponent();
 
 			txtRegionId.Text = (int.Parse(GeneralSetForm.data.RadioId) / 10000).ToString();
-			if (hasSig() && false)
-			{
-				CodeplugToData();
-			}
-			else
-			{
-				DataList = new List<DMRDataItem>();
-			}
+
+			DataList = new List<DMRDataItem>();
+
 			dataGridView1.AutoGenerateColumns = false;
-			//create the column programatically
 			DataGridViewCell cell = new DataGridViewTextBoxCell();
 			DataGridViewTextBoxColumn colFileName = new DataGridViewTextBoxColumn()
 			{
@@ -126,6 +120,16 @@ namespace DMR
 		{
 			string ownRadioId = GeneralSetForm.data.RadioId;
 			string csv = e.Result;
+			int maxAge = Int32.MaxValue;
+
+			try
+			{
+				maxAge = Int32.Parse(this.txtAgeMaxDays.Text);
+			}
+			catch(Exception)
+			{
+
+			}
 
 			try
 			{
@@ -137,8 +141,11 @@ namespace DMR
 						first = false;
 						continue;
 					}
-
-					DataList.Add((new DMRDataItem()).FromHamDigital(csvLine));
+					DMRDataItem item = (new DMRDataItem()).FromHamDigital(csvLine);
+					if (item.AgeAsInt <= maxAge)
+					{
+						DataList.Add(item);
+					}
 				}
 				DataList = DataList.Distinct().ToList();
 
@@ -186,20 +193,27 @@ namespace DMR
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			CommPrgForm commPrgForm = new CommPrgForm(true);// true =  close download form as soon as download is complete
 			commPrgForm.StartPosition = FormStartPosition.CenterParent;
-			CodeplugComms.startAddress = 0x30000;
+			CodeplugComms.startAddress = 0x50100;
 			CodeplugComms.transferLength = 0x20;
 			DialogResult result = commPrgForm.ShowDialog();
-			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, 0x20);
-			if (!hasSig())
+			Array.Copy(MainForm.CommsBuffer, 0x50100, DMRIDForm.DMRIDBuffer, 0, 0x20);
+			if (!isInMemoryAccessMode(DMRIDForm.DMRIDBuffer))
 			{
 				MessageBox.Show(Settings.dicCommon["EnableMemoryAccessMode"]);
 				return;
 			}
 
+			CodeplugComms.startAddress = 0x30000;
+			CodeplugComms.transferLength = 0x20;
+			result = commPrgForm.ShowDialog();
+			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, 0x20);
+
 
 			int numRecords = BitConverter.ToInt32(DMRIDForm.DMRIDBuffer, 8);
+			
 			CodeplugComms.startAddress = 0x30000;
-			CodeplugComms.transferLength = 12 + (numRecords+2)*12;
+			CodeplugComms.transferLength = Math.Min(0x20000,12 + (numRecords+2)*12);
+
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			result = commPrgForm.ShowDialog();
 			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, CodeplugComms.transferLength);
@@ -270,6 +284,17 @@ namespace DMR
 			return buffer;
 		}
 
+		private bool isInMemoryAccessMode(byte []buffer)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				if (buffer[i] != 00 || buffer[i] != 0xff)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 
 		private bool hasSig()
 		{
@@ -298,11 +323,11 @@ namespace DMR
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			CommPrgForm commPrgForm = new CommPrgForm(true);// true =  close download form as soon as download is complete
 			commPrgForm.StartPosition = FormStartPosition.CenterParent;
-			CodeplugComms.startAddress = 0x30000;
-			CodeplugComms.transferLength = 32;
+			CodeplugComms.startAddress = 0x50100;
+			CodeplugComms.transferLength = 0x20;
 			DialogResult result = commPrgForm.ShowDialog();
-			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, 16);
-			if (!hasSig())
+			Array.Copy(MainForm.CommsBuffer, 0x50100, DMRIDForm.DMRIDBuffer, 0, 0x20);
+			if (!isInMemoryAccessMode(DMRIDForm.DMRIDBuffer))
 			{
 				MessageBox.Show(Settings.dicCommon["EnableMemoryAccessMode"]); 
 				return;

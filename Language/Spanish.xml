@@ -6,7 +6,7 @@
 	<Language Id="Esp" Text="Español" />
 	<AboutForm Text="Acerca de">
 		<Controls>
-			<Control Id="lblVersion" Text="v3.0.6" />
+			<Control Id="lblVersion" Text="" />
 			<Control Id="lblCompany" Text="GD-77 Community Español EA" />
 			<Control Id="btnClose" Text="OK" />
       <Control Id="lblTranslationCredit" Text="Spanish version by EA4ALX" />
@@ -430,9 +430,9 @@
 			<MenuItem Id="tsmiEnglish" Text="Inglés" />
 			<MenuItem Id="tsmiChinese" Text="Español" />
       <MenuItem Id="tsmiExtras" Text="Extras" />
-      <MenuItem Id="tsmiContactsDownload" Text="Download contacts" />
+      <MenuItem Id="tsmiContactsDownload" Text="Descargar contactos" />
       <MenuItem Id="tsmiDMRID" Text="DMR ID" />
-      <MenuItem Id="tsmiCalibration" Text="Calibration viewer" />
+      <MenuItem Id="tsmiCalibration" Text="Visor de calibración" />
     </MenuStrip>
 		<ContextMenuStrip>
 			<MenuItem Id="tsmiAdd" Text="Añadir" />
@@ -740,11 +740,13 @@
 </DownloadContactsForm>
   <DMRIDForm Text="DMR ID">
     <Controls>
-      <Control Id="lblMessage" Text="Enter ID prefix code for your region and press Download, to append to the list" />
-      <Control Id="btnDownload" Text="Download" />
-      <Control Id="btnRead" Text="Read from GD-77" />
-      <Control Id="btnWrite" Text="Write to GD-77" />
-      <Control Id="btnClear" Text="Clear" />
+      <Control Id="lblMessage" Text="Ingrese el código de prefijo de ID para su región y presione Descargar, para agregarlo a la lista" />
+      <Control Id="lblRegionId" Text="Región" />
+      <Control Id="lblInactivityFilter" Text="Filtro de inactividad (días)" />
+      <Control Id="btnDownload" Text="Descargar" />
+      <Control Id="btnRead" Text="Lea de GD-77" />
+      <Control Id="btnWrite" Text="Escribir a GD-77" />
+      <Control Id="btnClear" Text="Claro" />
     </Controls>
   </DMRIDForm>  
 	<Commons>

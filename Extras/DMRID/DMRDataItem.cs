@@ -10,6 +10,7 @@ namespace DMR
 		public int DMRId { get; set; }
 		public string Callsign { get; set; }
 		public string AgeInDays { get; set; }
+		public int AgeAsInt { get; set; }
 
 		// default construrctor creates an empty item
 		public DMRDataItem()
@@ -27,7 +28,7 @@ namespace DMR
 			DMRId = Int32.Parse(arr[2]);
 			try
 			{
-				int tmp = Int32.Parse(arr[4]);// see if its a number (exception will trigger if not)
+				AgeAsInt = Int32.Parse(arr[4]);// see if its a number (exception will trigger if not)
 				AgeInDays = arr[4];// Only gets here is no exception triggered
 			}
 			catch (Exception)

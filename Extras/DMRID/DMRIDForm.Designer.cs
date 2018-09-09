@@ -36,14 +36,17 @@
 			this.btnClear = new System.Windows.Forms.Button();
 			this.lblMessage = new System.Windows.Forms.Label();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.txtAgeMaxDays = new System.Windows.Forms.TextBox();
+			this.lblRegionId = new System.Windows.Forms.Label();
+			this.lblInactivityFilter = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// btnDownload
 			// 
-			this.btnDownload.Location = new System.Drawing.Point(12, 35);
+			this.btnDownload.Location = new System.Drawing.Point(12, 38);
 			this.btnDownload.Name = "btnDownload";
-			this.btnDownload.Size = new System.Drawing.Size(125, 23);
+			this.btnDownload.Size = new System.Drawing.Size(114, 23);
 			this.btnDownload.TabIndex = 0;
 			this.btnDownload.Text = "Download";
 			this.btnDownload.UseVisualStyleBackColor = true;
@@ -71,16 +74,17 @@
 			// 
 			// txtRegionId
 			// 
-			this.txtRegionId.Location = new System.Drawing.Point(160, 37);
+			this.txtRegionId.Location = new System.Drawing.Point(363, 38);
 			this.txtRegionId.Name = "txtRegionId";
-			this.txtRegionId.Size = new System.Drawing.Size(100, 20);
+			this.txtRegionId.Size = new System.Drawing.Size(54, 20);
 			this.txtRegionId.TabIndex = 3;
+			this.txtRegionId.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// btnClear
 			// 
-			this.btnClear.Location = new System.Drawing.Point(292, 35);
+			this.btnClear.Location = new System.Drawing.Point(13, 68);
 			this.btnClear.Name = "btnClear";
-			this.btnClear.Size = new System.Drawing.Size(125, 23);
+			this.btnClear.Size = new System.Drawing.Size(114, 23);
 			this.btnClear.TabIndex = 4;
 			this.btnClear.Text = "Clear list";
 			this.btnClear.UseVisualStyleBackColor = true;
@@ -97,19 +101,49 @@
 			// dataGridView1
 			// 
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(13, 66);
+			this.dataGridView1.Location = new System.Drawing.Point(13, 97);
 			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.Size = new System.Drawing.Size(404, 473);
+			this.dataGridView1.Size = new System.Drawing.Size(404, 442);
 			this.dataGridView1.TabIndex = 6;
+			// 
+			// txtAgeMaxDays
+			// 
+			this.txtAgeMaxDays.Location = new System.Drawing.Point(363, 64);
+			this.txtAgeMaxDays.Name = "txtAgeMaxDays";
+			this.txtAgeMaxDays.Size = new System.Drawing.Size(54, 20);
+			this.txtAgeMaxDays.TabIndex = 3;
+			this.txtAgeMaxDays.Text = "365";
+			this.txtAgeMaxDays.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// lblRegionId
+			// 
+			this.lblRegionId.Location = new System.Drawing.Point(255, 41);
+			this.lblRegionId.Name = "lblRegionId";
+			this.lblRegionId.Size = new System.Drawing.Size(102, 13);
+			this.lblRegionId.TabIndex = 7;
+			this.lblRegionId.Text = "Region";
+			this.lblRegionId.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// lblInactivityFilter
+			// 
+			this.lblInactivityFilter.Location = new System.Drawing.Point(198, 67);
+			this.lblInactivityFilter.Name = "lblInactivityFilter";
+			this.lblInactivityFilter.Size = new System.Drawing.Size(159, 13);
+			this.lblInactivityFilter.TabIndex = 7;
+			this.lblInactivityFilter.Text = "Inactivity filter (days)";
+			this.lblInactivityFilter.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// DMRIDForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(429, 580);
+			this.Controls.Add(this.lblInactivityFilter);
+			this.Controls.Add(this.lblRegionId);
 			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.lblMessage);
 			this.Controls.Add(this.btnClear);
+			this.Controls.Add(this.txtAgeMaxDays);
 			this.Controls.Add(this.txtRegionId);
 			this.Controls.Add(this.btnWriteToGD77);
 			this.Controls.Add(this.btnReadFromGD77);
@@ -134,5 +168,8 @@
 		private System.Windows.Forms.Button btnClear;
 		private System.Windows.Forms.Label lblMessage;
 		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.TextBox txtAgeMaxDays;
+		private System.Windows.Forms.Label lblRegionId;
+		private System.Windows.Forms.Label lblInactivityFilter;
 	}
 }

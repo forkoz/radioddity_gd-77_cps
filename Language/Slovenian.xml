@@ -6,7 +6,7 @@
 	<Language Id="Slo" Text="Slovenščina" />
 	<AboutForm Text="Informacija">
 		<Controls>
-			<Control Id="lblVersion" Text="v3.0.6" />
+			<Control Id="lblVersion" Text="v" />
 			<Control Id="lblCompany" Text="Radioddity and GD-77 Community" />
 			<Control Id="btnClose" Text="OK" />
       <Control Id="lblTranslationCredit" Text="Solvenian version by Savo - S56LLS" />
@@ -429,8 +429,11 @@
 			<MenuItem Id="tsmiLanguage" Text="Jezik" />
 			<MenuItem Id="tsmiEnglish" Text="Angleški" />
 			<MenuItem Id="tsmiChinese" Text="Kitajski" />
-      <MenuItem Id="tsmiExtras" Text="Posebno" />      
-		</MenuStrip>
+      <MenuItem Id="tsmiExtras" Text="Posebno" />
+      <MenuItem Id="tsmiContactsDownload" Text="Naloži stike" />
+      <MenuItem Id="tsmiDMRID" Text="DMR ID" />
+      <MenuItem Id="tsmiCalibration" Text="Pregledovalnik kalibracije" />
+    </MenuStrip>
 		<ContextMenuStrip>
 			<MenuItem Id="tsmiAdd" Text="Dodaj" />
 			<MenuItem Id="tsmiClear" Text="Počisti" />
@@ -733,11 +736,13 @@
   </DownloadContactsForm>
   <DMRIDForm Text="DMR ID">
     <Controls>
-      <Control Id="lblMessage" Text="Enter ID prefix code for your region and press Download, to append to the list" />
-      <Control Id="btnDownload" Text="Download" />
-      <Control Id="btnRead" Text="Read from GD-77" />
-      <Control Id="btnWrite" Text="Write to GD-77" />
-      <Control Id="btnClear" Text="Clear" />
+      <Control Id="lblMessage" Text="Vpišite kodo predpona ID za svojo regijo in pritisnite Prenesi, da dodate na seznam" />
+      <Control Id="lblRegionId" Text="Regija" />
+      <Control Id="lblInactivityFilter" Text="Filter neaktivnosti (dni))" />
+      <Control Id="btnDownload" Text="Prenesi" />
+      <Control Id="btnRead" Text="Preberite od GD-77" />
+      <Control Id="btnWrite" Text="Napišite GD-77" />
+      <Control Id="btnClear" Text="Počisti" />
     </Controls>
   </DMRIDForm>  
 	<Commons>

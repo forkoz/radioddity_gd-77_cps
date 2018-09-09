@@ -818,6 +818,8 @@
   <DMRIDForm Text="DMR ID">
     <Controls>
       <Control Id="lblMessage" Text="Enter ID prefix code for your region and press Download, to append to the list" />
+      <Control Id="lblRegionId" Text="Region" />
+      <Control Id="lblInactivityFilter" Text="Inactivity filter (days)" />      
       <Control Id="btnDownload" Text="Download" />
       <Control Id="btnRead" Text="Read from GD-77" />
       <Control Id="btnWrite" Text="Write to GD-77" />
