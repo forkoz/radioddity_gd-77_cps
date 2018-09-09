@@ -286,9 +286,9 @@ namespace DMR
 
 		private bool isInMemoryAccessMode(byte []buffer)
 		{
-			for (int i = 0; i < 8; i++)
+			for (int i = 0; i < 0x20; i++)
 			{
-				if (buffer[i] != 00 || buffer[i] != 0xff)
+				if (buffer[i] != 00)
 				{
 					return true;
 				}
