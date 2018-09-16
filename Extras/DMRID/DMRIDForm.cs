@@ -61,6 +61,17 @@ namespace DMR
 			colFileName = new DataGridViewTextBoxColumn()
 			{
 				CellTemplate = cell,
+				Name = "Name",// internal name
+				HeaderText = "Name",// Column header text
+				DataPropertyName = "Name"  // object property
+			};
+			dataGridView1.Columns.Add(colFileName);
+
+
+			cell = new DataGridViewTextBoxCell();
+			colFileName = new DataGridViewTextBoxColumn()
+			{
+				CellTemplate = cell,
 				Name = "Age",// internal name
 				HeaderText = "Last heard (days ago)",// Column header text
 				DataPropertyName = "AgeInDays",  // object property
@@ -100,13 +111,11 @@ namespace DMR
 				this.Refresh();
 				Application.DoEvents();
 				_wc.DownloadStringCompleted += new DownloadStringCompletedEventHandler(DMRMARCDownloadCompleteHandler);
-				//_wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(downloadProgressHandler);// Progress doesn't work when the data is from a dynamic source as e.g. ham-digital.org
 				_wc.DownloadStringAsync(new Uri("http://ham-digital.org/user_by_lh.php?id=" + txtRegionId.Text));
 	
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(" " + ex.Message);
 				Cursor.Current = Cursors.Default;
 				MessageBox.Show(Settings.dicCommon["UnableDownloadFromInternet"]);
 				return;
@@ -116,11 +125,22 @@ namespace DMR
 		}
 
 
-		private void DMRMARCDownloadCompleteHandler(object sender = null, DownloadStringCompletedEventArgs e = null)//,string testData=null)
+		private void DMRMARCDownloadCompleteHandler(object sender, DownloadStringCompletedEventArgs e )
 		{
 			string ownRadioId = GeneralSetForm.data.RadioId;
-			string csv = e.Result;
+			string csv;// = e.Result;
 			int maxAge = Int32.MaxValue;
+
+
+			try
+			{
+				csv = e.Result;
+			}
+			catch(Exception)
+			{
+				MessageBox.Show(Settings.dicCommon["UnableDownloadFromInternet"]);
+				return;
+			}
 
 			try
 			{
@@ -217,7 +237,6 @@ namespace DMR
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			result = commPrgForm.ShowDialog();
 			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, CodeplugComms.transferLength);
-			File.WriteAllBytes("d:/test.dat", DMRIDForm.DMRIDBuffer);
 			radioToData();
 			rebindData();
 			//DataToCodeplug();
@@ -279,7 +298,7 @@ namespace DMR
 			uploadList.Sort();
 			for (int i = 0; i < numRecords; i++)
 			{
-				Array.Copy(uploadList[i].getRadioData(), 0, buffer, 0x0c + i * 12, 12);
+				Array.Copy(uploadList[i].getRadioData(rbtnName.Checked), 0, buffer, 0x0c + i * 12, 12);
 			}
 			return buffer;
 		}

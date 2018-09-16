@@ -3,7 +3,7 @@
 
 #define MyAppName "Radioddity GD-77 CPS 3.0.6 - Community Edition"
 #define MyAppVersion "3.0.6.0"
-#define MyAppURL "https://github.com/rogerclarkmelbourne/radioddity_gd-77"
+#define MyAppURL "https://github.com/rogerclarkmelbourne/radioddity_gd-77_cps"
 #define MyAppExeName "GD77CPS.exe"
 
 [Setup]

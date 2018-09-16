@@ -9,6 +9,7 @@ namespace DMR
 	{
 		public int DMRId { get; set; }
 		public string Callsign { get; set; }
+		public string Name { get; set; }
 		public string AgeInDays { get; set; }
 		public int AgeAsInt { get; set; }
 
@@ -25,6 +26,7 @@ namespace DMR
 		{
 			string[] arr = CSVLine.Split(';');
 			Callsign = arr[1];
+			Name = arr[3];
 			DMRId = Int32.Parse(arr[2]);
 			try
 			{
@@ -76,13 +78,21 @@ namespace DMR
 		}
 
 		// Convert to format to send to the radio (GD-77)
-		public byte[] getRadioData()
+		public byte[] getRadioData(bool useName=false)
 		{
 			byte [] radioData = new byte[12];
 			if (DMRId != 0)
 			{
-				byte[] callsignbBuf = Encoding.UTF8.GetBytes(Callsign);
-				Array.Copy(callsignbBuf, 0, radioData, 4, callsignbBuf.Length);
+				byte[] displayBuf;
+				if (useName)
+				{
+					displayBuf = Encoding.UTF8.GetBytes(Name);
+				}
+				else
+				{
+					displayBuf = Encoding.UTF8.GetBytes(Callsign);
+				}
+				Array.Copy(displayBuf, 0, radioData, 4, Math.Min(8,displayBuf.Length));
 
 				int dmrid = DMRId;
 				for (int i = 0; i < 4; i++)
