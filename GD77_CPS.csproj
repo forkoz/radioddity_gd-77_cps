@@ -422,8 +422,6 @@
     <Content Include="Language\Ukrainian.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="STDFU.dll" />
-    <Content Include="STTubeDevice30.dll" />
     <Content Include="DMR_32512.ico" />
     <Content Include="Tone.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
