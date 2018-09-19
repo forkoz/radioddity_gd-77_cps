@@ -491,29 +491,32 @@ namespace DMR
 		{
 			this.pnlSignalingBasic = new CustomPanel();
 			this.nudTxSyncWakeTot = new CustomNumericUpDown();
-			this.chkCallAlert = new CheckBox();
+			this.chkCallAlert = new System.Windows.Forms.CheckBox();
 			this.nudAutoResetTimer = new CustomNumericUpDown();
-			this.chkRadioDisable = new CheckBox();
+			this.chkRadioDisable = new System.Windows.Forms.CheckBox();
 			this.nudTxWakeMsgLimit = new CustomNumericUpDown();
-			this.chkRemoteMonitor = new CheckBox();
+			this.chkRemoteMonitor = new System.Windows.Forms.CheckBox();
 			this.nudRMDuration = new CustomNumericUpDown();
-			this.chkEmgRM = new CheckBox();
-			this.lblTxSyncWakeTot = new Label();
-			this.chkSelCall = new CheckBox();
-			this.lblTxWakeMsgLimit = new Label();
-			this.cmbSelCallToneId = new ComboBox();
+			this.chkEmgRM = new System.Windows.Forms.CheckBox();
+			this.lblTxSyncWakeTot = new System.Windows.Forms.Label();
+			this.chkSelCall = new System.Windows.Forms.CheckBox();
+			this.lblTxWakeMsgLimit = new System.Windows.Forms.Label();
+			this.cmbSelCallToneId = new System.Windows.Forms.ComboBox();
 			this.nudSelCallHang = new CustomNumericUpDown();
-			this.lblSelCallToneId = new Label();
-			this.lblRMDuration = new Label();
-			this.lblSelCallHang = new Label();
-			this.lblAutoResetTimer = new Label();
+			this.lblSelCallToneId = new System.Windows.Forms.Label();
+			this.lblRMDuration = new System.Windows.Forms.Label();
+			this.lblSelCallHang = new System.Windows.Forms.Label();
+			this.lblAutoResetTimer = new System.Windows.Forms.Label();
 			this.pnlSignalingBasic.SuspendLayout();
-			((ISupportInitialize)this.nudTxSyncWakeTot).BeginInit();
-			((ISupportInitialize)this.nudAutoResetTimer).BeginInit();
-			((ISupportInitialize)this.nudTxWakeMsgLimit).BeginInit();
-			((ISupportInitialize)this.nudRMDuration).BeginInit();
-			((ISupportInitialize)this.nudSelCallHang).BeginInit();
-			base.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.nudTxSyncWakeTot)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudAutoResetTimer)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudTxWakeMsgLimit)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudRMDuration)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudSelCallHang)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// pnlSignalingBasic
+			// 
 			this.pnlSignalingBasic.AutoScroll = true;
 			this.pnlSignalingBasic.AutoSize = true;
 			this.pnlSignalingBasic.Controls.Add(this.nudTxSyncWakeTot);
@@ -533,276 +536,268 @@ namespace DMR
 			this.pnlSignalingBasic.Controls.Add(this.lblRMDuration);
 			this.pnlSignalingBasic.Controls.Add(this.lblSelCallHang);
 			this.pnlSignalingBasic.Controls.Add(this.lblAutoResetTimer);
-			this.pnlSignalingBasic.Dock = DockStyle.Fill;
-			this.pnlSignalingBasic.Location = new Point(0, 0);
+			this.pnlSignalingBasic.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pnlSignalingBasic.Location = new System.Drawing.Point(0, 0);
 			this.pnlSignalingBasic.Name = "pnlSignalingBasic";
-			this.pnlSignalingBasic.Size = new Size(521, 397);
+			this.pnlSignalingBasic.Size = new System.Drawing.Size(381, 224);
 			this.pnlSignalingBasic.TabIndex = 0;
-			this.nudTxSyncWakeTot.Increment = new decimal(new int[4]
-			{
-				5,
-				0,
-				0,
-				0
-			});
-			this.nudTxSyncWakeTot.method_2(null);
-			this.nudTxSyncWakeTot.Location = new Point(245, 158);
-			this.nudTxSyncWakeTot.Maximum = new decimal(new int[4]
-			{
-				375,
-				0,
-				0,
-				0
-			});
-			this.nudTxSyncWakeTot.Minimum = new decimal(new int[4]
-			{
-				125,
-				0,
-				0,
-				0
-			});
+			// 
+			// nudTxSyncWakeTot
+			// 
+			this.nudTxSyncWakeTot.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.nudTxSyncWakeTot.Location = new System.Drawing.Point(245, 158);
+			this.nudTxSyncWakeTot.Maximum = new decimal(new int[] {
+            375,
+            0,
+            0,
+            0});
+			this.nudTxSyncWakeTot.Minimum = new decimal(new int[] {
+            125,
+            0,
+            0,
+            0});
 			this.nudTxSyncWakeTot.Name = "nudTxSyncWakeTot";
-			this.nudTxSyncWakeTot.method_6(null);
-			CustomNumericUpDown @class = this.nudTxSyncWakeTot;
-			int[] bits = new int[4];
-			this.nudTxSyncWakeTot.method_4(new decimal(bits));
-			this.nudTxSyncWakeTot.Size = new Size(120, 23);
+			this.nudTxSyncWakeTot.Size = new System.Drawing.Size(120, 23);
 			this.nudTxSyncWakeTot.TabIndex = 8;
-			this.nudTxSyncWakeTot.Value = new decimal(new int[4]
-			{
-				125,
-				0,
-				0,
-				0
-			});
+			this.nudTxSyncWakeTot.Value = new decimal(new int[] {
+            125,
+            0,
+            0,
+            0});
+			// 
+			// chkCallAlert
+			// 
 			this.chkCallAlert.AutoSize = true;
-			this.chkCallAlert.Location = new Point(245, 188);
+			this.chkCallAlert.Location = new System.Drawing.Point(206, 188);
 			this.chkCallAlert.Name = "chkCallAlert";
-			this.chkCallAlert.Size = new Size(135, 20);
+			this.chkCallAlert.Size = new System.Drawing.Size(135, 20);
 			this.chkCallAlert.TabIndex = 9;
 			this.chkCallAlert.Text = "Call Alert Encode";
 			this.chkCallAlert.UseVisualStyleBackColor = true;
 			this.chkCallAlert.Visible = false;
-			this.nudAutoResetTimer.method_2(null);
-			this.nudAutoResetTimer.Location = new Point(245, 308);
-			this.nudAutoResetTimer.Maximum = new decimal(new int[4]
-			{
-				255,
-				0,
-				0,
-				0
-			});
-			this.nudAutoResetTimer.Minimum = new decimal(new int[4]
-			{
-				1,
-				0,
-				0,
-				0
-			});
+			// 
+			// nudAutoResetTimer
+			// 
+			this.nudAutoResetTimer.Location = new System.Drawing.Point(214, 192);
+			this.nudAutoResetTimer.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+			this.nudAutoResetTimer.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.nudAutoResetTimer.Name = "nudAutoResetTimer";
-			this.nudAutoResetTimer.method_6(null);
-			CustomNumericUpDown class2 = this.nudAutoResetTimer;
-			int[] bits2 = new int[4];
-			this.nudAutoResetTimer.method_4(new decimal(bits2));
-			this.nudAutoResetTimer.Size = new Size(120, 23);
+			this.nudAutoResetTimer.Size = new System.Drawing.Size(120, 23);
 			this.nudAutoResetTimer.TabIndex = 16;
-			this.nudAutoResetTimer.Value = new decimal(new int[4]
-			{
-				1,
-				0,
-				0,
-				0
-			});
+			this.nudAutoResetTimer.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.nudAutoResetTimer.Visible = false;
+			// 
+			// chkRadioDisable
+			// 
 			this.chkRadioDisable.AutoSize = true;
-			this.chkRadioDisable.Location = new Point(245, 18);
+			this.chkRadioDisable.Location = new System.Drawing.Point(52, 12);
 			this.chkRadioDisable.Name = "chkRadioDisable";
-			this.chkRadioDisable.Size = new Size(168, 20);
+			this.chkRadioDisable.Size = new System.Drawing.Size(168, 20);
 			this.chkRadioDisable.TabIndex = 0;
 			this.chkRadioDisable.Text = "Radio Disable Decode";
 			this.chkRadioDisable.UseVisualStyleBackColor = true;
-			this.nudTxWakeMsgLimit.method_2(null);
-			this.nudTxWakeMsgLimit.Location = new Point(245, 98);
-			this.nudTxWakeMsgLimit.Maximum = new decimal(new int[4]
-			{
-				4,
-				0,
-				0,
-				0
-			});
-			this.nudTxWakeMsgLimit.Minimum = new decimal(new int[4]
-			{
-				1,
-				0,
-				0,
-				0
-			});
+			// 
+			// nudTxWakeMsgLimit
+			// 
+			this.nudTxWakeMsgLimit.Location = new System.Drawing.Point(245, 98);
+			this.nudTxWakeMsgLimit.Maximum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+			this.nudTxWakeMsgLimit.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.nudTxWakeMsgLimit.Name = "nudTxWakeMsgLimit";
-			this.nudTxWakeMsgLimit.method_6(null);
-			CustomNumericUpDown class3 = this.nudTxWakeMsgLimit;
-			int[] bits3 = new int[4];
-			this.nudTxWakeMsgLimit.method_4(new decimal(bits3));
-			this.nudTxWakeMsgLimit.Size = new Size(120, 23);
+			this.nudTxWakeMsgLimit.Size = new System.Drawing.Size(120, 23);
 			this.nudTxWakeMsgLimit.TabIndex = 4;
-			this.nudTxWakeMsgLimit.Value = new decimal(new int[4]
-			{
-				4,
-				0,
-				0,
-				0
-			});
+			this.nudTxWakeMsgLimit.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+			// 
+			// chkRemoteMonitor
+			// 
 			this.chkRemoteMonitor.AutoSize = true;
-			this.chkRemoteMonitor.Location = new Point(245, 42);
+			this.chkRemoteMonitor.Location = new System.Drawing.Point(52, 36);
 			this.chkRemoteMonitor.Name = "chkRemoteMonitor";
-			this.chkRemoteMonitor.Size = new Size(180, 20);
+			this.chkRemoteMonitor.Size = new System.Drawing.Size(180, 20);
 			this.chkRemoteMonitor.TabIndex = 1;
 			this.chkRemoteMonitor.Text = "Remote Monitor Decode";
 			this.chkRemoteMonitor.UseVisualStyleBackColor = true;
-			this.nudRMDuration.Increment = new decimal(new int[4]
-			{
-				10,
-				0,
-				0,
-				0
-			});
-			this.nudRMDuration.method_2(null);
-			this.nudRMDuration.Location = new Point(245, 128);
-			this.nudRMDuration.Maximum = new decimal(new int[4]
-			{
-				120,
-				0,
-				0,
-				0
-			});
-			this.nudRMDuration.Minimum = new decimal(new int[4]
-			{
-				10,
-				0,
-				0,
-				0
-			});
+			// 
+			// nudRMDuration
+			// 
+			this.nudRMDuration.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			this.nudRMDuration.Location = new System.Drawing.Point(245, 128);
+			this.nudRMDuration.Maximum = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+			this.nudRMDuration.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
 			this.nudRMDuration.Name = "nudRMDuration";
-			this.nudRMDuration.method_6(null);
-			CustomNumericUpDown class4 = this.nudRMDuration;
-			int[] bits4 = new int[4];
-			this.nudRMDuration.method_4(new decimal(bits4));
-			this.nudRMDuration.Size = new Size(120, 23);
+			this.nudRMDuration.Size = new System.Drawing.Size(120, 23);
 			this.nudRMDuration.TabIndex = 6;
-			this.nudRMDuration.Value = new decimal(new int[4]
-			{
-				10,
-				0,
-				0,
-				0
-			});
+			this.nudRMDuration.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			// 
+			// chkEmgRM
+			// 
 			this.chkEmgRM.AutoSize = true;
-			this.chkEmgRM.Location = new Point(245, 68);
+			this.chkEmgRM.Location = new System.Drawing.Point(52, 62);
 			this.chkEmgRM.Name = "chkEmgRM";
-			this.chkEmgRM.Size = new Size(255, 20);
+			this.chkEmgRM.Size = new System.Drawing.Size(255, 20);
 			this.chkEmgRM.TabIndex = 2;
 			this.chkEmgRM.Text = "Emergency Romote Monitor Decode";
 			this.chkEmgRM.UseVisualStyleBackColor = true;
-			this.lblTxSyncWakeTot.Location = new Point(49, 158);
+			// 
+			// lblTxSyncWakeTot
+			// 
+			this.lblTxSyncWakeTot.Location = new System.Drawing.Point(49, 158);
 			this.lblTxSyncWakeTot.Name = "lblTxSyncWakeTot";
-			this.lblTxSyncWakeTot.Size = new Size(185, 24);
+			this.lblTxSyncWakeTot.Size = new System.Drawing.Size(185, 24);
 			this.lblTxSyncWakeTot.TabIndex = 7;
 			this.lblTxSyncWakeTot.Text = "Tx Sync Wakeup TOT [ms]";
-			this.lblTxSyncWakeTot.TextAlign = ContentAlignment.MiddleRight;
+			this.lblTxSyncWakeTot.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// chkSelCall
+			// 
 			this.chkSelCall.AutoSize = true;
-			this.chkSelCall.Location = new Point(245, 218);
+			this.chkSelCall.Location = new System.Drawing.Point(208, 188);
 			this.chkSelCall.Name = "chkSelCall";
-			this.chkSelCall.Size = new Size(131, 20);
+			this.chkSelCall.Size = new System.Drawing.Size(131, 20);
 			this.chkSelCall.TabIndex = 10;
 			this.chkSelCall.Text = "Self Call Encode";
 			this.chkSelCall.UseVisualStyleBackColor = true;
 			this.chkSelCall.Visible = false;
-			this.lblTxWakeMsgLimit.Location = new Point(49, 98);
+			// 
+			// lblTxWakeMsgLimit
+			// 
+			this.lblTxWakeMsgLimit.Location = new System.Drawing.Point(49, 98);
 			this.lblTxWakeMsgLimit.Name = "lblTxWakeMsgLimit";
-			this.lblTxWakeMsgLimit.Size = new Size(185, 24);
+			this.lblTxWakeMsgLimit.Size = new System.Drawing.Size(185, 24);
 			this.lblTxWakeMsgLimit.TabIndex = 3;
 			this.lblTxWakeMsgLimit.Text = "Tx Wakeup Message Limit";
-			this.lblTxWakeMsgLimit.TextAlign = ContentAlignment.MiddleRight;
-			this.cmbSelCallToneId.DropDownStyle = ComboBoxStyle.DropDownList;
+			this.lblTxWakeMsgLimit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbSelCallToneId
+			// 
+			this.cmbSelCallToneId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbSelCallToneId.FormattingEnabled = true;
-			this.cmbSelCallToneId.Items.AddRange(new object[2]
-			{
-				"前置",
-				"始终"
-			});
-			this.cmbSelCallToneId.Location = new Point(245, 248);
+			this.cmbSelCallToneId.Items.AddRange(new object[] {
+            "前置",
+            "始终"});
+			this.cmbSelCallToneId.Location = new System.Drawing.Point(209, 188);
 			this.cmbSelCallToneId.Name = "cmbSelCallToneId";
-			this.cmbSelCallToneId.Size = new Size(121, 24);
+			this.cmbSelCallToneId.Size = new System.Drawing.Size(121, 24);
 			this.cmbSelCallToneId.TabIndex = 12;
 			this.cmbSelCallToneId.Visible = false;
-			this.nudSelCallHang.Increment = new decimal(new int[4]
-			{
-				500,
-				0,
-				0,
-				0
-			});
-			this.nudSelCallHang.method_2(null);
-			this.nudSelCallHang.Location = new Point(245, 278);
-			this.nudSelCallHang.Maximum = new decimal(new int[4]
-			{
-				7000,
-				0,
-				0,
-				0
-			});
+			// 
+			// nudSelCallHang
+			// 
+			this.nudSelCallHang.Increment = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+			this.nudSelCallHang.Location = new System.Drawing.Point(219, 190);
+			this.nudSelCallHang.Maximum = new decimal(new int[] {
+            7000,
+            0,
+            0,
+            0});
 			this.nudSelCallHang.Name = "nudSelCallHang";
-			this.nudSelCallHang.method_6(null);
-			CustomNumericUpDown class5 = this.nudSelCallHang;
-			int[] bits5 = new int[4];
-			this.nudSelCallHang.method_4(new decimal(bits5));
-			this.nudSelCallHang.Size = new Size(120, 23);
+			this.nudSelCallHang.Size = new System.Drawing.Size(120, 23);
 			this.nudSelCallHang.TabIndex = 14;
 			this.nudSelCallHang.Visible = false;
-			this.lblSelCallToneId.Location = new Point(49, 248);
+			// 
+			// lblSelCallToneId
+			// 
+			this.lblSelCallToneId.Location = new System.Drawing.Point(13, 188);
 			this.lblSelCallToneId.Name = "lblSelCallToneId";
-			this.lblSelCallToneId.Size = new Size(185, 24);
+			this.lblSelCallToneId.Size = new System.Drawing.Size(185, 24);
 			this.lblSelCallToneId.TabIndex = 11;
 			this.lblSelCallToneId.Text = "Self Call Tone/ID";
-			this.lblSelCallToneId.TextAlign = ContentAlignment.MiddleRight;
+			this.lblSelCallToneId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.lblSelCallToneId.Visible = false;
-			this.lblRMDuration.Location = new Point(49, 128);
+			// 
+			// lblRMDuration
+			// 
+			this.lblRMDuration.Location = new System.Drawing.Point(49, 128);
 			this.lblRMDuration.Name = "lblRMDuration";
-			this.lblRMDuration.Size = new Size(185, 24);
+			this.lblRMDuration.Size = new System.Drawing.Size(185, 24);
 			this.lblRMDuration.TabIndex = 5;
 			this.lblRMDuration.Text = "Remote Monitor Duration [s]";
-			this.lblRMDuration.TextAlign = ContentAlignment.MiddleRight;
-			this.lblSelCallHang.Location = new Point(49, 278);
+			this.lblRMDuration.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// lblSelCallHang
+			// 
+			this.lblSelCallHang.Location = new System.Drawing.Point(23, 190);
 			this.lblSelCallHang.Name = "lblSelCallHang";
-			this.lblSelCallHang.Size = new Size(185, 24);
+			this.lblSelCallHang.Size = new System.Drawing.Size(185, 24);
 			this.lblSelCallHang.TabIndex = 13;
 			this.lblSelCallHang.Text = "Self Call Hang Time [ms]";
-			this.lblSelCallHang.TextAlign = ContentAlignment.MiddleRight;
+			this.lblSelCallHang.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.lblSelCallHang.Visible = false;
-			this.lblAutoResetTimer.Location = new Point(49, 308);
+			// 
+			// lblAutoResetTimer
+			// 
+			this.lblAutoResetTimer.Location = new System.Drawing.Point(18, 192);
 			this.lblAutoResetTimer.Name = "lblAutoResetTimer";
-			this.lblAutoResetTimer.Size = new Size(185, 24);
+			this.lblAutoResetTimer.Size = new System.Drawing.Size(185, 24);
 			this.lblAutoResetTimer.TabIndex = 15;
 			this.lblAutoResetTimer.Text = "Auto Reset Timer [s]";
-			this.lblAutoResetTimer.TextAlign = ContentAlignment.MiddleRight;
+			this.lblAutoResetTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.lblAutoResetTimer.Visible = false;
-			base.AutoScaleDimensions = new SizeF(7f, 16f);
-//			base.AutoScaleMode = AutoScaleMode.Font;
-			base.ClientSize = new Size(521, 397);
-			base.Controls.Add(this.pnlSignalingBasic);
-			this.Font = new Font("Arial", 10f, FontStyle.Regular);
-			base.Name = "SignalingBasicForm";
+			// 
+			// SignalingBasicForm
+			// 
+			this.ClientSize = new System.Drawing.Size(381, 224);
+			this.Controls.Add(this.pnlSignalingBasic);
+			this.Font = new System.Drawing.Font("Arial", 10F);
+			this.Name = "SignalingBasicForm";
 			this.Text = "Signaling System";
-			base.Load += this.SignalingBasicForm_Load;
-			base.FormClosing += this.SignalingBasicForm_FormClosing;
 			this.pnlSignalingBasic.ResumeLayout(false);
 			this.pnlSignalingBasic.PerformLayout();
-			((ISupportInitialize)this.nudTxSyncWakeTot).EndInit();
-			((ISupportInitialize)this.nudAutoResetTimer).EndInit();
-			((ISupportInitialize)this.nudTxWakeMsgLimit).EndInit();
-			((ISupportInitialize)this.nudRMDuration).EndInit();
-			((ISupportInitialize)this.nudSelCallHang).EndInit();
-			base.ResumeLayout(false);
-			base.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.nudTxSyncWakeTot)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudAutoResetTimer)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudTxWakeMsgLimit)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudRMDuration)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudSelCallHang)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
+
 		}
 
 		static SignalingBasicForm()
