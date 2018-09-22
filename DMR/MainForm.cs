@@ -45,6 +45,7 @@ namespace DMR
 		private ToolStripMenuItem tsmiSetting;
 
 		private ToolStripMenuItem tsmiSignaling;
+		private ToolStripMenuItem tsmiSignalingSystem;
 
 		private ToolStripMenuItem tsmiDtmf;
 
@@ -60,13 +61,16 @@ namespace DMR
 
 		private ToolStripMenuItem tsmiGrpRxList;
 
-		private ToolStripMenuItem tsmiCh;
+		private ToolStripMenuItem tsmiChannels;
 
 		private ToolStripMenuItem tsmiZone;
 
 		private ToolStripMenuItem tsmiButton;
 
 		private ToolStripMenuItem tsmiScan;
+		private ToolStripMenuItem tsmiVfos;
+		private ToolStripMenuItem tsmiVfoA;
+		private ToolStripMenuItem tsmiVfoB;
 
 		private ToolStripMenuItem tsmiAbout;
 
@@ -122,10 +126,12 @@ namespace DMR
 
 		private ToolStripMenuItem tsmiDtmfContact;
 
-		private ToolStripMenuItem tsmiDmrContact;
+		private ToolStripMenuItem tsmiDmrContacts;
 
+		private ToolStripMenuItem tsmiScanBasic;
 		private ToolStripMenuItem tsmiScanList;
 
+		private ToolStripMenuItem tsmiZoneBasic;
 		private ToolStripMenuItem tsmiZoneList;
 
 		private ToolStripMenuItem tsmiCloseAll;
@@ -297,17 +303,24 @@ namespace DMR
 			this.tsmiTextMsg = new ToolStripMenuItem();
 			this.tsmiEncrypt = new ToolStripMenuItem();
 			this.tsmiSignaling = new ToolStripMenuItem();
+			this.tsmiSignalingSystem = new ToolStripMenuItem();
 			this.tsmiDtmf = new ToolStripMenuItem();
 			this.tsmiEmgSystem = new ToolStripMenuItem();
 			this.tsmiContact = new ToolStripMenuItem();
 			this.tsmiDtmfContact = new ToolStripMenuItem();
-			this.tsmiDmrContact = new ToolStripMenuItem();
+			this.tsmiDmrContacts = new ToolStripMenuItem();
 			this.tsmiGrpRxList = new ToolStripMenuItem();
 			this.tsmiZone = new ToolStripMenuItem();
+			this.tsmiZoneBasic = new ToolStripMenuItem();
 			this.tsmiZoneList = new ToolStripMenuItem();
-			this.tsmiCh = new ToolStripMenuItem();
+			this.tsmiChannels = new ToolStripMenuItem();
 			this.tsmiScan = new ToolStripMenuItem();
+			this.tsmiScanBasic = new ToolStripMenuItem();
 			this.tsmiScanList = new ToolStripMenuItem();
+			this.tsmiVfos = new ToolStripMenuItem();
+			this.tsmiVfoA = new ToolStripMenuItem();
+			this.tsmiVfoB = new ToolStripMenuItem();
+
 			this.tsmiProgram = new ToolStripMenuItem();
 			this.tsmiRead = new ToolStripMenuItem();
 			this.tsmiWrite = new ToolStripMenuItem();
@@ -415,21 +428,27 @@ namespace DMR
 			this.tsmiNew.Size = new Size(108, 22);
 			this.tsmiNew.Text = "New";
 			this.tsmiNew.Click += this.tsbtnNew_Click;
+			this.tsmiNew.ShortcutKeys = Keys.Control | Keys.N;
+
 			this.tsmiSave.Name = "tsmiSave";
 			this.tsmiSave.Size = new Size(108, 22);
 			this.tsmiSave.Text = "Save";
 			this.tsmiSave.Click += this.tsbtnSave_Click;
+			this.tsmiSave.ShortcutKeys = Keys.Control | Keys.S;
+			
 			this.tsmiOpen.Name = "tsmiOpen";
 			this.tsmiOpen.Size = new Size(108, 22);
 			this.tsmiOpen.Text = "Open";
 			this.tsmiOpen.Click += this.tsbtnOpen_Click;
+			this.tsmiOpen.ShortcutKeys = Keys.Control | Keys.O;
+
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new Size(105, 6);
 			this.tsmiExit.Name = "tsmiExit";
 			this.tsmiExit.Size = new Size(108, 22);
 			this.tsmiExit.Text = "Exit";
 			this.tsmiExit.Click += this.tsmiExit_Click;
-			this.tsmiSetting.DropDownItems.AddRange(new ToolStripItem[14]
+			this.tsmiSetting.DropDownItems.AddRange(new ToolStripItem[15]
 			{
 				this.tsmiDeviceInfo,
 				this.tsmiBootItem,
@@ -443,8 +462,9 @@ namespace DMR
 				this.tsmiContact,
 				this.tsmiGrpRxList,
 				this.tsmiZone,
-				this.tsmiCh,
-				this.tsmiScan
+				this.tsmiChannels,
+				this.tsmiScan,
+				this.tsmiVfos
 			});
 			this.tsmiSetting.Name = "tsmiSetting";
 			this.tsmiSetting.Size = new Size(60, 21);
@@ -482,15 +502,22 @@ namespace DMR
 			this.tsmiEncrypt.Size = new Size(191, 22);
 			this.tsmiEncrypt.Text = "Privacy";
 			this.tsmiEncrypt.Click += this.tsmiEncrypt_Click;
-			this.tsmiSignaling.DropDownItems.AddRange(new ToolStripItem[2]
+
+			this.tsmiSignaling.Name = "tsmiSignaling";
+			this.tsmiSignaling.Size = new Size(191, 22);
+			this.tsmiSignaling.Text = "Signaling";
+			this.tsmiSignaling.DropDownItems.AddRange(new ToolStripItem[3]
 			{
+				this.tsmiSignalingSystem,
 				this.tsmiDtmf,
 				this.tsmiEmgSystem
 			});
-			this.tsmiSignaling.Name = "tsmiSignaling";
-			this.tsmiSignaling.Size = new Size(191, 22);
-			this.tsmiSignaling.Text = "Signaling System";
-			this.tsmiSignaling.Click += this.tsmiSignaling_Click;
+
+			this.tsmiSignalingSystem.Name = "tsmiSignalingSystem";
+			this.tsmiSignalingSystem.Size = new Size(191, 22);
+			this.tsmiSignalingSystem.Text = "Signaling System";
+			this.tsmiSignalingSystem.Click += this.tsmiSignalingSystem_Click;
+
 			this.tsmiDtmf.Name = "tsmiDtmf";
 			this.tsmiDtmf.Size = new Size(185, 22);
 			this.tsmiDtmf.Text = "DTMF";
@@ -502,19 +529,19 @@ namespace DMR
 			this.tsmiContact.DropDownItems.AddRange(new ToolStripItem[2]
 			{
 				this.tsmiDtmfContact,
-				this.tsmiDmrContact
+				this.tsmiDmrContacts
 			});
 			this.tsmiContact.Name = "tsmiContact";
 			this.tsmiContact.Size = new Size(191, 22);
-			this.tsmiContact.Text = "Contact";
+			this.tsmiContact.Text = "Contacts";
 			this.tsmiDtmfContact.Name = "tsmiDtmfContact";
 			this.tsmiDtmfContact.Size = new Size(161, 22);
 			this.tsmiDtmfContact.Text = "DTMF";
 			this.tsmiDtmfContact.Click += this.tsmiDtmfContact_Click;
-			this.tsmiDmrContact.Name = "tsmiDmrContact";
-			this.tsmiDmrContact.Size = new Size(161, 22);
-			this.tsmiDmrContact.Text = "Digital Contact";
-			this.tsmiDmrContact.Click += this.tsmiDmrContact_Click;
+			this.tsmiDmrContacts.Name = "tsmiDmrContacts";
+			this.tsmiDmrContacts.Size = new Size(161, 22);
+			this.tsmiDmrContacts.Text = "Digital Contacts";
+			this.tsmiDmrContacts.Click += this.tsmiDmrContacts_Click;
 			this.tsmiGrpRxList.Name = "tsmiGrpRxList";
 			this.tsmiGrpRxList.Size = new Size(191, 22);
 			this.tsmiGrpRxList.Text = "Rx Group List";
@@ -526,27 +553,70 @@ namespace DMR
 			this.tsmiZone.Name = "tsmiZone";
 			this.tsmiZone.Size = new Size(191, 22);
 			this.tsmiZone.Text = "Zone";
-			this.tsmiZone.Click += this.tsmiZone_Click;
+			this.tsmiZone.DropDownItems.AddRange(new ToolStripItem[2]
+			{
+				this.tsmiZoneBasic,
+				this.tsmiZoneList
+			});
+
+			this.tsmiZoneBasic.Name = "tsmiZoneBasic";
+			this.tsmiZoneBasic.Size = new Size(124, 22);
+			this.tsmiZoneBasic.Text = "Zone Basic";
+			this.tsmiZoneBasic.Click += this.tsmiZoneBasic_Click;
+
 			this.tsmiZoneList.Name = "tsmiZoneList";
 			this.tsmiZoneList.Size = new Size(124, 22);
 			this.tsmiZoneList.Text = "ZoneList";
 			this.tsmiZoneList.Click += this.tsmiZoneList_Click;
-			this.tsmiCh.Name = "tsmiCh";
-			this.tsmiCh.Size = new Size(191, 22);
-			this.tsmiCh.Text = "Channel";
-			this.tsmiCh.Click += this.tsmiCh_Click;
-			this.tsmiScan.DropDownItems.AddRange(new ToolStripItem[1]
-			{
-				this.tsmiScanList
-			});
+
+			this.tsmiChannels.Name = "tsmiChannels";
+			this.tsmiChannels.Size = new Size(191, 22);
+			this.tsmiChannels.Text = "Channels";
+			this.tsmiChannels.Click += this.tsmiChannels_Click;
+
+
 			this.tsmiScan.Name = "tsmiScan";
 			this.tsmiScan.Size = new Size(191, 22);
 			this.tsmiScan.Text = "Scan";
-			this.tsmiScan.Click += this.tsmiScan_Click;
+			this.tsmiScan.DropDownItems.AddRange(new ToolStripItem[2]
+			{
+				this.tsmiScanBasic,
+				this.tsmiScanList
+			});
+
+			this.tsmiScanBasic.Name = "tsmiScanBasic";
+			this.tsmiScanBasic.Size = new Size(191, 22);
+			this.tsmiScanBasic.Text = "Scan Basic";
+			this.tsmiScanBasic.Click += this.tsmiScanBasic_Click;
+
 			this.tsmiScanList.Name = "tsmiScanList";
 			this.tsmiScanList.Size = new Size(126, 22);
 			this.tsmiScanList.Text = "Scan List";
 			this.tsmiScanList.Click += this.tsmiScanList_Click;
+
+			this.tsmiVfos.Name = "tsmiVfos";
+			this.tsmiVfos.Size = new Size(191, 22);
+			this.tsmiVfos.Text = "VFOs";
+
+			this.tsmiVfoA.Name = "tsmiVfoA";
+			this.tsmiVfoA.Size = new Size(191, 22);
+			this.tsmiVfoA.Text = "VFO A";
+			this.tsmiVfoA.Click += this.tsmiVfoA_Click;
+
+
+			this.tsmiVfoB.Name = "tsmiVfoB";
+			this.tsmiVfoB.Size = new Size(191, 22);
+			this.tsmiVfoB.Text = "VFO B";
+			this.tsmiVfoB.Click += this.tsmiVfoB_Click;
+
+			this.tsmiVfos.DropDownItems.AddRange(new ToolStripItem[2]
+			{
+				this.tsmiVfoA,
+				this.tsmiVfoB
+			});
+
+
+
 			this.tsmiProgram.DropDownItems.AddRange(new ToolStripItem[2]// was 3
 			{
 				this.tsmiRead,
@@ -2537,12 +2607,12 @@ namespace DMR
 
 		private void tsmiSetting_DropDownOpening(object sender, EventArgs e)
 		{
-			this.tsmiDmrContact.Visible = !ContactForm.data.ListIsEmpty;
+			this.tsmiDmrContacts.Visible = !ContactForm.data.ListIsEmpty;
 			this.tsmiZone.Visible = !ZoneForm.data.ListIsEmpty;
 			this.tsmiScanList.Visible = !NormalScanForm.data.ListIsEmpty;
 			this.tsmiEmgSystem.Visible = !EmergencyForm.data.ListIsEmpty;
 			this.tsmiGrpRxList.Visible = !RxGroupListForm.data.ListIsEmpty;
-			this.tsmiCh.Visible = !ChannelForm.data.ListIsEmpty;
+			this.tsmiChannels.Visible = !ChannelForm.data.ListIsEmpty;
 		}
 
 		private void loadDefaultOrInitialFile(string overRideWithFile=null)
@@ -2769,7 +2839,7 @@ namespace DMR
 			}
 		}
 
-		private void tsmiSignaling_Click(object sender, EventArgs e)
+		private void tsmiSignalingSystem_Click(object sender, EventArgs e)
 		{
 			TreeNode treeNode = this.method_9(typeof(SignalingBasicForm), this.tvwMain.Nodes);
 			if (treeNode != null)
@@ -2814,9 +2884,9 @@ namespace DMR
 			}
 		}
 
-		private void tsmiDmrContact_Click(object sender, EventArgs e)
+		private void tsmiDmrContacts_Click(object sender, EventArgs e)
 		{
-			TreeNode treeNode = this.method_9(typeof(ContactForm), this.tvwMain.Nodes);
+			TreeNode treeNode = this.method_9(typeof(ContactsForm), this.tvwMain.Nodes);
 			if (treeNode != null)
 			{
 				this.method_7(treeNode, true);
@@ -2832,7 +2902,7 @@ namespace DMR
 			}
 		}
 
-		private void tsmiZone_Click(object sender, EventArgs e)
+		private void tsmiZoneBasic_Click(object sender, EventArgs e)
 		{
 			TreeNode treeNode = this.method_9(typeof(ZoneBasicForm), this.tvwMain.Nodes);
 			if (treeNode != null)
@@ -2850,16 +2920,16 @@ namespace DMR
 			}
 		}
 
-		private void tsmiCh_Click(object sender, EventArgs e)
+		private void tsmiChannels_Click(object sender, EventArgs e)
 		{
-			TreeNode treeNode = this.method_9(typeof(ChannelForm), this.tvwMain.Nodes);
+			TreeNode treeNode = this.method_9(typeof(ChannelsForm), this.tvwMain.Nodes);
 			if (treeNode != null)
 			{
 				this.method_7(treeNode, true);
 			}
 		}
 
-		private void tsmiScan_Click(object sender, EventArgs e)
+		private void tsmiScanBasic_Click(object sender, EventArgs e)
 		{
 			TreeNode treeNode = this.method_9(typeof(ScanBasicForm), this.tvwMain.Nodes);
 			if (treeNode != null)
@@ -2876,6 +2946,26 @@ namespace DMR
 				this.method_7(treeNode, true);
 			}
 		}
+
+		private void tsmiVfoA_Click(object sender, EventArgs e)
+		{
+			TreeNode treeNode = this.GetTreeNodeByTypeAndIndex(typeof(VfoForm), 0,this.tvwMain.Nodes);
+			if (treeNode != null)
+			{
+				this.method_7(treeNode, true);
+			}
+		}
+
+		private void tsmiVfoB_Click(object sender, EventArgs e)
+		{
+			TreeNode treeNode = this.GetTreeNodeByTypeAndIndex(typeof(VfoForm), 1,this.tvwMain.Nodes);
+			if (treeNode != null)
+			{
+				this.method_7(treeNode, true);
+			}
+		}
+
+
 
 		private void tsbtnContactsDownload_Click(object sender, EventArgs e)
 		{

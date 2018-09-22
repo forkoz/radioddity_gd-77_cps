@@ -373,10 +373,10 @@
 			<TreeNode Id="EmergencySys" Text="Notfall System" />
 			<TreeNode Id="Contact" Text="TG-/Kontakte" />
 			<TreeNode Id="DtmfContact" Text="DTMF" />
-			<TreeNode Id="DigitalContact" Text="Digitale Kontakte" />
+			<TreeNode Id="DigitalContact" Text="Digitale Kontakten" />
 			<TreeNode Id="RxGroupList" Text="Empfangsgruppen" />
 			<TreeNode Id="Zone" Text="Zonen" />
-			<TreeNode Id="Channel" Text="Kanäle" />
+			<TreeNode Id="Channel" Text="Kanälen" />
 			<TreeNode Id="Scan" Text="Suchlauf" />
 			<TreeNode Id="DtmfSignal" Text="DTMF" />
 			<TreeNode Id="VFO" Text="VFO" />
@@ -398,7 +398,8 @@
 			<MenuItem Id="tsmiButton" Text="Tasten" />
 			<MenuItem Id="tsmiTextMsg" Text="Text Nachrichten" />
 			<MenuItem Id="tsmiEncrypt" Text="Verschlüsselung" />
-			<MenuItem Id="tsmiSignaling" Text="Signalisierungs-System" />
+			<MenuItem Id="tsmiSignalingSystem" Text="Signalisierungs-System" />
+      <MenuItem Id="tsmiSignaling" Text="Signalisierungs" />
 			<MenuItem Id="tsmiDtmf" Text="DTMF" />
 			<MenuItem Id="tsmiEmgSystem" Text="Notfall System" />
 			<MenuItem Id="tsmiContact" Text="Kontakte" />
@@ -408,7 +409,7 @@
 			<MenuItem Id="tsmiGrpRxList" Text="RX Gruppenlisten" />
 			<MenuItem Id="tsmiZone" Text="Zonen" />
 			<MenuItem Id="tsmiZoneList" Text="Zonen-Liste" />
-			<MenuItem Id="tsmiCh" Text="Kanäle" />
+			<MenuItem Id="tsmiChannels" Text="Kanäle" />
 			<MenuItem Id="tsmiScan" Text="Suchlauf" />
 			<MenuItem Id="tsmiScanList" Text="Scan" />
 			<MenuItem Id="tsmiProgram" Text="Programmieren" />

@@ -397,7 +397,8 @@
 			<MenuItem Id="tsmiButton" Text="Boutons" />
 			<MenuItem Id="tsmiTextMsg" Text="Text Message" />
 			<MenuItem Id="tsmiEncrypt" Text="Privé" />
-			<MenuItem Id="tsmiSignaling" Text="Système Signal" />
+			<MenuItem Id="tsmiSignaling" Text="Signal" />
+      <MenuItem Id="tsmiSignalingSystem" Text="Système Signal" />      
 			<MenuItem Id="tsmiDtmf" Text="DTMF" />
 			<MenuItem Id="tsmiEmgSystem" Text="Système Urgence" />
 			<MenuItem Id="tsmiContact" Text="Contacts" />
@@ -407,7 +408,7 @@
 			<MenuItem Id="tsmiGrpRxList" Text="Liste Groupe Rx" />
 			<MenuItem Id="tsmiZone" Text="Zone" />
 			<MenuItem Id="tsmiZoneList" Text="Liste Zone" />
-			<MenuItem Id="tsmiCh" Text="Canaux" />
+			<MenuItem Id="tsmiChannels" Text="Canaux" />
 			<MenuItem Id="tsmiScan" Text="Scan" />
 			<MenuItem Id="tsmiScanList" Text="Liste Scan" />
 			<MenuItem Id="tsmiProgram" Text="Programmation" />

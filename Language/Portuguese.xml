@@ -408,7 +408,7 @@
 			<MenuItem Id="tsmiGrpRxList" Text="Lista de Grupos de RX" />
 			<MenuItem Id="tsmiZone" Text="Zonas" />
 			<MenuItem Id="tsmiZoneList" Text="Lista de Zonas" />
-			<MenuItem Id="tsmiCh" Text="Canais" />
+			<MenuItem Id="tsmiChannels" Text="Canais" />
 			<MenuItem Id="tsmiScan" Text="Busca SCAN" />
 			<MenuItem Id="tsmiScanList" Text="Lista de Busca SCAN" />
 			<MenuItem Id="tsmiProgram" Text="Programar" />

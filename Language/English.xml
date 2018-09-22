@@ -371,12 +371,12 @@
 			<TreeNode Id="Pivacy" Text="Privacy" />
 			<TreeNode Id="SignalingSys" Text="Signaling System" />
 			<TreeNode Id="EmergencySys" Text="Emergency System" />
-			<TreeNode Id="Contact" Text="Contact" />
+			<TreeNode Id="Contact" Text="Contacts" />
 			<TreeNode Id="DtmfContact" Text="DTMF" />
-			<TreeNode Id="DigitalContact" Text="Digital Contact" />
+			<TreeNode Id="DigitalContact" Text="Digital Contacts" />
 			<TreeNode Id="RxGroupList" Text="Rx Group List" />
-			<TreeNode Id="Zone" Text="Zone" />
-			<TreeNode Id="Channel" Text="Channel" />
+			<TreeNode Id="Zone" Text="Zones" />
+			<TreeNode Id="Channel" Text="Channels" />
 			<TreeNode Id="Scan" Text="Scan" />
 			<TreeNode Id="DtmfSignal" Text="DTMF" />
 			<TreeNode Id="VFO" Text="VFO" />
@@ -398,7 +398,8 @@
 			<MenuItem Id="tsmiButton" Text="Buttons" />
 			<MenuItem Id="tsmiTextMsg" Text="Text Message" />
 			<MenuItem Id="tsmiEncrypt" Text="Privacy" />
-			<MenuItem Id="tsmiSignaling" Text="Signaling System" />
+			<MenuItem Id="tsmiSignaling" Text="Signaling" />
+      <MenuItem Id="tsmiSignalingSystem" Text="Signaling System" />
 			<MenuItem Id="tsmiDtmf" Text="DTMF" />
 			<MenuItem Id="tsmiEmgSystem" Text="Emergency System" />
 			<MenuItem Id="tsmiContact" Text="Contact" />
@@ -408,8 +409,9 @@
 			<MenuItem Id="tsmiGrpRxList" Text="Rx Group List" />
 			<MenuItem Id="tsmiZone" Text="Zone" />
 			<MenuItem Id="tsmiZoneList" Text="ZoneList" />
-			<MenuItem Id="tsmiCh" Text="Channel" />
+			<MenuItem Id="tsmiChannels" Text="Channels" />
 			<MenuItem Id="tsmiScan" Text="Scan" />
+      <MenuItem Id="tsmiScanBasic" Text="Scan Basic" />      
 			<MenuItem Id="tsmiScanList" Text="Scan List" />
 			<MenuItem Id="tsmiProgram" Text="Program" />
 			<MenuItem Id="tsmiRead" Text="Read" />

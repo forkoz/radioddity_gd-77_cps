@@ -398,7 +398,8 @@
 			<MenuItem Id="tsmiButton" Text="Klawisze" />
 			<MenuItem Id="tsmiTextMsg" Text="Wiadomości tekstowe" />
 			<MenuItem Id="tsmiEncrypt" Text="Szyfrowanie" />
-			<MenuItem Id="tsmiSignaling" Text="System sygnalizacji" />
+			<MenuItem Id="tsmiSignaling" Text="Sygnalizacji" />
+      <MenuItem Id="tsmiSignalingSystem" Text="System sygnalizacji" />      
 			<MenuItem Id="tsmiDtmf" Text="DTMF" />
 			<MenuItem Id="tsmiEmgSystem" Text="Emergency System" />
 			<MenuItem Id="tsmiContact" Text="Kontakty" />
@@ -408,7 +409,7 @@
 			<MenuItem Id="tsmiGrpRxList" Text="Grupy odbiorcze" />
 			<MenuItem Id="tsmiZone" Text="Strefy" />
 			<MenuItem Id="tsmiZoneList" Text="Lista stref" />
-			<MenuItem Id="tsmiCh" Text="Kanał" />
+			<MenuItem Id="tsmiChannels" Text="Kanał" />
 			<MenuItem Id="tsmiScan" Text="Skanowanie" />
 			<MenuItem Id="tsmiScanList" Text="Lista skanowania" />
 			<MenuItem Id="tsmiProgram" Text="Zaprogramuj" />

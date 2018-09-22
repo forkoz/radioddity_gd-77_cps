@@ -406,7 +406,8 @@
 			<MenuItem Id="tsmiButton" Text="Кнопки"/>
 			<MenuItem Id="tsmiTextMsg" Text="Текстові повідомлення"/>
 			<MenuItem Id="tsmiEncrypt" Text="Шифрування"/>
-			<MenuItem Id="tsmiSignaling" Text="Signaling System"/>
+			<MenuItem Id="tsmiSignaling" Text="Signaling"/>
+      <MenuItem Id="tsmiSignalingSystem" Text="Signaling System"/>      
 			<MenuItem Id="tsmiDtmf" Text="DTMF"/>
 			<MenuItem Id="tsmiEmgSystem" Text="Аварійна система"/>
 			<MenuItem Id="tsmiContact" Text="Контакт"/>
