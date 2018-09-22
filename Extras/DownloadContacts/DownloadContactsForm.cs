@@ -236,13 +236,23 @@ namespace DMR
 			string name;
 			int ownRadioId = int.Parse(GeneralSetForm.data.RadioId);
 			int currentID;
+			int maxAge = Int32.MaxValue;
+			try
+			{
+				maxAge = Int32.Parse(this.txtAgeMaxDays.Text);
+			}
+			catch (Exception)
+			{
+				// do nothing as maxAge is already initialised to the worst case value
+			}
+
 			for (int i = linesArr.Length - 2; i >1; i--)
 			{
 				found = false;
 				lineArr = linesArr[i].Split(';');
 
 
-				if (ownRadioId == int.Parse(lineArr[2]))
+				if (ownRadioId == int.Parse(lineArr[2]) || Int32.Parse(lineArr[4]) > maxAge)
 				{
 					found=true;
 				}
@@ -274,10 +284,16 @@ namespace DMR
 					this.dgvDownloadeContacts.Rows.Insert(0, lineArr[2], lineArr[1], name, lineArr[4]);
 				}
 			}
-			lblMessage.Text = string.Format(Settings.dicCommon["DownloadContactsMessageAdded"], this.dgvDownloadeContacts.RowCount);
+			updateTotalNumberMessage();
 			Cursor.Current = Cursors.Default;
 			_isDownloading = false;
 		}
+
+		private void updateTotalNumberMessage()
+		{
+			lblMessage.Text = string.Format(Settings.dicCommon["DownloadContactsMessageAdded"], this.dgvDownloadeContacts.RowCount);
+		}
+
 
 		private void btnImport_Click(object sender, EventArgs e)
 		{
@@ -287,7 +303,13 @@ namespace DMR
 			}
 			else
 			{
+				List <DataGridViewRow> rows = new List <DataGridViewRow>();
 				foreach (DataGridViewRow row in this.dgvDownloadeContacts.SelectedRows)
+				{
+					rows.Add(row);
+				}
+				rows.Reverse();
+				foreach (DataGridViewRow row in rows)
 				{
 					if (addPrivateContact(row.Cells[0].Value + "", row.Cells[1].Value + " " + row.Cells[2].Value) == false)
 					{
@@ -335,5 +357,37 @@ namespace DMR
 				_wc.CancelAsync();
 			}
 		}
+
+		private void dgvDownloadeContacts_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+		{
+			updateTotalNumberMessage();
+		}
+
+		private void dgvDownloadeContacts_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+		{
+			if ( e.Column.Index != 3) 
+			{
+				return;
+			}
+			try
+			{
+				if (Int32.Parse(e.CellValue1.ToString()) < Int32.Parse(e.CellValue2.ToString()))
+				{
+					e.SortResult = -1;
+				}
+				else
+				{
+					e.SortResult = 1;
+				}
+				e.Handled = true;
+			}
+			catch(Exception)
+			{
+			}
+
+		}
+
+
+
 	}
 }

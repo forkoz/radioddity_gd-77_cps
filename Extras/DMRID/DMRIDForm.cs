@@ -75,7 +75,8 @@ namespace DMR
 				Name = "Age",// internal name
 				HeaderText = "Last heard (days ago)",// Column header text
 				DataPropertyName = "AgeInDays",  // object property
-				Width = 140
+				Width = 140,
+				ValueType = typeof(int)
 			};
 			dataGridView1.Columns.Add(colFileName);
 			dataGridView1.UserDeletedRow += new DataGridViewRowEventHandler(dataGridRowDeleted);

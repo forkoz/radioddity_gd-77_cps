@@ -40,8 +40,8 @@
 			this.lblRegionId = new System.Windows.Forms.Label();
 			this.lblInactivityFilter = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.rbtnCallsign = new System.Windows.Forms.RadioButton();
 			this.rbtnName = new System.Windows.Forms.RadioButton();
+			this.rbtnCallsign = new System.Windows.Forms.RadioButton();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
@@ -78,9 +78,9 @@
 			// 
 			// txtRegionId
 			// 
-			this.txtRegionId.Location = new System.Drawing.Point(460, 44);
+			this.txtRegionId.Location = new System.Drawing.Point(472, 44);
 			this.txtRegionId.Name = "txtRegionId";
-			this.txtRegionId.Size = new System.Drawing.Size(54, 20);
+			this.txtRegionId.Size = new System.Drawing.Size(42, 20);
 			this.txtRegionId.TabIndex = 3;
 			this.txtRegionId.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -104,6 +104,7 @@
 			// 
 			// dataGridView1
 			// 
+			this.dataGridView1.AllowUserToOrderColumns = true;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Location = new System.Drawing.Point(13, 97);
 			this.dataGridView1.Name = "dataGridView1";
@@ -112,16 +113,16 @@
 			// 
 			// txtAgeMaxDays
 			// 
-			this.txtAgeMaxDays.Location = new System.Drawing.Point(460, 70);
+			this.txtAgeMaxDays.Location = new System.Drawing.Point(472, 70);
 			this.txtAgeMaxDays.Name = "txtAgeMaxDays";
-			this.txtAgeMaxDays.Size = new System.Drawing.Size(54, 20);
+			this.txtAgeMaxDays.Size = new System.Drawing.Size(42, 20);
 			this.txtAgeMaxDays.TabIndex = 3;
 			this.txtAgeMaxDays.Text = "365";
 			this.txtAgeMaxDays.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// lblRegionId
 			// 
-			this.lblRegionId.Location = new System.Drawing.Point(352, 47);
+			this.lblRegionId.Location = new System.Drawing.Point(362, 47);
 			this.lblRegionId.Name = "lblRegionId";
 			this.lblRegionId.Size = new System.Drawing.Size(102, 13);
 			this.lblRegionId.TabIndex = 7;
@@ -130,7 +131,7 @@
 			// 
 			// lblInactivityFilter
 			// 
-			this.lblInactivityFilter.Location = new System.Drawing.Point(322, 73);
+			this.lblInactivityFilter.Location = new System.Drawing.Point(332, 73);
 			this.lblInactivityFilter.Name = "lblInactivityFilter";
 			this.lblInactivityFilter.Size = new System.Drawing.Size(132, 13);
 			this.lblInactivityFilter.TabIndex = 7;
@@ -148,6 +149,16 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Use call or name when writing";
 			// 
+			// rbtnName
+			// 
+			this.rbtnName.AutoSize = true;
+			this.rbtnName.Location = new System.Drawing.Point(111, 20);
+			this.rbtnName.Name = "rbtnName";
+			this.rbtnName.Size = new System.Drawing.Size(53, 17);
+			this.rbtnName.TabIndex = 1;
+			this.rbtnName.Text = "Name";
+			this.rbtnName.UseVisualStyleBackColor = true;
+			// 
 			// rbtnCallsign
 			// 
 			this.rbtnCallsign.AutoSize = true;
@@ -159,16 +170,6 @@
 			this.rbtnCallsign.TabStop = true;
 			this.rbtnCallsign.Text = "Callsign";
 			this.rbtnCallsign.UseVisualStyleBackColor = true;
-			// 
-			// rbtnName
-			// 
-			this.rbtnName.AutoSize = true;
-			this.rbtnName.Location = new System.Drawing.Point(111, 20);
-			this.rbtnName.Name = "rbtnName";
-			this.rbtnName.Size = new System.Drawing.Size(53, 17);
-			this.rbtnName.TabIndex = 1;
-			this.rbtnName.Text = "Name";
-			this.rbtnName.UseVisualStyleBackColor = true;
 			// 
 			// DMRIDForm
 			// 

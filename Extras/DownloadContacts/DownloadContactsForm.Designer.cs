@@ -48,13 +48,15 @@
 			this.txtDownloadURL = new System.Windows.Forms.TextBox();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.txtAgeMaxDays = new System.Windows.Forms.TextBox();
+			this.lblInactivityFilter = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dgvDownloadeContacts)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// dgvDownloadeContacts
 			// 
 			this.dgvDownloadeContacts.AllowUserToAddRows = false;
-			this.dgvDownloadeContacts.AllowUserToDeleteRows = false;
+			this.dgvDownloadeContacts.AllowUserToOrderColumns = true;
 			this.dgvDownloadeContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvDownloadeContacts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -66,6 +68,8 @@
 			this.dgvDownloadeContacts.ReadOnly = true;
 			this.dgvDownloadeContacts.Size = new System.Drawing.Size(551, 416);
 			this.dgvDownloadeContacts.TabIndex = 0;
+			this.dgvDownloadeContacts.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvDownloadeContacts_SortCompare);
+			this.dgvDownloadeContacts.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvDownloadeContacts_UserDeletedRow);
 			// 
 			// id
 			// 
@@ -104,7 +108,7 @@
 			// 
 			// btnDownloadLastHeard
 			// 
-			this.btnDownloadLastHeard.Location = new System.Drawing.Point(582, 42);
+			this.btnDownloadLastHeard.Location = new System.Drawing.Point(582, 99);
 			this.btnDownloadLastHeard.Name = "btnDownloadLastHeard";
 			this.btnDownloadLastHeard.Size = new System.Drawing.Size(197, 28);
 			this.btnDownloadLastHeard.TabIndex = 2;
@@ -114,19 +118,20 @@
 			// 
 			// txtIDStart
 			// 
-			this.txtIDStart.Location = new System.Drawing.Point(709, 12);
+			this.txtIDStart.Location = new System.Drawing.Point(735, 12);
 			this.txtIDStart.Name = "txtIDStart";
-			this.txtIDStart.Size = new System.Drawing.Size(63, 23);
+			this.txtIDStart.Size = new System.Drawing.Size(37, 23);
 			this.txtIDStart.TabIndex = 3;
+			this.txtIDStart.Text = "505";
 			// 
 			// lblIDStart
 			// 
-			this.lblIDStart.AutoSize = true;
-			this.lblIDStart.Location = new System.Drawing.Point(578, 12);
+			this.lblIDStart.Location = new System.Drawing.Point(585, 15);
 			this.lblIDStart.Name = "lblIDStart";
-			this.lblIDStart.Size = new System.Drawing.Size(127, 16);
+			this.lblIDStart.Size = new System.Drawing.Size(144, 16);
 			this.lblIDStart.TabIndex = 4;
 			this.lblIDStart.Text = "Region Prefix code";
+			this.lblIDStart.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// lblMessage
 			// 
@@ -149,7 +154,7 @@
 			// 
 			// btnDownloadDMRMARC
 			// 
-			this.btnDownloadDMRMARC.Location = new System.Drawing.Point(582, 76);
+			this.btnDownloadDMRMARC.Location = new System.Drawing.Point(582, 133);
 			this.btnDownloadDMRMARC.Name = "btnDownloadDMRMARC";
 			this.btnDownloadDMRMARC.Size = new System.Drawing.Size(197, 28);
 			this.btnDownloadDMRMARC.TabIndex = 2;
@@ -217,6 +222,23 @@
 			this.label1.TabIndex = 9;
 			this.label1.Text = "Download URL";
 			// 
+			// txtAgeMaxDays
+			// 
+			this.txtAgeMaxDays.Location = new System.Drawing.Point(735, 42);
+			this.txtAgeMaxDays.Name = "txtAgeMaxDays";
+			this.txtAgeMaxDays.Size = new System.Drawing.Size(37, 23);
+			this.txtAgeMaxDays.TabIndex = 3;
+			this.txtAgeMaxDays.Text = "180";
+			// 
+			// lblInactivityFilter
+			// 
+			this.lblInactivityFilter.Location = new System.Drawing.Point(585, 45);
+			this.lblInactivityFilter.Name = "lblInactivityFilter";
+			this.lblInactivityFilter.Size = new System.Drawing.Size(147, 16);
+			this.lblInactivityFilter.TabIndex = 4;
+			this.lblInactivityFilter.Text = "Inactivity filter (days)";
+			this.lblInactivityFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// DownloadContactsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -226,6 +248,8 @@
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.txtDownloadURL);
 			this.Controls.Add(this.lblMessage);
+			this.Controls.Add(this.lblInactivityFilter);
+			this.Controls.Add(this.txtAgeMaxDays);
 			this.Controls.Add(this.lblIDStart);
 			this.Controls.Add(this.txtIDStart);
 			this.Controls.Add(this.btnDownloadDMRMARC);
@@ -267,5 +291,7 @@
 		private System.Windows.Forms.TextBox txtDownloadURL;
 		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox txtAgeMaxDays;
+		private System.Windows.Forms.Label lblInactivityFilter;
 	}
 }
