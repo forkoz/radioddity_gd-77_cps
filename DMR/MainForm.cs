@@ -1101,6 +1101,8 @@ namespace DMR
 			Settings.dicCommon.Add("NotSelectItemNotCopyItem", Settings.SZ_NOT_SELECT_ITEM_NOT_COPYITEM);
 			Settings.dicCommon.Add("PromptKey1", Settings.SZ_PROMPT_KEY1);
 			Settings.dicCommon.Add("PromptKey2", Settings.SZ_PROMPT_KEY2);
+			Settings.dicCommon.Add("DataFormatError","Data format error");
+			Settings.dicCommon.Add("FirstNotDelete","The first row cannot be deleted");
 			Settings.dicCommon.Add("KeyPressDtmf", "");
 			Settings.dicCommon.Add("KeyPressDigit", "");
 			Settings.dicCommon.Add("KeyPressPrint", "");

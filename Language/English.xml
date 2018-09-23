@@ -139,8 +139,8 @@
 			<Controls>
 			<Control Id="btnImport" Text="Import" />
 			<Control Id="btnExport" Text="Export" />
-			<Control Id="btnDeleteSelect" Text="Delete Select" />
-			<Control Id="btnClear" Text="Clear" />
+			<Control Id="btnDeleteSelect" Text="Delete Selected" />
+			<Control Id="btnClear" Text="Clear all" />
 			<Control Id="btnDelete" Text="Delete" />
 			<Control Id="btnAdd" Text="Add" />
 			<Control Id="dgvChannels" Text="Number,Name,Rx Freq,Tx Freq,Ch Mode,Power,Rx Tone,Tx Tone,Color Code,Rx Group List,Contact,Repeater Slot">
@@ -839,7 +839,6 @@
 		<Item Id="WriteComplete" Text="Write Complete" />
 		<Item Id="NameExist" Text="Name exists" />
 		<Item Id="FirstChNotDelete" Text="The first channel in the first zone cannot be deleted" />
-		<Item Id="FirstNotDelete" Text="The first cannot be deleted" />
 		<Item Id="FileFormatError" Text="File format error" />
 		<Item Id="OpenSuccessfully" Text="Open successfully" />
 		<Item Id="SaveSuccessfully" Text="Save successfully" />

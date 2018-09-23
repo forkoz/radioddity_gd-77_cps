@@ -757,7 +757,6 @@
 		<Item Id="WriteComplete" Text="Zapisovanje končano" />
 		<Item Id="NameExist" Text="Ime že obstaja" />
 		<Item Id="FirstChNotDelete" Text="Prvi kanal v prvi Coni ne more biti izbrisan" />
-		<Item Id="FirstNotDelete" Text="Prvega ne moreš izbrisati" />
 		<Item Id="FileFormatError" Text="Napaka v datoteki" />
 		<Item Id="OpenSuccessfully" Text="Uspešno odprto" />
 		<Item Id="SaveSuccessfully" Text="Uspešno shranjeno" />

@@ -181,7 +181,7 @@ namespace DMR
 			mainForm.RefreshRelatedForm(base.GetType());
 		}
 
-		private void btnDeleteSelect_Click(object sender, EventArgs e)
+		private void btnDeleteSelected_Click(object sender, EventArgs e)
 		{
 			int num = 0;
 			int num2 = 0;
@@ -658,28 +658,31 @@ namespace DMR
 
 		private void InitializeComponent()
 		{
-			this.pnlChannel = new Panel();
-			this.btnImport = new Button();
-			this.btnExport = new Button();
-			this.btnDeleteSelect = new Button();
-			this.txtTxFreq = new SGTextBox();
-			this.txtRxFreq = new SGTextBox();
-			this.txtName = new SGTextBox();
-			this.cmbPower = new ComboBox();
-			this.cmbChMode = new ComboBox();
+			this.pnlChannel = new System.Windows.Forms.Panel();
+			this.btnImport = new System.Windows.Forms.Button();
+			this.btnExport = new System.Windows.Forms.Button();
+			this.btnDeleteSelect = new System.Windows.Forms.Button();
+			this.cmbPower = new System.Windows.Forms.ComboBox();
+			this.cmbChMode = new System.Windows.Forms.ComboBox();
+			this.btnClear = new System.Windows.Forms.Button();
+			this.btnDelete = new System.Windows.Forms.Button();
+			this.btnAdd = new System.Windows.Forms.Button();
+			this.dgvChannels = new System.Windows.Forms.DataGridView();
+			this.txtTxFreq = new DMR.SGTextBox();
+			this.txtRxFreq = new DMR.SGTextBox();
+			this.txtName = new DMR.SGTextBox();
 			this.cmbAddChMode = new CustomCombo();
-			this.btnClear = new Button();
-			this.btnDelete = new Button();
-			this.btnAdd = new Button();
-			this.dgvChannels = new DataGridView();
-			this.dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-			this.dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-			this.dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-			this.dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-			this.dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.pnlChannel.SuspendLayout();
-			((ISupportInitialize)this.dgvChannels).BeginInit();
-			base.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgvChannels)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// pnlChannel
+			// 
 			this.pnlChannel.AutoScroll = true;
 			this.pnlChannel.AutoSize = true;
 			this.pnlChannel.Controls.Add(this.btnImport);
@@ -695,143 +698,199 @@ namespace DMR
 			this.pnlChannel.Controls.Add(this.btnDelete);
 			this.pnlChannel.Controls.Add(this.btnAdd);
 			this.pnlChannel.Controls.Add(this.dgvChannels);
-			this.pnlChannel.Dock = DockStyle.Fill;
-			this.pnlChannel.Location = new Point(0, 0);
+			this.pnlChannel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pnlChannel.Location = new System.Drawing.Point(0, 0);
 			this.pnlChannel.Name = "pnlChannel";
-			this.pnlChannel.Size = new Size(1200, 493);
+			this.pnlChannel.Size = new System.Drawing.Size(1136, 531);
 			this.pnlChannel.TabIndex = 0;
-			this.btnImport.Location = new Point(660, 28);
+			// 
+			// btnImport
+			// 
+			this.btnImport.Location = new System.Drawing.Point(608, 10);
 			this.btnImport.Name = "btnImport";
-			this.btnImport.Size = new Size(75, 23);
+			this.btnImport.Size = new System.Drawing.Size(75, 23);
 			this.btnImport.TabIndex = 13;
 			this.btnImport.Text = "Import";
 			this.btnImport.UseVisualStyleBackColor = true;
-			this.btnImport.Click += new EventHandler(this.btnImport_Click);
-			this.btnExport.Location = new Point(566, 28);
+			this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+			// 
+			// btnExport
+			// 
+			this.btnExport.Location = new System.Drawing.Point(527, 11);
 			this.btnExport.Name = "btnExport";
-			this.btnExport.Size = new Size(75, 23);
+			this.btnExport.Size = new System.Drawing.Size(75, 23);
 			this.btnExport.TabIndex = 14;
 			this.btnExport.Text = "Export";
 			this.btnExport.UseVisualStyleBackColor = true;
-			this.btnExport.Click += new EventHandler(this.btnExport_Click);
-			this.btnDeleteSelect.Location = new Point(444, 28);
+			this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+			// 
+			// btnDeleteSelect
+			// 
+			this.btnDeleteSelect.Location = new System.Drawing.Point(220, 11);
 			this.btnDeleteSelect.Name = "btnDeleteSelect";
-			this.btnDeleteSelect.Size = new Size(103, 23);
+			this.btnDeleteSelect.Size = new System.Drawing.Size(128, 23);
 			this.btnDeleteSelect.TabIndex = 12;
-			this.btnDeleteSelect.Text = "Delete Select";
+			this.btnDeleteSelect.Text = "Delete Selected";
 			this.btnDeleteSelect.UseVisualStyleBackColor = true;
-			this.btnDeleteSelect.Visible = false;
-			this.btnDeleteSelect.Click += new EventHandler(this.btnDeleteSelect_Click);
-			this.txtTxFreq.InputString = null;
-			this.txtTxFreq.Location = new Point(312, 3);
-			this.txtTxFreq.MaxByteLength = 0;
-			this.txtTxFreq.Name = "txtTxFreq";
-			this.txtTxFreq.Size = new Size(61, 21);
-			this.txtTxFreq.TabIndex = 6;
-			this.txtTxFreq.Visible = false;
-			this.txtTxFreq.Leave += new EventHandler(this.txtTxFreq_Leave);
-			this.txtRxFreq.InputString = null;
-			this.txtRxFreq.Location = new Point(240, 3);
-			this.txtRxFreq.MaxByteLength = 0;
-			this.txtRxFreq.Name = "txtRxFreq";
-			this.txtRxFreq.Size = new Size(61, 21);
-			this.txtRxFreq.TabIndex = 6;
-			this.txtRxFreq.Visible = false;
-			this.txtRxFreq.Leave += new EventHandler(this.CaeqgYciuW);
-			this.txtName.InputString = null;
-			this.txtName.Location = new Point(163, 2);
-			this.txtName.MaxByteLength = 0;
-			this.txtName.Name = "txtName";
-			this.txtName.Size = new Size(61, 21);
-			this.txtName.TabIndex = 5;
-			this.txtName.Visible = false;
-			this.txtName.Leave += new EventHandler(this.txtName_Leave);
-			this.cmbPower.DropDownStyle = ComboBoxStyle.DropDownList;
-			this.cmbPower.FlatStyle = FlatStyle.Flat;
+			this.btnDeleteSelect.Click += new System.EventHandler(this.btnDeleteSelected_Click);
+			// 
+			// cmbPower
+			// 
+			this.cmbPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbPower.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.cmbPower.FormattingEnabled = true;
-			this.cmbPower.Location = new Point(466, 2);
+			this.cmbPower.Location = new System.Drawing.Point(979, 10);
 			this.cmbPower.Name = "cmbPower";
-			this.cmbPower.Size = new Size(61, 20);
+			this.cmbPower.Size = new System.Drawing.Size(61, 24);
 			this.cmbPower.TabIndex = 8;
 			this.cmbPower.Visible = false;
-			this.cmbPower.Leave += new EventHandler(this.cmbPower_Leave);
-			this.cmbChMode.DropDownStyle = ComboBoxStyle.DropDownList;
-			this.cmbChMode.FlatStyle = FlatStyle.Flat;
+			this.cmbPower.Leave += new System.EventHandler(this.cmbPower_Leave);
+			// 
+			// cmbChMode
+			// 
+			this.cmbChMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbChMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.cmbChMode.FormattingEnabled = true;
-			this.cmbChMode.Location = new Point(384, 2);
+			this.cmbChMode.Location = new System.Drawing.Point(912, 10);
 			this.cmbChMode.Name = "cmbChMode";
-			this.cmbChMode.Size = new Size(61, 20);
+			this.cmbChMode.Size = new System.Drawing.Size(61, 24);
 			this.cmbChMode.TabIndex = 7;
 			this.cmbChMode.Visible = false;
-			this.cmbChMode.Leave += new EventHandler(this.cmbChMode_Leave);
-			this.cmbAddChMode.DropDownStyle = ComboBoxStyle.DropDownList;
-			this.cmbAddChMode.FormattingEnabled = true;
-			this.cmbAddChMode.Location = new Point(33, 30);
-			this.cmbAddChMode.Name = "cmbAddChMode";
-			this.cmbAddChMode.Size = new Size(109, 20);
-			this.cmbAddChMode.TabIndex = 0;
-			this.btnClear.Location = new Point(350, 28);
+			this.cmbChMode.Leave += new System.EventHandler(this.cmbChMode_Leave);
+			// 
+			// btnClear
+			// 
+			this.btnClear.Location = new System.Drawing.Point(364, 11);
 			this.btnClear.Name = "btnClear";
-			this.btnClear.Size = new Size(75, 23);
+			this.btnClear.Size = new System.Drawing.Size(105, 23);
 			this.btnClear.TabIndex = 3;
-			this.btnClear.Text = "Clear";
+			this.btnClear.Text = "Clear all";
 			this.btnClear.UseVisualStyleBackColor = true;
-			this.btnClear.Click += new EventHandler(this.btnClear_Click);
-			this.btnDelete.Location = new Point(256, 28);
+			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+			// 
+			// btnDelete
+			// 
+			this.btnDelete.Location = new System.Drawing.Point(1047, 11);
 			this.btnDelete.Name = "btnDelete";
-			this.btnDelete.Size = new Size(75, 23);
+			this.btnDelete.Size = new System.Drawing.Size(75, 23);
 			this.btnDelete.TabIndex = 2;
 			this.btnDelete.Text = "Delete";
 			this.btnDelete.UseVisualStyleBackColor = true;
-			this.btnDelete.Click += new EventHandler(this.btnDelete_Click);
-			this.btnAdd.Location = new Point(162, 28);
+			this.btnDelete.Visible = false;
+			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+			// 
+			// btnAdd
+			// 
+			this.btnAdd.Location = new System.Drawing.Point(139, 11);
 			this.btnAdd.Name = "btnAdd";
-			this.btnAdd.Size = new Size(75, 23);
+			this.btnAdd.Size = new System.Drawing.Size(75, 23);
 			this.btnAdd.TabIndex = 1;
 			this.btnAdd.Text = "Add";
 			this.btnAdd.UseVisualStyleBackColor = true;
-			this.btnAdd.Click += new EventHandler(this.btnAdd_Click);
+			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+			// 
+			// dgvChannels
+			// 
 			this.dgvChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-			this.dgvChannels.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgvChannels.Location = new Point(22, 62);
+			this.dgvChannels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgvChannels.Location = new System.Drawing.Point(12, 42);
 			this.dgvChannels.Name = "dgvChannels";
 			this.dgvChannels.ReadOnly = true;
 			this.dgvChannels.RowHeadersWidth = 50;
 			this.dgvChannels.RowTemplate.Height = 23;
-			this.dgvChannels.Size = new Size(1110, 419);
+			this.dgvChannels.Size = new System.Drawing.Size(1110, 457);
 			this.dgvChannels.TabIndex = 9;
-			this.dgvChannels.RowPostPaint += new DataGridViewRowPostPaintEventHandler(this.NligzloMrR);
-			this.dgvChannels.RowHeaderMouseDoubleClick += new DataGridViewCellMouseEventHandler(this.dgvChannels_RowHeaderMouseDoubleClick);
-			this.dgvChannels.SelectionChanged += new EventHandler(this.dgvChannels_SelectionChanged);
+			this.dgvChannels.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvChannels_RowHeaderMouseDoubleClick);
+			this.dgvChannels.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.NligzloMrR);
+			this.dgvChannels.SelectionChanged += new System.EventHandler(this.dgvChannels_SelectionChanged);
+			// 
+			// txtTxFreq
+			// 
+			this.txtTxFreq.InputString = null;
+			this.txtTxFreq.Location = new System.Drawing.Point(845, 11);
+			this.txtTxFreq.MaxByteLength = 0;
+			this.txtTxFreq.Name = "txtTxFreq";
+			this.txtTxFreq.Size = new System.Drawing.Size(61, 23);
+			this.txtTxFreq.TabIndex = 6;
+			this.txtTxFreq.Visible = false;
+			this.txtTxFreq.Leave += new System.EventHandler(this.txtTxFreq_Leave);
+			// 
+			// txtRxFreq
+			// 
+			this.txtRxFreq.InputString = null;
+			this.txtRxFreq.Location = new System.Drawing.Point(778, 10);
+			this.txtRxFreq.MaxByteLength = 0;
+			this.txtRxFreq.Name = "txtRxFreq";
+			this.txtRxFreq.Size = new System.Drawing.Size(61, 23);
+			this.txtRxFreq.TabIndex = 6;
+			this.txtRxFreq.Visible = false;
+			this.txtRxFreq.Leave += new System.EventHandler(this.CaeqgYciuW);
+			// 
+			// txtName
+			// 
+			this.txtName.InputString = null;
+			this.txtName.Location = new System.Drawing.Point(711, 10);
+			this.txtName.MaxByteLength = 0;
+			this.txtName.Name = "txtName";
+			this.txtName.Size = new System.Drawing.Size(61, 23);
+			this.txtName.TabIndex = 5;
+			this.txtName.Visible = false;
+			this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
+			// 
+			// cmbAddChMode
+			// 
+			this.cmbAddChMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbAddChMode.FormattingEnabled = true;
+			this.cmbAddChMode.Location = new System.Drawing.Point(12, 10);
+			this.cmbAddChMode.Name = "cmbAddChMode";
+			this.cmbAddChMode.Size = new System.Drawing.Size(109, 24);
+			this.cmbAddChMode.TabIndex = 0;
+			// 
+			// dataGridViewTextBoxColumn1
+			// 
 			this.dataGridViewTextBoxColumn1.HeaderText = "Column1";
 			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
 			this.dataGridViewTextBoxColumn1.ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
 			this.dataGridViewTextBoxColumn2.HeaderText = "Column2";
 			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
 			this.dataGridViewTextBoxColumn2.ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn3
+			// 
 			this.dataGridViewTextBoxColumn3.HeaderText = "Column3";
 			this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
 			this.dataGridViewTextBoxColumn3.ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn4
+			// 
 			this.dataGridViewTextBoxColumn4.HeaderText = "Column4";
 			this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
 			this.dataGridViewTextBoxColumn4.ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn5
+			// 
 			this.dataGridViewTextBoxColumn5.HeaderText = "Column5";
 			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
 			this.dataGridViewTextBoxColumn5.ReadOnly = true;
-			base.AutoScaleDimensions = new SizeF(6f, 12f);
-//			base.AutoScaleMode = AutoScaleMode.Font;
-			base.ClientSize = new Size(1200, 493);
-			base.Controls.Add(this.pnlChannel);
-			this.Font = new Font("Arial", 10f, FontStyle.Regular);
-			base.Name = "ChannelsForm";
+			// 
+			// ChannelsForm
+			// 
+			this.ClientSize = new System.Drawing.Size(1136, 531);
+			this.Controls.Add(this.pnlChannel);
+			this.Font = new System.Drawing.Font("Arial", 10F);
+			this.Name = "ChannelsForm";
 			this.Text = "Channels";
-			this.Load += new EventHandler(this.ChannelsForm_Load);
+			this.Load += new System.EventHandler(this.ChannelsForm_Load);
 			this.pnlChannel.ResumeLayout(false);
 			this.pnlChannel.PerformLayout();
-			((ISupportInitialize)this.dgvChannels).EndInit();
-			base.ResumeLayout(false);
-			base.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgvChannels)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
+
 		}
 
 		[CompilerGenerated]

@@ -760,7 +760,6 @@
 		<Item Id="WriteComplete" Text="Escrita Completa" />
 		<Item Id="NameExist" Text="Nome já existe" />
 		<Item Id="FirstChNotDelete" Text="O primeiro Canal na primeira Zona não pode ser apagado" />
-		<Item Id="FirstNotDelete" Text="O primeiro não pode ser apagado" />
 		<Item Id="FileFormatError" Text="ERRO de formato do arquivo" />
 		<Item Id="OpenSuccessfully" Text="Aberto com exito" />
 		<Item Id="SaveSuccessfully" Text="Guardado com exito" />

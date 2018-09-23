@@ -778,7 +778,6 @@
 		<Item Id="WriteComplete" Text="Записування завершено"/>
 		<Item Id="NameExist" Text="Ім'я уже існує"/>
 		<Item Id="FirstChNotDelete" Text="Перший канал у першій зоні не можна видалити"/>
-		<Item Id="FirstNotDelete" Text="Перший не можна видалити"/>
 		<Item Id="FileFormatError" Text="Помилка формату файлу"/>
 		<Item Id="OpenSuccessfully" Text="Відкриття успішне"/>
 		<Item Id="SaveSuccessfully" Text="Збережено успішно"/>

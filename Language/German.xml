@@ -140,7 +140,7 @@
 			<Control Id="btnImport" Text="Import" />
 			<Control Id="btnExport" Text="Export" />
 			<Control Id="btnDeleteSelect" Text="Lösche ausgewählte" />
-			<Control Id="btnClear" Text="Leeren" />
+			<Control Id="btnClear" Text="Leeren alles" />
 			<Control Id="btnDelete" Text="Löschen" />
 			<Control Id="btnAdd" Text="Hinzu" />
 			<Control Id="dgvChannels" Text="Nummer,Name,RX Freq,TX Freq,Betriebsart,Sendeleistung,RX Ton,TX Ton,Color Code,Rx Gruppen-Liste,Kontakt,Zeitschlitz">
@@ -759,7 +759,6 @@
 		<Item Id="WriteComplete" Text="Schreiben abgeschlossen" />
 		<Item Id="NameExist" Text="Name existiert bereits" />
 		<Item Id="FirstChNotDelete" Text="Der erste Kanal in der ersten Zone kann nicht gelöscht werden" />
-		<Item Id="FirstNotDelete" Text="Der erste Eintrag kann nicht gelöscht werden" />
 		<Item Id="FileFormatError" Text="Dateiformat fehlerhaft" />
 		<Item Id="OpenSuccessfully" Text="Öffnen erfolgreich" />
 		<Item Id="SaveSuccessfully" Text="Speichern erfolgreich" />
