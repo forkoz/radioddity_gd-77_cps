@@ -6,24 +6,16 @@ namespace ReadWriteCsv
 {
 	public class CsvFileReader : StreamReader
 	{
-        public CsvFileReader(Stream stream)
-            : base(stream)
+        public CsvFileReader(Stream stream) : base(stream)
 		{
-			
-			//base._002Ector(stream);
 		}
 
-        public CsvFileReader(string filename)
-            : base(filename)
+        public CsvFileReader(string filename) : base(filename)
 		{
-			
-			//base._002Ector(filename);
 		}
 
 		public CsvFileReader(string path, Encoding encoding) : base( path,  encoding)
 		{
-			
-			//base._002Ector(path, encoding);
 		}
 
 		public bool ReadRow(CsvRow row)

@@ -12,8 +12,6 @@ namespace ReadWriteCsv
 
 		public CsvRow()
 		{
-			
-			//base._002Ector();
 		}
 	}
 }

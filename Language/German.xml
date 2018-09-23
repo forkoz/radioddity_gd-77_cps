@@ -159,8 +159,8 @@
 			</Control>
 		</Controls>
 		<Commons>
-			<Item Id="HeaderText" Text="Kanal- nummer,Name,RX Freq,TX Freq,Betriebsart,Sende- leistung,RX Ton,TX Ton,Color Code,RX Gruppe,TG/Kontakt,Zeitschlitz," />
-		</Commons>
+      <Item Id="HeaderText" Text="Data type,Name,Channel Type,Rx Frequency,Tx Frequency,Color Code,Timeslot,Contact,Rx Group,Scanlist,RX CTCSS,TX CTCSS,Power,Bandwidth,Rx Only,Squelch,Tx Admit,TOT,TOT Rekey,Tx Signaling,Rx Signaling,Privacy Group,Emergency System,Flags1,Flags2,Flags3,Flags4,RssiThreshold,VoiceEmphasis,TxSignaling,UnmuteRule,RxSignaling,ArtsInterval" />
+    </Commons>
 	</ChannelsForm>
 	<CommPrgForm Text="">
 		<Controls>

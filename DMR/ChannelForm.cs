@@ -128,66 +128,79 @@ namespace DMR
 		{
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
 			private byte[] name;
-
 			private uint rxFreq;
-
 			private uint txFreq;
-
 			private byte chMode;
-
 			private byte rxRefFreq;
-
 			private byte txRefFreq;
-
 			private byte tot;
-
 			private byte totRekey;
-
 			private byte admitCriteria;
-
 			private byte rssiThreshold;
-
 			private byte scanList;
-
 			private ushort rxTone;
-
 			private ushort txTone;
-
 			private byte voiceEmphasis;
-
 			private byte txSignaling;
-
 			private byte unmuteRule;
-
 			private byte rxSignaling;
-
 			private byte artsInterval;
-
 			private byte encrypt;
-
 			private byte rxColor;
-
 			private byte rxGroupList;
-
 			private byte txColor;
-
 			private byte emgSystem;
-
 			private ushort contact;
-
 			private byte flag1;
-
 			private byte flag2;
-
 			private byte flag3;
-
 			private byte flag4;
-
 			private ushort reserve2;
-
 			private byte reserve;
-
 			private byte sql;
+
+
+			public string ToCSVString(bool includeLabel = false,string delimiter = ",")
+			{
+				string s = String.Empty;
+				if (includeLabel)
+				{
+					s += "Channel" + delimiter;
+				}
+				s += this.Name + delimiter;
+				s += this.RxFreq + delimiter;
+				s += this.TxFreq + delimiter;
+				s += this.ChMode + delimiter;
+				s += this.RxRefFreq + delimiter;
+				s += this.TxRefFreq + delimiter;
+				s += this.Tot + delimiter;
+				s += this.TotRekey + delimiter;
+				s += this.AdmitCriteria + delimiter;
+				s += this.RssiThreshold + delimiter;
+				s += this.ScanList + delimiter;
+				s += this.RxTone + delimiter;
+				s += this.TxTone + delimiter;
+				s += this.VoiceEmphasis + delimiter;
+				s += this.TxSignaling + delimiter;
+				s += this.UnmuteRule + delimiter;
+				s += this.RxSignaling + delimiter;
+				s += this.ArtsInterval + delimiter;
+				s += this.encrypt + delimiter;
+				s += this.RxColor + delimiter;
+				s += this.RxGroupList + delimiter;
+				s += this.TxColor + delimiter;
+				s += this.EmgSystem + delimiter;
+				s += this.Contact + delimiter;
+				s += this.Flag1 + delimiter;
+				s += this.Flag2 + delimiter;
+				s += this.Flag3 + delimiter;
+				s += this.Flag4 + delimiter;
+				s += this.reserve2 + delimiter;
+				s += this.reserve + delimiter;
+				s += this.Sql + delimiter;
+
+				return s;
+			}
 
 			public string Name
 			{
@@ -503,6 +516,33 @@ namespace DMR
 				}
 			}
 
+			public String ScanListString
+			{
+				get
+				{
+					if (this.scanList != 0)
+					{
+						return NormalScanForm.data[this.scanList - 1].Name;
+					}
+					else
+					{
+						return "None";
+					}
+				}
+				set
+				{
+					this.scanList = 0;// default none
+					for (int i = 0; i < NormalScanForm.data.Count; i++)
+					{
+						if (NormalScanForm.data[i].Name == value)
+						{
+							this.scanList = (byte)(i+1);
+							break;
+						}
+					}
+				}
+			}
+
 			public string RxTone
 			{
 				get
@@ -772,7 +812,7 @@ namespace DMR
 				}
 			}
 
-			public string RxGroupListS
+			public string RxGroupListString
 			{
 				get
 				{
@@ -785,6 +825,24 @@ namespace DMR
 						return RxGroupListForm.data.GetName(this.RxGroupList - 1);
 					}
 					return Settings.SZ_NONE;
+				}
+				set
+				{
+					if (value == Settings.SZ_NONE)
+					{
+						this.RxGroupList = 0;
+					}
+					else
+					{
+						for (int i = 0; i < RxGroupListForm.data.Count; i++)
+						{
+							if (value == RxGroupListForm.data.GetName(i))
+							{
+								this.RxGroupList = i + 1;
+								break;
+							}
+						}
+					}
 				}
 			}
 
@@ -846,7 +904,7 @@ namespace DMR
 				}
 			}
 
-			public string ContactS
+			public string ContactString
 			{
 				get
 				{
@@ -859,6 +917,24 @@ namespace DMR
 						return ContactForm.data.GetName(this.Contact - 1);
 					}
 					return Settings.SZ_NONE;
+				}
+				set
+				{
+					if (value == Settings.SZ_NONE)
+					{
+						this.Contact = 0;
+					}
+					else
+					{
+						for (int i = 0; i < ContactForm.data.Count; i++)
+						{
+							if (value == ContactForm.data.GetName(i))
+							{
+								this.Contact = i+1;
+								break;
+							}
+						}
+					}
 				}
 			}
 
@@ -924,7 +1000,7 @@ namespace DMR
 				}
 			}
 
-			public string PowerS
+			public string PowerString
 			{
 				get
 				{
@@ -1040,6 +1116,18 @@ namespace DMR
 				}
 			}
 
+			public string OnlyRxString
+			{
+				get
+				{
+					return OnlyRx ? "Yes":"No";
+				}
+				set
+				{
+					OnlyRx = (value == "Yes") ? true : false;
+				}
+			}
+
 			public int Bandwidth
 			{
 				get
@@ -1054,6 +1142,26 @@ namespace DMR
 				}
 			}
 
+			public String BandwidthString
+			{
+				get
+				{
+					return SZ_BANDWIDTH[Bandwidth];
+				}
+				set
+				{
+					for (int i = 0; i < SZ_BANDWIDTH.Length;i++ )
+					{
+						if (SZ_BANDWIDTH[i] == value)
+						{
+							Bandwidth = i;
+							break;
+						}
+					}
+
+				}
+			}
+
 			public int Squelch
 			{
 				get
@@ -1064,6 +1172,24 @@ namespace DMR
 				{
 					this.flag4 &= 254;
 					this.flag4 |= (byte)(value & 1);
+				}
+			}
+
+			public string SquelchString
+			{
+				get
+				{
+					return SZ_SQUELCH[Squelch];
+				}
+				set
+				{
+					for(int i=0;i<SZ_SQUELCH.Length;i++)
+					{
+						if (value == SZ_SQUELCH[i])
+						{
+							Squelch = i;
+						}
+					}
 				}
 			}
 
@@ -1602,8 +1728,6 @@ namespace DMR
 
 			public Channel()
 			{
-				
-				//base._002Ector();
 				int num = 0;
 				this.chIndex = new byte[128];
 				this.chList = new ChannelOne[1024];
@@ -1783,6 +1907,18 @@ namespace DMR
 				return this.chList.Any((ChannelOne x) => x.Name == name);
 			}
 
+			public int FindIndexForName(string name)
+			{
+				for (int i = 0; i < chList.Length; i++)
+				{
+					if (chList[i].Name == name)
+					{
+						return i;
+					}
+				}
+				return -1;
+			}
+
 			public void SetName(int index, string text)
 			{
 				this.chList[index].Name = text;
@@ -1899,7 +2035,7 @@ namespace DMR
 
 			public void SetPower(int index, string power)
 			{
-				this.chList[index].PowerS = power;
+				this.chList[index].PowerString = power;
 			}
 
 			public void SetRepeaterSlot(int index, string repeaterSlot)

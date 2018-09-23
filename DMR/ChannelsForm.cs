@@ -82,7 +82,8 @@ namespace DMR
 					if (ChannelForm.data.DataIsValid(i))
 					{
 						ChannelForm.ChannelOne channelOne = ChannelForm.data[i];
-						int index = this.dgvChannels.Rows.Add((i + 1).ToString(), channelOne.Name, channelOne.RxFreq, channelOne.TxFreq, channelOne.ChModeS, channelOne.PowerS, channelOne.RxTone, channelOne.TxTone, channelOne.TxColor.ToString(), channelOne.RxGroupListS, channelOne.ContactS, channelOne.RepeaterSlotS);
+
+						int index = this.dgvChannels.Rows.Add((i + 1).ToString(), channelOne.Name, channelOne.ChModeS, channelOne.RxFreq, channelOne.TxFreq, channelOne.TxColor.ToString(), channelOne.RepeaterSlotS, channelOne.ContactString, channelOne.RxGroupListString, channelOne.ScanListString, channelOne.RxTone, channelOne.TxTone);//, channelOne.PowerString);
 						this.dgvChannels.Rows[index].Tag = i;
 					}
 				}
@@ -132,9 +133,9 @@ namespace DMR
 			ChannelForm.data.Default(minIndex);
 			ChannelForm.data.SetChMode(minIndex, text);
 			ChannelForm.ChannelOne channelOne = ChannelForm.data[minIndex];
-			this.dgvChannels.Rows.Insert(minIndex, (minIndex + 1).ToString(), channelOne.Name, channelOne.RxFreq, channelOne.TxFreq, channelOne.ChModeS, channelOne.PowerS, channelOne.RxTone, channelOne.TxTone, channelOne.TxColor.ToString(), channelOne.RxGroupListS, channelOne.ContactS, channelOne.RepeaterSlotS);
+			this.dgvChannels.Rows.Insert(minIndex, (minIndex + 1).ToString(), channelOne.Name, channelOne.RxFreq, channelOne.TxFreq, channelOne.ChModeS, channelOne.PowerString, channelOne.RxTone, channelOne.TxTone, channelOne.TxColor.ToString(), channelOne.RxGroupListString, channelOne.ContactString, channelOne.RepeaterSlotS);
 			this.dgvChannels.Rows[minIndex].Tag = minIndex;
-			this.method_0();
+			this.updateAddAndDeleteButtons();
 			int[] array = new int[3]
 			{
 				2,
@@ -157,7 +158,7 @@ namespace DMR
 			{
 				this.dgvChannels.Rows.Remove(this.dgvChannels.CurrentRow);
 				ChannelForm.data.ClearIndex(index2);
-				this.method_0();
+				this.updateAddAndDeleteButtons();
 				MainForm mainForm = base.MdiParent as MainForm;
 				mainForm.DeleteTreeViewNode(this.Node, index);
 				mainForm.RefreshRelatedForm(base.GetType());
@@ -176,7 +177,7 @@ namespace DMR
 				this.Node.Nodes.RemoveAt(index);
 				ChannelForm.data.ClearIndex(num);
 			}
-			this.method_0();
+			this.updateAddAndDeleteButtons();
 			mainForm.RefreshRelatedForm(base.GetType());
 		}
 
@@ -206,7 +207,7 @@ namespace DMR
 				MessageBox.Show(Settings.dicCommon["FirstNotDelete"]);
 				break;
 			}
-			this.method_0();
+			this.updateAddAndDeleteButtons();
 			mainForm.RefreshRelatedForm(base.GetType());
 		}
 
@@ -219,7 +220,7 @@ namespace DMR
 			saveFileDialog.Filter = "csv files|*.csv";
 			saveFileDialog.OverwritePrompt = true;
 			saveFileDialog.CheckPathExists = true;
-			saveFileDialog.FileName = "Channel_" + DateTime.Now.ToString("MMdd_HHmmss");
+			saveFileDialog.FileName = "Channels_" + DateTime.Now.ToString("MMdd_HHmmss");
 			if (saveFileDialog.ShowDialog() == DialogResult.OK && saveFileDialog.FileName != null)
 			{
 				using (CsvFileWriter csvFileWriter = new CsvFileWriter(new FileStream(saveFileDialog.FileName, FileMode.Create), Encoding.Default))
@@ -233,18 +234,48 @@ namespace DMR
 						{
 							csvRow.RemoveAll(ChannelsForm.smethod_0);
 							ChannelForm.ChannelOne channelOne = ChannelForm.data[i];
-							csvRow.Add(i.ToString());
+							csvRow.Add("CH_DATA");
 							csvRow.Add(channelOne.Name);
+							csvRow.Add(channelOne.ChModeS);
 							csvRow.Add(channelOne.RxFreq);
 							csvRow.Add(channelOne.TxFreq);
-							csvRow.Add(channelOne.ChModeS);
-							csvRow.Add(channelOne.PowerS);
+							csvRow.Add(channelOne.TxColor.ToString());
+
+							csvRow.Add(channelOne.RepeaterSlotS);// Timeslot
+							csvRow.Add(channelOne.ContactString);
+							csvRow.Add(channelOne.RxGroupListString);
+							csvRow.Add(channelOne.ScanListString);
+
 							csvRow.Add(channelOne.RxTone);
 							csvRow.Add(channelOne.TxTone);
-							csvRow.Add(channelOne.TxColor.ToString());
-							csvRow.Add(channelOne.RxGroupList.ToString());
-							csvRow.Add(channelOne.Contact.ToString());
-							csvRow.Add(channelOne.RepeaterSlotS);
+							csvRow.Add(channelOne.PowerString);
+							csvRow.Add(channelOne.BandwidthString);
+							csvRow.Add(channelOne.OnlyRxString);
+							csvRow.Add(channelOne.SquelchString);
+
+							csvRow.Add(channelOne.AdmitCriteria.ToString());
+
+							csvRow.Add(channelOne.Tot.ToString());
+							csvRow.Add(channelOne.TotRekey.ToString());
+
+							csvRow.Add(channelOne.TxSignaling.ToString());
+							csvRow.Add(channelOne.RxSignaling.ToString());
+
+							csvRow.Add(channelOne.Key.ToString());
+							csvRow.Add(channelOne.EmgSystem.ToString());
+
+							csvRow.Add(channelOne.Flag1.ToString());
+							csvRow.Add(channelOne.Flag2.ToString());
+							csvRow.Add(channelOne.Flag3.ToString());
+							csvRow.Add(channelOne.Flag4.ToString());
+
+							csvRow.Add(channelOne.RssiThreshold.ToString());
+							csvRow.Add(channelOne.VoiceEmphasis.ToString());
+							csvRow.Add(channelOne.TxSignaling.ToString());
+							csvRow.Add(channelOne.UnmuteRule.ToString());
+							csvRow.Add(channelOne.RxSignaling.ToString());
+							csvRow.Add(channelOne.ArtsInterval.ToString());
+
 							csvFileWriter.WriteRow(csvRow);
 						}
 					}
@@ -254,7 +285,6 @@ namespace DMR
 
 		private void btnImport_Click(object sender, EventArgs e)
 		{
-			int num = 0;
 			int num2 = 0;
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 			openFileDialog.Filter = "csv files|*.csv";
@@ -264,43 +294,83 @@ namespace DMR
 				{
 					CsvRow csvRow = new CsvRow();
 					csvFileReader.ReadRow(csvRow);
-					if (csvRow.Count == 12 && csvRow.SequenceEqual(ChannelsForm.SZ_HEADER_TEXT))
+					if (csvRow.SequenceEqual(ChannelsForm.SZ_HEADER_TEXT))
 					{
-						for (num = 0; num < ChannelForm.data.Count; num++)
+						/* Don't clear channels first. We now just update or append.
+						for (int num = 0; num < ChannelForm.data.Count; num++)
 						{
 							ChannelForm.data.SetIndex(num, 0);
 						}
+						 */
+
 						while (csvFileReader.ReadRow(csvRow))
 						{
-							foreach (string item in csvRow)
+							int num = 1;
+
+							string name = ((List<string>)csvRow)[num++];
+							int foundIndex = ChannelForm.data.FindIndexForName(name);
+
+							if (foundIndex == -1)
 							{
-								string text = item;
-								if (csvRow.Count >= 12)
+								num2 = ChannelForm.data.GetMinIndex();
+								if (num2 == -1)
 								{
-									num = 0;
-									CsvRow csvRow2 = csvRow;
-									num = 1;
-									num2 = Convert.ToInt32(((List<string>)csvRow2)[0]);
-									ChannelForm.data.SetIndex(num2, 1);
-									ChannelForm.data.Default(num2);
-									if (num2 < ChannelForm.data.Count)
-									{
-										ChannelForm.ChannelOne value = ChannelForm.data[num2];
-										value.Name = ((List<string>)csvRow)[num++];
-										value.RxFreq = ((List<string>)csvRow)[num++];
-										value.TxFreq = ((List<string>)csvRow)[num++];
-										value.ChModeS = ((List<string>)csvRow)[num++];
-										value.PowerS = ((List<string>)csvRow)[num++];
-										value.RxTone = ((List<string>)csvRow)[num++];
-										value.TxTone = ((List<string>)csvRow)[num++];
-										value.TxColor = Convert.ToInt32(((List<string>)csvRow)[num++]);
-										value.RxGroupList = Convert.ToInt32(((List<string>)csvRow)[num++]);
-										value.Contact = Convert.ToInt32(((List<string>)csvRow)[num++]);
-										value.RepeaterSlotS = ((List<string>)csvRow)[num++];
-										ChannelForm.data[num2] = value;
-									}
+									MessageBox.Show("Error. Maximum numbers of channels reached. Import aborted");
+									break;// stop processing
 								}
 							}
+							else
+							{
+								num2 = foundIndex;
+							}
+
+							ChannelForm.ChannelOne value = ChannelForm.data[num2];
+										
+							value.Name = name;
+							value.ChModeS = ((List<string>)csvRow)[num++];
+							value.RxFreq = ((List<string>)csvRow)[num++];
+							value.TxFreq = ((List<string>)csvRow)[num++];
+							value.TxColor = Convert.ToInt32(((List<string>)csvRow)[num++]);
+
+							value.RepeaterSlotS = ((List<string>)csvRow)[num++];// Timeslot
+							value.ContactString = ((List<string>)csvRow)[num++];
+							value.RxGroupListString = ((List<string>)csvRow)[num++];
+							value.ScanListString = ((List<string>)csvRow)[num++];
+
+							value.RxTone = ((List<string>)csvRow)[num++];
+							value.TxTone = ((List<string>)csvRow)[num++];
+							value.PowerString = ((List<string>)csvRow)[num++];
+							value.BandwidthString = ((List<string>)csvRow)[num++];
+							value.OnlyRxString = ((List<string>)csvRow)[num++];
+							value.SquelchString = ((List<string>)csvRow)[num++];
+
+							value.AdmitCriteria = Convert.ToInt32(((List<string>)csvRow)[num++]);
+
+							value.Tot = Convert.ToInt32(((List<string>)csvRow)[num++]);
+							value.TotRekey = Convert.ToInt32(((List<string>)csvRow)[num++]);
+
+							value.TxSignaling = Convert.ToInt32(((List<string>)csvRow)[num++]);
+							value.RxSignaling = Convert.ToInt32(((List<string>)csvRow)[num++]);
+
+							value.Key = Convert.ToInt32(((List<string>)csvRow)[num++]);
+							value.EmgSystem = Convert.ToInt32(((List<string>)csvRow)[num++]);
+
+							value.Flag1 = Convert.ToByte(((List<string>)csvRow)[num++]);
+							value.Flag2 = Convert.ToByte(((List<string>)csvRow)[num++]);
+							value.Flag3 = Convert.ToByte(((List<string>)csvRow)[num++]);
+							value.Flag4 = Convert.ToByte(((List<string>)csvRow)[num++]);
+
+							value.RssiThreshold = Convert.ToInt32(((List<string>)csvRow)[num++]);
+							value.VoiceEmphasis = Convert.ToInt32(((List<string>)csvRow)[num++]);
+							value.TxSignaling = Convert.ToInt32(((List<string>)csvRow)[num++]);
+							value.UnmuteRule = Convert.ToInt32(((List<string>)csvRow)[num++]);
+							value.RxSignaling = Convert.ToInt32(((List<string>)csvRow)[num++]);
+							value.ArtsInterval = Convert.ToInt32(((List<string>)csvRow)[num++]);
+
+
+							ChannelForm.data.SetIndex(num2, 1);
+							ChannelForm.data.Default(num2);
+							ChannelForm.data[num2] = value;
 						}
 						this.DispData();
 						MainForm mainForm = base.MdiParent as MainForm;
@@ -315,7 +385,7 @@ namespace DMR
 			}
 		}
 
-		private void method_0()
+		private void updateAddAndDeleteButtons()
 		{
 			this.btnDelete.Enabled = !this.dgvChannels.SelectedRows.Contains(this.dgvChannels.Rows[0]);
 			this.btnAdd.Enabled = (this.dgvChannels.RowCount < ChannelForm.data.Count);
@@ -348,10 +418,13 @@ namespace DMR
 			this.dgvChannels.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			DataGridViewTextBoxColumn dataGridViewTextBoxColumn = null;
 			string[] sZ_HEADER_TEXT = ChannelsForm.SZ_HEADER_TEXT;
-			foreach (string headerText in sZ_HEADER_TEXT)
+			for(int i =0;i<array.Length;i++)
 			{
+				//string headerText = sZ_HEADER_TEXT[i];
+			//foreach (string headerText in sZ_HEADER_TEXT)
+			//{
 				dataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-				dataGridViewTextBoxColumn.HeaderText = headerText;
+				dataGridViewTextBoxColumn.HeaderText = sZ_HEADER_TEXT[i];
 				dataGridViewTextBoxColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 				dataGridViewTextBoxColumn.ReadOnly = true;
 				dataGridViewTextBoxColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -419,7 +492,7 @@ namespace DMR
 
 		private void dgvChannels_SelectionChanged(object sender, EventArgs e)
 		{
-			this.method_0();
+			this.updateAddAndDeleteButtons();
 		}
 
 		private void dgvChannels_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -565,12 +638,12 @@ namespace DMR
 			this.dgvChannels.Rows[index2].Cells[2].Value = channelOne.RxFreq;
 			this.dgvChannels.Rows[index2].Cells[3].Value = channelOne.TxFreq;
 			this.dgvChannels.Rows[index2].Cells[4].Value = channelOne.ChModeS;
-			this.dgvChannels.Rows[index2].Cells[5].Value = channelOne.PowerS;
+			this.dgvChannels.Rows[index2].Cells[5].Value = channelOne.PowerString;
 			this.dgvChannels.Rows[index2].Cells[6].Value = channelOne.RxTone;
 			this.dgvChannels.Rows[index2].Cells[7].Value = channelOne.TxTone;
 			this.dgvChannels.Rows[index2].Cells[8].Value = channelOne.TxColor.ToString();
-			this.dgvChannels.Rows[index2].Cells[9].Value = channelOne.RxGroupListS;
-			this.dgvChannels.Rows[index2].Cells[10].Value = channelOne.ContactS;
+			this.dgvChannels.Rows[index2].Cells[9].Value = channelOne.RxGroupListString;
+			this.dgvChannels.Rows[index2].Cells[10].Value = channelOne.ContactString;
 			this.dgvChannels.Rows[index2].Cells[11].Value = channelOne.RepeaterSlotS;
 		}
 
@@ -770,21 +843,23 @@ namespace DMR
 		static ChannelsForm()
 		{
 			
-			ChannelsForm.SZ_HEADER_TEXT = new string[12]
+			ChannelsForm.SZ_HEADER_TEXT = new string[32];
+			/*
 			{
 				"Number",
 				"Name",
+				"Ch Mode",
 				"Rx Freq",
 				"Tx Freq",
-				"Ch Mode",
 				"Power",
 				"Rx Tone",
 				"Tx Tone",
 				"Color Code",
 				"Rx Group List",
-				"Contact Name",
-				"Repeater/Time Slot"
+				"Contact",
+				"Time Slot"
 			};
+			 */
 		}
 	}
 }

@@ -159,7 +159,7 @@
 			</Control>
 		</Controls>
 		<Commons>
-			<Item Id="HeaderText" Text="Número,Nombre,Frec RX,Frec TX,Modo,Potencia,Tono RX,Tono TX,Color,Grupo RX,Contacto,Slot," />
+      <Item Id="HeaderText" Text="Data type,Name,Channel Type,Rx Frequency,Tx Frequency,Color Code,Timeslot,Contact,Rx Group,Scanlist,RX CTCSS,TX CTCSS,Power,Bandwidth,Rx Only,Squelch,Tx Admit,TOT,TOT Rekey,Tx Signaling,Rx Signaling,Privacy Group,Emergency System,Flags1,Flags2,Flags3,Flags4,RssiThreshold,VoiceEmphasis,TxSignaling,UnmuteRule,RxSignaling,ArtsInterval" />
 		</Commons>
 	</ChannelsForm>
 	<CommPrgForm Text="">
