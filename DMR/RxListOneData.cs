@@ -88,6 +88,11 @@ namespace DMR
 			this.contactList = list2.ToArray();
 		}
 
+		public bool ContainsContact(ushort id)
+		{
+			return (Array.FindIndex(contactList, item => item == id) != -1);
+		}
+
 		[CompilerGenerated]
 		private static bool smethod_0(ushort ushort_0)
 		{

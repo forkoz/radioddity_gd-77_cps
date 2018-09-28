@@ -27,6 +27,14 @@ namespace DMR
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = CNT_RX_LIST)]
 		private RxListOneData[] rxList;
 
+		public RxListOneData[] RxList
+		{
+			get
+			{
+				return rxList;
+			}
+		}
+
 		public RxListOneData this[int index]
 		{
 			get
@@ -87,8 +95,6 @@ namespace DMR
 
 		public RxListData()
 		{
-
-			//base._002Ector();
 			int num = 0;
 			this.rxListIndex = new byte[CNT_RX_LIST_INDEX];
 			this.rxList = new RxListOneData[CNT_RX_LIST];
@@ -165,6 +171,11 @@ namespace DMR
 			this.rxListIndex[index] = (byte)value;
 		}
 
+		public int GetContactsCountForIndex(int index)
+		{
+			return this.rxListIndex[index]-1;
+		}
+
 		public void ClearIndex(int index)
 		{
 			this.rxListIndex[index] = 0;
@@ -182,7 +193,7 @@ namespace DMR
 					num2 = Array.IndexOf(this.rxList[num].ContactList, (ushort)(contactIndex + 1));
 					if (num2 >= 0)
 					{
-						this.rxList[num].ContactList.smethod_2(num2);
+						this.rxList[num].ContactList.RemoveItemFromArray(num2);
 						this.rxListIndex[num]--;
 					}
 				}
@@ -254,6 +265,25 @@ namespace DMR
 					this.rxListIndex[num] = 0;
 				}
 			}
+		}
+
+		public int AddRxGroupWithName(string newGroupName)
+		{
+
+			int groupIndex = Array.FindIndex(RxGroupListForm.data.RxList, item => item.Name == newGroupName);
+			if (groupIndex == -1)
+			{
+				// Group does not exist, so we need to create a new one
+				groupIndex = GetMinIndex();
+				if (groupIndex != -1)
+				{
+					SetIndex(groupIndex, 1);
+					Default(groupIndex);
+					SetName(groupIndex, newGroupName);
+				}
+			}
+
+			return groupIndex;
 		}
 	}
 }

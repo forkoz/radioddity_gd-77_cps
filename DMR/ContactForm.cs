@@ -263,6 +263,14 @@ namespace DMR
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 1024)]
 			private ContactOne[] contactList;
 
+			public ContactOne[] ContactList
+			{
+				get
+				{
+					return contactList;
+				}
+			}
+
 			public ContactOne this[int index]
 			{
 				get
@@ -331,8 +339,6 @@ namespace DMR
 
 			public Contact()
 			{
-				
-				//base._002Ector();
 				int num = 0;
 				this.contactList = new ContactOne[1024];
 				for (num = 0; num < this.contactList.Length; num++)
@@ -695,6 +701,11 @@ namespace DMR
 			public bool NameExist(string name)
 			{
 				return this.contactList.Any((ContactOne x) => x.Name == name);
+			}
+
+			public int GetIndexForName(string name)
+			{
+				return Array.FindIndex(this.contactList, item => item.Name == name);
 			}
 
 			public void Default(int index)

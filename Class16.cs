@@ -13,37 +13,37 @@ internal static class Class16
 		}
 	}
 
-	public static void smethod_1<tXsfBFbiIUSVTcy2lA>(this tXsfBFbiIUSVTcy2lA[] arrayData, tXsfBFbiIUSVTcy2lA jM2pPMR5B8EL3kGNmP, int int_0, int int_1) where tXsfBFbiIUSVTcy2lA : struct
+	public static void FillFromPositionWithLength<templateType>(this templateType[] arrayData, templateType item, int startPosition, int length) where templateType : struct
 	{
 		int num = 0;
-		if (int_0 + int_1 > arrayData.Length)
+		if (startPosition + length > arrayData.Length)
 		{
 			throw new IndexOutOfRangeException();
 		}
-		for (num = 0; num < int_1; num++)
+		for (num = 0; num < length; num++)
 		{
-			arrayData[int_0 + num] = jM2pPMR5B8EL3kGNmP;
+			arrayData[startPosition + num] = item;
 		}
 	}
 
-	public static void smethod_2<CSKfdEjN8ycF6T7FDD>(this CSKfdEjN8ycF6T7FDD[] arrayData, int int_0)
+	public static void RemoveItemFromArray<templateType>(this templateType[] arrayData, int indexNum)
+	{
+		int i;
+		for (i = indexNum; i < arrayData.Length - 1; i++)
+		{
+			arrayData[i] = arrayData[i + 1];
+		}
+		arrayData[i] = default(templateType);
+	}
+
+	public static void smethod_3<templateType>(this templateType[] arrayData, int int_0, templateType item) where templateType : struct
 	{
 		int i;
 		for (i = int_0; i < arrayData.Length - 1; i++)
 		{
 			arrayData[i] = arrayData[i + 1];
 		}
-		arrayData[i] = default(CSKfdEjN8ycF6T7FDD);
-	}
-
-	public static void smethod_3<SpCwUWiBBg3c5QqL4S>(this SpCwUWiBBg3c5QqL4S[] arrayData, int int_0, SpCwUWiBBg3c5QqL4S DlFJSfTSt94Fo1BXTX) where SpCwUWiBBg3c5QqL4S : struct
-	{
-		int i;
-		for (i = int_0; i < arrayData.Length - 1; i++)
-		{
-			arrayData[i] = arrayData[i + 1];
-		}
-		arrayData[i] = DlFJSfTSt94Fo1BXTX;
+		arrayData[i] = item;
 	}
 
 	public static bool smethod_4(this byte[] byte_0, byte[] byte_1)

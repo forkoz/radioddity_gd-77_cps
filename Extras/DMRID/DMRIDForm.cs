@@ -115,7 +115,7 @@ namespace DMR
 				_wc.DownloadStringAsync(new Uri("http://ham-digital.org/user_by_lh.php?id=" + txtRegionId.Text));
 	
 			}
-			catch (Exception ex)
+			catch (Exception )
 			{
 				Cursor.Current = Cursors.Default;
 				MessageBox.Show(Settings.dicCommon["UnableDownloadFromInternet"]);

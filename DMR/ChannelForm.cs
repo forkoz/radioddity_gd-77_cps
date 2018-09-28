@@ -526,22 +526,56 @@ namespace DMR
 					}
 					else
 					{
-						return "None";
+						return Settings.SZ_NONE;
 					}
 				}
 				set
 				{
-					this.scanList = 0;// default none
-					for (int i = 0; i < NormalScanForm.data.Count; i++)
+					if (value != Settings.SZ_NONE)
 					{
-						if (NormalScanForm.data[i].Name == value)
+						for (int i = 0; i < NormalScanForm.data.Count; i++)
 						{
-							this.scanList = (byte)(i+1);
-							break;
+							if (NormalScanForm.data[i].Name == value)
+							{
+								this.scanList = (byte)(i + 1);
+								return;
+							}
 						}
+						int newScanIndex = NormalScanForm.data.GetMinIndex();
+						if (newScanIndex != -1)
+						{
+							// Scanlist name is not None but no such a scan list exists, so we need to create it
+							NormalScanForm.data.SetName(newScanIndex,value);
+#warning ScanListString NEED TO CHECK WHETHER THIS WORKS
+						}
+						else
+						{
+							MessageBox.Show("Unable to make new scan list (" + value + ")");
+						}
+
+					}
+					else
+					{
+						
+						this.scanList = 0;
 					}
 				}
 			}
+
+			public string GetZoneStringForChannelIndex(int index)
+			{
+				index = index + 1; // first channal is index 1 not zero
+				foreach(ZoneForm.ZoneOne zone in ZoneForm.data.ZoneList)
+				{
+					ushort[] zoneArr = Array.FindAll(zone.ChList, ch => ch == index);
+					if (zoneArr.Length > 0 )
+					{
+						return zone.Name;
+					}
+				}
+				return Settings.SZ_NONE; 
+			}
+
 
 			public string RxTone
 			{
@@ -838,7 +872,7 @@ namespace DMR
 						{
 							if (value == RxGroupListForm.data.GetName(i))
 							{
-								this.RxGroupList = i + 1;
+								this.RxGroupList = i;
 								break;
 							}
 						}
@@ -904,6 +938,39 @@ namespace DMR
 				}
 			}
 
+
+			public int ContactType
+			{
+				get
+				{
+					if (this.Contact == 0)
+					{
+						return 0;
+					}
+					if (this.contact <= ContactForm.data.Count)
+					{
+						return ContactForm.data[this.contact-1].CallType;
+					}
+					return 0;
+				}
+			}
+
+			public string ContactIdString
+			{
+				get
+				{
+					if (this.Contact == 0)
+					{
+						return Settings.SZ_NONE;
+					}
+					if (this.contact <= ContactForm.data.Count)
+					{
+						return ContactForm.data[this.contact-1].CallId;
+					}
+					return Settings.SZ_NONE;
+				}
+			}
+
 			public string ContactString
 			{
 				get
@@ -926,13 +993,14 @@ namespace DMR
 					}
 					else
 					{
-						for (int i = 0; i < ContactForm.data.Count; i++)
+						int foundIndex = ContactForm.data.GetIndexForName(value);
+						if (foundIndex != -1)
 						{
-							if (value == ContactForm.data.GetName(i))
-							{
-								this.Contact = i+1;
-								break;
-							}
+							this.Contact = foundIndex + 1;
+						}
+						else
+						{
+							this.Contact = 0;// No such contact. So all we can do is set to the None contact
 						}
 					}
 				}

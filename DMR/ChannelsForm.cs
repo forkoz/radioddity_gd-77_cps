@@ -16,49 +16,26 @@ namespace DMR
 	public class ChannelsForm : DockContent, IDisp, ISingleRow
 	{
 		public const string SZ_HEADER_TEXT_NAME = "HeaderText";
-
 		private const int SCL_FREQ = 100000;
-
-		private static readonly string[] SZ_HEADER_TEXT;
-
-		//private IContainer components;
-
+		private static readonly string[] SZ_DISPLAY_HEADER_TEXT;
+		private static readonly string[] SZ_EXPORT_HEADER_TEXT;
 		private Panel pnlChannel;
-
 		private DataGridView dgvChannels;
-
-		private Button btnClear;
-
-		private Button btnDelete;
-
 		private Button btnAdd;
-
 		private CustomCombo cmbAddChMode;
-
 		private SGTextBox txtRxFreq;
-
 		private SGTextBox txtName;
-
 		private ComboBox cmbPower;
-
 		private ComboBox cmbChMode;
-
 		private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-
 		private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-
 		private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-
 		private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-
 		private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-
 		private SGTextBox txtTxFreq;
-
 		private Button btnImport;
-
 		private Button btnExport;
-
+		private Button btnImportClear;
 		private Button btnDeleteSelect;
 
 		public TreeNode Node
@@ -85,6 +62,7 @@ namespace DMR
 
 						int index = this.dgvChannels.Rows.Add((i + 1).ToString(), channelOne.Name, channelOne.ChModeS, channelOne.RxFreq, channelOne.TxFreq, channelOne.TxColor.ToString(), channelOne.RepeaterSlotS, channelOne.ContactString, channelOne.RxGroupListString, channelOne.ScanListString, channelOne.RxTone, channelOne.TxTone);//, channelOne.PowerString);
 						this.dgvChannels.Rows[index].Tag = i;
+						
 					}
 				}
 			}
@@ -92,6 +70,8 @@ namespace DMR
 			{
 				Console.WriteLine(ex.Message);
 			}
+			dgvChannels.CurrentCell = null;
+			
 		}
 
 		public void RefreshName()
@@ -100,8 +80,6 @@ namespace DMR
 
 		public ChannelsForm()
 		{
-			
-			//base._002Ector();
 			this.InitializeComponent();
 			base.Scale(Settings.smethod_6());
 		}
@@ -109,7 +87,8 @@ namespace DMR
 		public static void RefreshCommonLang()
 		{
 			string name = typeof(ChannelsForm).Name;
-			Settings.smethod_78("HeaderText", ChannelsForm.SZ_HEADER_TEXT, name);
+			Settings.smethod_78("DisplayHeaderText", SZ_DISPLAY_HEADER_TEXT, name);
+			Settings.smethod_78("ExportHeaderText", SZ_EXPORT_HEADER_TEXT, name);
 		}
 
 		private void ChannelsForm_Load(object sender, EventArgs e)
@@ -145,6 +124,35 @@ namespace DMR
 			mainForm.InsertTreeViewNode(this.Node, minIndex, typeof(ChannelForm), array[selectedIndex], ChannelForm.data);
 			mainForm.RefreshRelatedForm(base.GetType());
 		}
+
+		private int AddDigitalContact(string contactName, int contactType, string contactID)
+		{
+			int newContactIndex = -1; 
+			if (contactName != Settings.SZ_NONE)
+			{
+				newContactIndex  = ContactForm.data.GetMinIndex();
+				if (newContactIndex != -1)
+				{
+					ContactForm.data.SetIndex(newContactIndex, 0);
+					ContactForm.data.Default(newContactIndex);
+					ContactForm.data.SetName(newContactIndex, contactName);
+					ContactForm.data.SetCallType(newContactIndex, contactType);
+					ContactForm.data.SetCallID(newContactIndex, contactID);
+
+/*
+					int num = ContactForm.data.GetMinIndex();
+					ContactForm.data.SetIndex(num, 0);
+					ContactForm.Contact contact = ContactForm.data;
+					ContactForm.data.Default(num);
+					contact.SetCallID(num, "505");
+					contact.SetName(num, "DMR)Contact" + num);
+*/
+				}
+			}
+			return newContactIndex+1;
+		}
+
+
 
 		private void btnDelete_Click(object sender, EventArgs e)
 		{
@@ -196,7 +204,7 @@ namespace DMR
 				{
 					this.dgvChannels.Rows.Remove(this.dgvChannels.SelectedRows[0]);
 					ChannelForm.data.ClearIndex(num2);
-					mainForm.DeleteTreeViewNode(this.Node, num);
+					//mainForm.DeleteTreeViewNode(this.Node, num);// Doesnt seem to work. so init the whole tree afterwards
 					num3++;
 					if (num3 == count)
 					{
@@ -209,6 +217,7 @@ namespace DMR
 			}
 			this.updateAddAndDeleteButtons();
 			mainForm.RefreshRelatedForm(base.GetType());
+			mainForm.InitTree();
 		}
 
 		private void btnExport_Click(object sender, EventArgs e)
@@ -221,15 +230,34 @@ namespace DMR
 			saveFileDialog.OverwritePrompt = true;
 			saveFileDialog.CheckPathExists = true;
 			saveFileDialog.FileName = "Channels_" + DateTime.Now.ToString("MMdd_HHmmss");
+
+			if (this.dgvChannels.SelectedRows.Count < 1)
+			{
+				MessageBox.Show("No rows selected to export");
+				return;
+			}
+
+			// Selected rows always seem to be in reverse order, and I have yet to find a simple way to reverse t
+			List<DataGridViewRow> rows = new List<DataGridViewRow>();
+			foreach (DataGridViewRow row in this.dgvChannels.SelectedRows)
+			{
+				rows.Add(row);
+			}
+			rows.Reverse();
+
+
 			if (saveFileDialog.ShowDialog() == DialogResult.OK && saveFileDialog.FileName != null)
 			{
 				using (CsvFileWriter csvFileWriter = new CsvFileWriter(new FileStream(saveFileDialog.FileName, FileMode.Create), Encoding.Default))
 				{
 					CsvRow csvRow = new CsvRow();
-					csvRow.AddRange(ChannelsForm.SZ_HEADER_TEXT);
+					csvRow.AddRange(SZ_EXPORT_HEADER_TEXT);
 					csvFileWriter.WriteRow(csvRow);
-					for (i = 0; i < ChannelForm.data.Count; i++)
+					foreach (DataGridViewRow row in rows)
 					{
+						i =(int)row.Tag;
+					//for (i = 0; i < ChannelForm.data.Count; i++)
+					//{
 						if (ChannelForm.data.DataIsValid(i))
 						{
 							csvRow.RemoveAll(ChannelsForm.smethod_0);
@@ -243,8 +271,11 @@ namespace DMR
 
 							csvRow.Add(channelOne.RepeaterSlotS);// Timeslot
 							csvRow.Add(channelOne.ContactString);
+							csvRow.Add(channelOne.ContactType.ToString());
+							csvRow.Add(channelOne.ContactIdString);
 							csvRow.Add(channelOne.RxGroupListString);
 							csvRow.Add(channelOne.ScanListString);
+							csvRow.Add(channelOne.GetZoneStringForChannelIndex(i));
 
 							csvRow.Add(channelOne.RxTone);
 							csvRow.Add(channelOne.TxTone);
@@ -283,9 +314,19 @@ namespace DMR
 			}
 		}
 
+		private void btnImportClear_Click(object sender, EventArgs e)
+		{
+			import(true);
+		}
+
 		private void btnImport_Click(object sender, EventArgs e)
 		{
-			int num2 = 0;
+			import(false);
+		}
+
+		private void import(bool clearFirst)
+		{
+			int foundIndex = -1;
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 			openFileDialog.Filter = "csv files|*.csv";
 			if (openFileDialog.ShowDialog() == DialogResult.OK && openFileDialog.FileName != null)
@@ -294,37 +335,55 @@ namespace DMR
 				{
 					CsvRow csvRow = new CsvRow();
 					csvFileReader.ReadRow(csvRow);
-					if (csvRow.SequenceEqual(ChannelsForm.SZ_HEADER_TEXT))
+					if (csvRow.SequenceEqual(SZ_EXPORT_HEADER_TEXT))
 					{
-						/* Don't clear channels first. We now just update or append.
-						for (int num = 0; num < ChannelForm.data.Count; num++)
+						MainForm mainForm = base.MdiParent as MainForm;
+#if false
+						// This does not work yet
+						if (clearFirst)
 						{
-							ChannelForm.data.SetIndex(num, 0);
+							int num;
+							for (num = 0; num < ZoneForm.data.Count; num++)
+							{
+								ZoneForm.data.SetIndex(num, 0);
+							}
+							for (num = 0; num < RxGroupListForm.data.Count; num++)
+							{
+								RxGroupListForm.data.SetIndex(num, 0);
+							}
+							for (num = 0; num < ContactForm.data.Count; num++)
+							{
+								ContactForm.data.SetIndex(num, 0);
+							}
+
+
+							for (num = 0; num < ChannelForm.data.Count; num++)
+							{
+								ChannelForm.data.SetIndex(num, 0);
+							}
+							mainForm.InitTree();
+							return;
 						}
-						 */
+#endif
 
 						while (csvFileReader.ReadRow(csvRow))
 						{
 							int num = 1;
 
 							string name = ((List<string>)csvRow)[num++];
-							int foundIndex = ChannelForm.data.FindIndexForName(name);
+							foundIndex = ChannelForm.data.FindIndexForName(name);
 
 							if (foundIndex == -1)
 							{
-								num2 = ChannelForm.data.GetMinIndex();
-								if (num2 == -1)
+								foundIndex = ChannelForm.data.GetMinIndex();
+								if (foundIndex == -1)
 								{
 									MessageBox.Show("Error. Maximum numbers of channels reached. Import aborted");
 									break;// stop processing
 								}
 							}
-							else
-							{
-								num2 = foundIndex;
-							}
 
-							ChannelForm.ChannelOne value = ChannelForm.data[num2];
+							ChannelForm.ChannelOne value = ChannelForm.data[foundIndex];
 										
 							value.Name = name;
 							value.ChModeS = ((List<string>)csvRow)[num++];
@@ -332,10 +391,90 @@ namespace DMR
 							value.TxFreq = ((List<string>)csvRow)[num++];
 							value.TxColor = Convert.ToInt32(((List<string>)csvRow)[num++]);
 
-							value.RepeaterSlotS = ((List<string>)csvRow)[num++];// Timeslot
-							value.ContactString = ((List<string>)csvRow)[num++];
-							value.RxGroupListString = ((List<string>)csvRow)[num++];
+							value.RepeaterSlotS		= ((List<string>)csvRow)[num++];// Timeslot
+							string contactName		= ((List<string>)csvRow)[num++];
+							int callType			=  Int32.Parse(((List<string>)csvRow)[num++]);
+							string callId			= ((List<string>)csvRow)[num++];
+
+							value.ContactString		= contactName;
+							if (contactName != Settings.SZ_NONE && value.Contact == 0)
+							{
+								// Contact was not None and no contact with that name could be found.
+								// Need to create a new contact
+								int newContactIndex = AddDigitalContact(contactName, callType, callId);
+								if (newContactIndex != -1)
+								{
+									value.Contact= newContactIndex;
+								}
+								else
+								{
+									MessageBox.Show("Unable to create new contact (" + contactName + ")");
+									break;
+								}
+							}
+
+							string rxGroupName = ((List<string>)csvRow)[num++];
+							int newRxGroupIndex = RxGroupListForm.data.AddRxGroupWithName(rxGroupName);
+							
+							// if the group now exists (we may have just created it !)
+							if (newRxGroupIndex != -1)
+							{
+								// Check if the contact is already in the group
+								if (!RxGroupListForm.data[newRxGroupIndex].ContainsContact((ushort)value.Contact))
+								{
+									// get the object for the group
+									RxListOneData rxGroup = RxGroupListForm.data[newRxGroupIndex];
+									int contactIndex = RxGroupListForm.data.GetContactsCountForIndex(newRxGroupIndex);
+									if (contactIndex < 32)
+									{
+										rxGroup.ContactList[contactIndex] = (ushort)(value.Contact);
+										RxGroupListForm.data.SetIndex(newRxGroupIndex, contactIndex + 2);// sets the number of items in the list to (needs to be 2 + NUM)
+									}
+									else
+									{
+										MessageBox.Show("Unable to add contact (" + value.ContactString + ") to Rx Group (" + rxGroupName + ")", "Import error");
+										break;
+									}
+								}
+							}
+							else
+							{
+								MessageBox.Show("Unable to create new Rx Group list (" + rxGroupName + ")", "Import error");
+							}
+
+							value.RxGroupList = newRxGroupIndex+1;
+
 							value.ScanListString = ((List<string>)csvRow)[num++];
+
+							string zoneNameNew = ((List<string>)csvRow)[num++];
+							if (zoneNameNew != Settings.SZ_NONE)
+							{
+								int zoneIndex = Array.FindIndex(ZoneForm.data.ZoneList, item => item.Name == zoneNameNew);
+								if (zoneIndex == -1)
+								{
+									zoneIndex = ZoneForm.data.GetMinIndex();
+									if (zoneIndex != -1)
+									{
+										ZoneForm.data.SetIndex(zoneIndex, 1);
+										ZoneForm.data.Default(zoneIndex);
+										ZoneForm.data.SetName(zoneIndex, zoneNameNew);
+									}
+									else
+									{
+										MessageBox.Show("Unable to create zone (" + zoneNameNew + ")","Import error");
+										break;
+									}
+								}
+
+								if (zoneIndex != -1)
+								{
+									if (!ZoneForm.data.ZoneList[zoneIndex].AddChannelToZone((ushort)(foundIndex)))
+									{
+										MessageBox.Show("Unable to add channel to zone (" + zoneNameNew + ")", "Import error");
+										break;
+									}
+								}
+							}
 
 							value.RxTone = ((List<string>)csvRow)[num++];
 							value.TxTone = ((List<string>)csvRow)[num++];
@@ -368,14 +507,20 @@ namespace DMR
 							value.ArtsInterval = Convert.ToInt32(((List<string>)csvRow)[num++]);
 
 
-							ChannelForm.data.SetIndex(num2, 1);
-							ChannelForm.data.Default(num2);
-							ChannelForm.data[num2] = value;
+							ChannelForm.data.SetIndex(foundIndex, 1);
+							ChannelForm.data.Default(foundIndex);
+							ChannelForm.data[foundIndex] = value;
 						}
 						this.DispData();
-						MainForm mainForm = base.MdiParent as MainForm;
-						mainForm.InitChannels(this.Node);
+
+
+
 						mainForm.RefreshRelatedForm(base.GetType());
+						mainForm.RefreshRelatedForm(typeof(ContactForm));
+	
+						mainForm.InitTree();
+
+
 					}
 					else
 					{
@@ -387,7 +532,7 @@ namespace DMR
 
 		private void updateAddAndDeleteButtons()
 		{
-			this.btnDelete.Enabled = !this.dgvChannels.SelectedRows.Contains(this.dgvChannels.Rows[0]);
+		//	this.btnDelete.Enabled = !this.dgvChannels.SelectedRows.Contains(this.dgvChannels.Rows[0]);
 			this.btnAdd.Enabled = (this.dgvChannels.RowCount < ChannelForm.data.Count);
 		}
 
@@ -417,12 +562,9 @@ namespace DMR
 			this.dgvChannels.AllowUserToOrderColumns = false;
 			this.dgvChannels.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			DataGridViewTextBoxColumn dataGridViewTextBoxColumn = null;
-			string[] sZ_HEADER_TEXT = ChannelsForm.SZ_HEADER_TEXT;
+			string[] sZ_HEADER_TEXT = SZ_DISPLAY_HEADER_TEXT;
 			for(int i =0;i<array.Length;i++)
 			{
-				//string headerText = sZ_HEADER_TEXT[i];
-			//foreach (string headerText in sZ_HEADER_TEXT)
-			//{
 				dataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
 				dataGridViewTextBoxColumn.HeaderText = sZ_HEADER_TEXT[i];
 				dataGridViewTextBoxColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -437,6 +579,7 @@ namespace DMR
 			this.txtName.MaxLength = 16;
 			this.txtRxFreq.MaxLength = 9;
 			this.txtTxFreq.MaxLength = 9;
+
 		}
 
 		private void iPdgpEleug(object sender, DataGridViewCellMouseEventArgs e)
@@ -664,10 +807,9 @@ namespace DMR
 			this.btnDeleteSelect = new System.Windows.Forms.Button();
 			this.cmbPower = new System.Windows.Forms.ComboBox();
 			this.cmbChMode = new System.Windows.Forms.ComboBox();
-			this.btnClear = new System.Windows.Forms.Button();
-			this.btnDelete = new System.Windows.Forms.Button();
 			this.btnAdd = new System.Windows.Forms.Button();
 			this.dgvChannels = new System.Windows.Forms.DataGridView();
+			this.btnImportClear = new System.Windows.Forms.Button();
 			this.txtTxFreq = new DMR.SGTextBox();
 			this.txtRxFreq = new DMR.SGTextBox();
 			this.txtName = new DMR.SGTextBox();
@@ -694,8 +836,6 @@ namespace DMR
 			this.pnlChannel.Controls.Add(this.cmbPower);
 			this.pnlChannel.Controls.Add(this.cmbChMode);
 			this.pnlChannel.Controls.Add(this.cmbAddChMode);
-			this.pnlChannel.Controls.Add(this.btnClear);
-			this.pnlChannel.Controls.Add(this.btnDelete);
 			this.pnlChannel.Controls.Add(this.btnAdd);
 			this.pnlChannel.Controls.Add(this.dgvChannels);
 			this.pnlChannel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -706,7 +846,7 @@ namespace DMR
 			// 
 			// btnImport
 			// 
-			this.btnImport.Location = new System.Drawing.Point(608, 10);
+			this.btnImport.Location = new System.Drawing.Point(659, 12);
 			this.btnImport.Name = "btnImport";
 			this.btnImport.Size = new System.Drawing.Size(75, 23);
 			this.btnImport.TabIndex = 13;
@@ -716,11 +856,11 @@ namespace DMR
 			// 
 			// btnExport
 			// 
-			this.btnExport.Location = new System.Drawing.Point(527, 11);
+			this.btnExport.Location = new System.Drawing.Point(406, 12);
 			this.btnExport.Name = "btnExport";
-			this.btnExport.Size = new System.Drawing.Size(75, 23);
+			this.btnExport.Size = new System.Drawing.Size(160, 23);
 			this.btnExport.TabIndex = 14;
-			this.btnExport.Text = "Export";
+			this.btnExport.Text = "Export selected rows";
 			this.btnExport.UseVisualStyleBackColor = true;
 			this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
 			// 
@@ -728,7 +868,7 @@ namespace DMR
 			// 
 			this.btnDeleteSelect.Location = new System.Drawing.Point(220, 11);
 			this.btnDeleteSelect.Name = "btnDeleteSelect";
-			this.btnDeleteSelect.Size = new System.Drawing.Size(128, 23);
+			this.btnDeleteSelect.Size = new System.Drawing.Size(167, 23);
 			this.btnDeleteSelect.TabIndex = 12;
 			this.btnDeleteSelect.Text = "Delete Selected";
 			this.btnDeleteSelect.UseVisualStyleBackColor = true;
@@ -739,7 +879,7 @@ namespace DMR
 			this.cmbPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbPower.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.cmbPower.FormattingEnabled = true;
-			this.cmbPower.Location = new System.Drawing.Point(979, 10);
+			this.cmbPower.Location = new System.Drawing.Point(1061, 12);
 			this.cmbPower.Name = "cmbPower";
 			this.cmbPower.Size = new System.Drawing.Size(61, 24);
 			this.cmbPower.TabIndex = 8;
@@ -751,33 +891,12 @@ namespace DMR
 			this.cmbChMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbChMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.cmbChMode.FormattingEnabled = true;
-			this.cmbChMode.Location = new System.Drawing.Point(912, 10);
+			this.cmbChMode.Location = new System.Drawing.Point(994, 12);
 			this.cmbChMode.Name = "cmbChMode";
 			this.cmbChMode.Size = new System.Drawing.Size(61, 24);
 			this.cmbChMode.TabIndex = 7;
 			this.cmbChMode.Visible = false;
 			this.cmbChMode.Leave += new System.EventHandler(this.cmbChMode_Leave);
-			// 
-			// btnClear
-			// 
-			this.btnClear.Location = new System.Drawing.Point(364, 11);
-			this.btnClear.Name = "btnClear";
-			this.btnClear.Size = new System.Drawing.Size(105, 23);
-			this.btnClear.TabIndex = 3;
-			this.btnClear.Text = "Clear all";
-			this.btnClear.UseVisualStyleBackColor = true;
-			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-			// 
-			// btnDelete
-			// 
-			this.btnDelete.Location = new System.Drawing.Point(1047, 11);
-			this.btnDelete.Name = "btnDelete";
-			this.btnDelete.Size = new System.Drawing.Size(75, 23);
-			this.btnDelete.TabIndex = 2;
-			this.btnDelete.Text = "Delete";
-			this.btnDelete.UseVisualStyleBackColor = true;
-			this.btnDelete.Visible = false;
-			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
 			// 
 			// btnAdd
 			// 
@@ -799,16 +918,28 @@ namespace DMR
 			this.dgvChannels.ReadOnly = true;
 			this.dgvChannels.RowHeadersWidth = 50;
 			this.dgvChannels.RowTemplate.Height = 23;
+			this.dgvChannels.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dgvChannels.Size = new System.Drawing.Size(1110, 457);
 			this.dgvChannels.TabIndex = 9;
 			this.dgvChannels.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvChannels_RowHeaderMouseDoubleClick);
 			this.dgvChannels.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.NligzloMrR);
 			this.dgvChannels.SelectionChanged += new System.EventHandler(this.dgvChannels_SelectionChanged);
 			// 
+			// btnImportClear
+			// 
+			this.btnImportClear.Location = new System.Drawing.Point(772, 12);
+			this.btnImportClear.Name = "btnImportClear";
+			this.btnImportClear.Size = new System.Drawing.Size(125, 23);
+			this.btnImportClear.TabIndex = 13;
+			this.btnImportClear.Text = "Clear and Import";
+			this.btnImportClear.UseVisualStyleBackColor = true;
+			this.btnImportClear.Visible = false;
+			this.btnImportClear.Click += new System.EventHandler(this.btnImportClear_Click);
+			// 
 			// txtTxFreq
 			// 
 			this.txtTxFreq.InputString = null;
-			this.txtTxFreq.Location = new System.Drawing.Point(845, 11);
+			this.txtTxFreq.Location = new System.Drawing.Point(927, 13);
 			this.txtTxFreq.MaxByteLength = 0;
 			this.txtTxFreq.Name = "txtTxFreq";
 			this.txtTxFreq.Size = new System.Drawing.Size(61, 23);
@@ -819,7 +950,7 @@ namespace DMR
 			// txtRxFreq
 			// 
 			this.txtRxFreq.InputString = null;
-			this.txtRxFreq.Location = new System.Drawing.Point(778, 10);
+			this.txtRxFreq.Location = new System.Drawing.Point(860, 12);
 			this.txtRxFreq.MaxByteLength = 0;
 			this.txtRxFreq.Name = "txtRxFreq";
 			this.txtRxFreq.Size = new System.Drawing.Size(61, 23);
@@ -830,7 +961,7 @@ namespace DMR
 			// txtName
 			// 
 			this.txtName.InputString = null;
-			this.txtName.Location = new System.Drawing.Point(711, 10);
+			this.txtName.Location = new System.Drawing.Point(793, 12);
 			this.txtName.MaxByteLength = 0;
 			this.txtName.Name = "txtName";
 			this.txtName.Size = new System.Drawing.Size(61, 23);
@@ -880,6 +1011,7 @@ namespace DMR
 			// ChannelsForm
 			// 
 			this.ClientSize = new System.Drawing.Size(1136, 531);
+			this.Controls.Add(this.btnImportClear);
 			this.Controls.Add(this.pnlChannel);
 			this.Font = new System.Drawing.Font("Arial", 10F);
 			this.Name = "ChannelsForm";
@@ -901,24 +1033,11 @@ namespace DMR
 
 		static ChannelsForm()
 		{
-			
-			ChannelsForm.SZ_HEADER_TEXT = new string[32];
-			/*
-			{
-				"Number",
-				"Name",
-				"Ch Mode",
-				"Rx Freq",
-				"Tx Freq",
-				"Power",
-				"Rx Tone",
-				"Tx Tone",
-				"Color Code",
-				"Rx Group List",
-				"Contact",
-				"Time Slot"
-			};
-			 */
+
+			SZ_DISPLAY_HEADER_TEXT = new string[35];
+			SZ_EXPORT_HEADER_TEXT = new string[35];
 		}
+
+
 	}
 }

@@ -26,6 +26,7 @@ namespace DMR
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
 			private ushort[] chList;
 
+
 			public string Name
 			{
 				get
@@ -96,6 +97,26 @@ namespace DMR
 				}
 				this.chList = list2.ToArray();
 			}
+
+			public bool AddChannelToZone(ushort channel)
+			{
+				channel++;// 
+				// check if channel is already in the Zone
+				if (Array.FindIndex(chList, item => item == channel) != -1)
+				{
+					return true;// Channel is already in the zone, so we'll return as if we've added it.
+				}
+	
+				// channel is not in this Zone.
+				int foundIndex = Array.FindIndex(chList, item => (item == 0 || item == (ushort)65535));
+				if (foundIndex == -1)
+				{
+					return false;
+				}
+
+				chList[foundIndex] = channel;// put the channel into the zone
+				return true;
+			}			
 
 			[CompilerGenerated]
 			private static bool smethod_0(ushort ushort_0)
@@ -219,8 +240,6 @@ namespace DMR
 
 			public Zone()
 			{
-				
-				//base._002Ector();
 				int num = 0;
 				this.zoneIndex = new byte[32];
 				this.zoneList = new ZoneOne[250];
@@ -363,7 +382,7 @@ namespace DMR
 						num2 = Array.IndexOf(this.zoneList[num].ChList, (ushort)(chIndex + 1));
 						if (num2 >= 0)
 						{
-							this.zoneList[num].ChList.smethod_2(num2);
+							this.zoneList[num].ChList.RemoveItemFromArray(num2);
 						}
 					}
 				}
@@ -556,6 +575,7 @@ namespace DMR
 
 			}
 		}
+
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
 		public class BasicZone

@@ -3803,6 +3803,20 @@ namespace DMR
 			this.InitScans(parentNode);
 		}
 
+		public void InitChannelsImportNodes()
+		{
+			TreeNode parentNode = this.method_9(typeof(ContactsForm), this.tvwMain.Nodes);
+			this.InitDigitContacts(parentNode);
+			parentNode = this.method_8(typeof(RxGroupListForm), this.tvwMain.Nodes);
+			this.InitRxGroupLists(parentNode);
+			parentNode = this.method_9(typeof(ChannelsForm), this.tvwMain.Nodes);
+			this.InitChannels(parentNode);
+			parentNode = this.method_9(typeof(ScanBasicForm), this.tvwMain.Nodes);
+			this.InitScans(parentNode);
+			parentNode = this.method_9(typeof(ZoneBasicForm), this.tvwMain.Nodes);
+			this.InitZones(parentNode);
+		}
+
 		public void WriteXml(List<ToolStripItem> lstMenuItem)
 		{
 			XmlTextWriter xmlTextWriter = new XmlTextWriter(Application.StartupPath + "/test.xml", Encoding.UTF8);

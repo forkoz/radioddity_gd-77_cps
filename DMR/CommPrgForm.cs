@@ -72,7 +72,7 @@ namespace DMR
 			base.Controls.Add(this.prgComm);
 			base.Controls.Add(this.lblPrompt);
 			this.Font = new Font("Arial", 10f, FontStyle.Regular);
-			this.FormBorderStyle = FormBorderStyle.FixedDialog;
+//			this.FormBorderStyle = FormBorderStyle.FixedDialog;
 			this.Margin = new Padding(3, 4, 3, 4);
 			this.Name = "CommPrgForm";
 			this.ShowInTaskbar = false;
