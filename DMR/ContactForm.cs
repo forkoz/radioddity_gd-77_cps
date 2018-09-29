@@ -475,6 +475,24 @@ namespace DMR
 				return true;
 			}
 
+			public int GetCallIndexFromIdString(int callId)
+			{
+				int num = 0;
+				string callIdStr = string.Format("{0:d8}", callId);
+
+				while (num < this.Count)
+				{
+					if (ContactForm.data.GetCallID(num) == callIdStr)
+					{
+						return num+1;
+					}
+					num++;
+				}
+		
+				return -1;
+			}
+
+
 			public bool CallIdExist(int index, int callType, string callId)
 			{
 				int num = 0;

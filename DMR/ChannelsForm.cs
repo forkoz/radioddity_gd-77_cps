@@ -396,20 +396,33 @@ namespace DMR
 							int callType			=  Int32.Parse(((List<string>)csvRow)[num++]);
 							string callId			= ((List<string>)csvRow)[num++];
 
-							value.ContactString		= contactName;
-							if (contactName != Settings.SZ_NONE && value.Contact == 0)
+
+							if (contactName == Settings.SZ_NONE || Int32.Parse(callId) == 0)
 							{
-								// Contact was not None and no contact with that name could be found.
-								// Need to create a new contact
-								int newContactIndex = AddDigitalContact(contactName, callType, callId);
-								if (newContactIndex != -1)
+								value.Contact = 0;
+							}
+							else
+							{
+								int newContactIndex = ContactForm.data.GetCallIndexFromIdString(Int32.Parse(callId));
+
+								if (newContactIndex == -1)
 								{
-									value.Contact= newContactIndex;
+									// Contact was not None and no contact with that name could be found.
+									// Need to create a new contact
+									newContactIndex = AddDigitalContact(contactName, callType, callId);
+									if (newContactIndex != -1)
+									{
+										value.Contact = newContactIndex;
+									}
+									else
+									{
+										MessageBox.Show("Unable to create new contact (" + contactName + ")");
+										break;
+									}
 								}
 								else
 								{
-									MessageBox.Show("Unable to create new contact (" + contactName + ")");
-									break;
+									value.Contact = newContactIndex;
 								}
 							}
 
@@ -529,6 +542,8 @@ namespace DMR
 				}
 			}
 		}
+
+
 
 		private void updateAddAndDeleteButtons()
 		{
