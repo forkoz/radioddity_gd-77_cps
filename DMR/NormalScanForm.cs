@@ -835,6 +835,10 @@ namespace DMR
 			try
 			{
 				num2 = Convert.ToInt32(base.Tag);
+				if (num2 == -1)
+				{
+					return;
+				}
 				if (this.txtName.Focused)
 				{
 					this.txtName_Leave(this.txtName, null);
@@ -877,6 +881,11 @@ namespace DMR
 			try
 			{
 				num2 = Convert.ToInt32(base.Tag);
+				if (num2 == -1)
+				{
+					this.Close();
+					return;
+				}
 				this.method_0();
 				this.txtName.Text = NormalScanForm.data[num2].Name;
 				this.chkChMark.Checked = NormalScanForm.data[num2].ChMark;

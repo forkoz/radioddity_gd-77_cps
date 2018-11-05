@@ -35,7 +35,7 @@ namespace DMR
 		private SGTextBox txtTxFreq;
 		private Button btnImport;
 		private Button btnExport;
-		private Button btnImportClear;
+		private Button btnImportClearAll;
 		private Button btnDeleteSelect;
 
 		public TreeNode Node
@@ -200,7 +200,7 @@ namespace DMR
 			{
 				num = this.dgvChannels.SelectedRows[0].Index;
 				num2 = (int)this.dgvChannels.SelectedRows[0].Tag;
-				if (num != 0)
+				//if (num != 0)
 				{
 					this.dgvChannels.Rows.Remove(this.dgvChannels.SelectedRows[0]);
 					ChannelForm.data.ClearIndex(num2);
@@ -212,7 +212,7 @@ namespace DMR
 					}
 					continue;
 				}
-				MessageBox.Show(Settings.dicCommon["FirstNotDelete"]);
+				//MessageBox.Show(Settings.dicCommon["FirstNotDelete"]);
 				break;
 			}
 			this.updateAddAndDeleteButtons();
@@ -314,7 +314,7 @@ namespace DMR
 			}
 		}
 
-		private void btnImportClear_Click(object sender, EventArgs e)
+		private void btnImportClearAll_Click(object sender, EventArgs e)
 		{
 			import(true);
 		}
@@ -324,9 +324,24 @@ namespace DMR
 			import(false);
 		}
 
+		private void importChannel(CsvRow csvRow)
+		{
+
+		}
+
 		private void import(bool clearFirst)
 		{
 			int foundIndex = -1;
+			string rxGroupName;
+			string zoneNameNew;
+			int zoneIndex;
+		//	int validZonesCount;
+
+			if (clearFirst && MessageBox.Show("Selecting this option will delete all existing Contacts, Rx Groups and Channels, before importing. Are you sure you want to continue.", Settings.dicCommon["pleaseConfirm"], MessageBoxButtons.YesNo) != DialogResult.Yes)
+			{
+				return;
+			}
+
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 			openFileDialog.Filter = "csv files|*.csv";
 			if (openFileDialog.ShowDialog() == DialogResult.OK && openFileDialog.FileName != null)
@@ -338,33 +353,53 @@ namespace DMR
 					if (csvRow.SequenceEqual(SZ_EXPORT_HEADER_TEXT))
 					{
 						MainForm mainForm = base.MdiParent as MainForm;
-#if false
+
 						// This does not work yet
 						if (clearFirst)
 						{
-							int num;
-							for (num = 0; num < ZoneForm.data.Count; num++)
-							{
-								ZoneForm.data.SetIndex(num, 0);
-							}
-							for (num = 0; num < RxGroupListForm.data.Count; num++)
-							{
-								RxGroupListForm.data.SetIndex(num, 0);
-							}
-							for (num = 0; num < ContactForm.data.Count; num++)
-							{
-								ContactForm.data.SetIndex(num, 0);
-							}
 
 
-							for (num = 0; num < ChannelForm.data.Count; num++)
+							for (int num = 0; num < ContactForm.data.Count; num++)
 							{
-								ChannelForm.data.SetIndex(num, 0);
+								ContactForm.data.ClearIndex(num);
+								ContactForm.data.Default(num);
 							}
-							mainForm.InitTree();
-							return;
+
+							for (int num = 0; num < RxGroupListForm.data.Count; num++)
+							{
+								RxGroupListForm.data.ClearIndex(num);
+								RxGroupListForm.data.Default(num);
+							}
+							/*
+							for (int num = 0; num < ZoneForm.data.Count; num++)
+							{
+								ZoneForm.data.ClearIndex(num);
+								ZoneForm.data.Default(num);
+							}*/
+
+							for (int num = 0; num < ChannelForm.data.Count; num++)
+							{
+								ChannelForm.data.ClearIndex(num);
+								ChannelForm.data.Default(num);
+							}
 						}
-#endif
+
+						/*
+						List<CsvRow> csvRowList = new List<CsvRow>();
+						bool rowIsValid;
+						do
+						{
+							CsvRow row = new CsvRow();
+							rowIsValid = csvFileReader.ReadRow(csvRow);
+							if (rowIsValid)
+							{
+								csvRowList.Add(row);
+							}
+						}
+						while (rowIsValid);
+						*/
+						
+
 
 						while (csvFileReader.ReadRow(csvRow))
 						{
@@ -426,48 +461,66 @@ namespace DMR
 								}
 							}
 
-							string rxGroupName = ((List<string>)csvRow)[num++];
-							int newRxGroupIndex = RxGroupListForm.data.AddRxGroupWithName(rxGroupName);
-							
-							// if the group now exists (we may have just created it !)
-							if (newRxGroupIndex != -1)
+							rxGroupName = ((List<string>)csvRow)[num++];
+							if (rxGroupName != Settings.SZ_NONE)
 							{
-								// Check if the contact is already in the group
-								if (!RxGroupListForm.data[newRxGroupIndex].ContainsContact((ushort)value.Contact))
+								int newRxGroupIndex = RxGroupListForm.data.AddRxGroupWithName(rxGroupName);
+
+								// if the group now exists (we may have just created it !)
+								if (newRxGroupIndex != -1)
 								{
-									// get the object for the group
-									RxListOneData rxGroup = RxGroupListForm.data[newRxGroupIndex];
-									int contactIndex = RxGroupListForm.data.GetContactsCountForIndex(newRxGroupIndex);
-									if (contactIndex < 32)
+									// Check if the contact is already in the group
+									if (!RxGroupListForm.data[newRxGroupIndex].ContainsContact((ushort)value.Contact))
 									{
-										rxGroup.ContactList[contactIndex] = (ushort)(value.Contact);
-										RxGroupListForm.data.SetIndex(newRxGroupIndex, contactIndex + 2);// sets the number of items in the list to (needs to be 2 + NUM)
-									}
-									else
-									{
-										MessageBox.Show("Unable to add contact (" + value.ContactString + ") to Rx Group (" + rxGroupName + ")", "Import error");
-										break;
+										// get the object for the group
+										RxListOneData rxGroup = RxGroupListForm.data[newRxGroupIndex];
+										int contactIndex = RxGroupListForm.data.GetContactsCountForIndex(newRxGroupIndex);
+										if (contactIndex < 32)
+										{
+											rxGroup.ContactList[contactIndex] = (ushort)(value.Contact);
+											RxGroupListForm.data.SetIndex(newRxGroupIndex, contactIndex + 2);// sets the number of items in the list to (needs to be 2 + NUM)
+										}
+										else
+										{
+											MessageBox.Show("Unable to add contact (" + value.ContactString + ") to Rx Group (" + rxGroupName + ")", "Import error");
+											break;
+										}
 									}
 								}
+								else
+								{
+									MessageBox.Show("Unable to create new Rx Group list (" + rxGroupName + ")", "Import error");
+								}
+
+								value.RxGroupList = newRxGroupIndex + 1;
 							}
 							else
 							{
-								MessageBox.Show("Unable to create new Rx Group list (" + rxGroupName + ")", "Import error");
+								value.RxGroupList = 0;
 							}
-
-							value.RxGroupList = newRxGroupIndex+1;
 
 							value.ScanListString = ((List<string>)csvRow)[num++];
 
-							string zoneNameNew = ((List<string>)csvRow)[num++];
+							zoneNameNew = ((List<string>)csvRow)[num++];
+
 							if (zoneNameNew != Settings.SZ_NONE)
 							{
-								int zoneIndex = Array.FindIndex(ZoneForm.data.ZoneList, item => item.Name == zoneNameNew);
+								zoneIndex = -1;
+								//validZonesCount = ZoneForm.data.ValidCount;
+								for (int zoneNum = 0; zoneNum < ZoneForm.data.Count; zoneNum++)
+								{
+									if (ZoneForm.data.ZoneList[zoneNum].Name == zoneNameNew)
+									{
+										zoneIndex = zoneNum;
+										break;
+									}
+								}
 								if (zoneIndex == -1)
 								{
 									zoneIndex = ZoneForm.data.GetMinIndex();
 									if (zoneIndex != -1)
 									{
+										Console.WriteLine("Adding zone " + zoneNameNew);
 										ZoneForm.data.SetIndex(zoneIndex, 1);
 										ZoneForm.data.Default(zoneIndex);
 										ZoneForm.data.SetName(zoneIndex, zoneNameNew);
@@ -597,6 +650,8 @@ namespace DMR
 
 		}
 
+// This function does not seem to be used by the CPS
+#if false
 		private void iPdgpEleug(object sender, DataGridViewCellMouseEventArgs e)
 		{
 			if (e.RowIndex >= 0 && e.ColumnIndex >= 1)
@@ -627,7 +682,7 @@ namespace DMR
 				}
 			}
 		}
-
+#endif
 		private void NligzloMrR(object sender, DataGridViewRowPostPaintEventArgs e)
 		{
 			try
@@ -820,15 +875,15 @@ namespace DMR
 			this.btnImport = new System.Windows.Forms.Button();
 			this.btnExport = new System.Windows.Forms.Button();
 			this.btnDeleteSelect = new System.Windows.Forms.Button();
-			this.cmbPower = new System.Windows.Forms.ComboBox();
-			this.cmbChMode = new System.Windows.Forms.ComboBox();
-			this.btnAdd = new System.Windows.Forms.Button();
-			this.dgvChannels = new System.Windows.Forms.DataGridView();
-			this.btnImportClear = new System.Windows.Forms.Button();
 			this.txtTxFreq = new DMR.SGTextBox();
 			this.txtRxFreq = new DMR.SGTextBox();
 			this.txtName = new DMR.SGTextBox();
+			this.cmbPower = new System.Windows.Forms.ComboBox();
+			this.cmbChMode = new System.Windows.Forms.ComboBox();
 			this.cmbAddChMode = new CustomCombo();
+			this.btnAdd = new System.Windows.Forms.Button();
+			this.dgvChannels = new System.Windows.Forms.DataGridView();
+			this.btnImportClearAll = new System.Windows.Forms.Button();
 			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -861,9 +916,9 @@ namespace DMR
 			// 
 			// btnImport
 			// 
-			this.btnImport.Location = new System.Drawing.Point(659, 12);
+			this.btnImport.Location = new System.Drawing.Point(591, 12);
 			this.btnImport.Name = "btnImport";
-			this.btnImport.Size = new System.Drawing.Size(75, 23);
+			this.btnImport.Size = new System.Drawing.Size(175, 23);
 			this.btnImport.TabIndex = 13;
 			this.btnImport.Text = "Import";
 			this.btnImport.UseVisualStyleBackColor = true;
@@ -888,68 +943,6 @@ namespace DMR
 			this.btnDeleteSelect.Text = "Delete Selected";
 			this.btnDeleteSelect.UseVisualStyleBackColor = true;
 			this.btnDeleteSelect.Click += new System.EventHandler(this.btnDeleteSelected_Click);
-			// 
-			// cmbPower
-			// 
-			this.cmbPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbPower.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.cmbPower.FormattingEnabled = true;
-			this.cmbPower.Location = new System.Drawing.Point(1061, 12);
-			this.cmbPower.Name = "cmbPower";
-			this.cmbPower.Size = new System.Drawing.Size(61, 24);
-			this.cmbPower.TabIndex = 8;
-			this.cmbPower.Visible = false;
-			this.cmbPower.Leave += new System.EventHandler(this.cmbPower_Leave);
-			// 
-			// cmbChMode
-			// 
-			this.cmbChMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbChMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.cmbChMode.FormattingEnabled = true;
-			this.cmbChMode.Location = new System.Drawing.Point(994, 12);
-			this.cmbChMode.Name = "cmbChMode";
-			this.cmbChMode.Size = new System.Drawing.Size(61, 24);
-			this.cmbChMode.TabIndex = 7;
-			this.cmbChMode.Visible = false;
-			this.cmbChMode.Leave += new System.EventHandler(this.cmbChMode_Leave);
-			// 
-			// btnAdd
-			// 
-			this.btnAdd.Location = new System.Drawing.Point(139, 11);
-			this.btnAdd.Name = "btnAdd";
-			this.btnAdd.Size = new System.Drawing.Size(75, 23);
-			this.btnAdd.TabIndex = 1;
-			this.btnAdd.Text = "Add";
-			this.btnAdd.UseVisualStyleBackColor = true;
-			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-			// 
-			// dgvChannels
-			// 
-			this.dgvChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.dgvChannels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgvChannels.Location = new System.Drawing.Point(12, 42);
-			this.dgvChannels.Name = "dgvChannels";
-			this.dgvChannels.ReadOnly = true;
-			this.dgvChannels.RowHeadersWidth = 50;
-			this.dgvChannels.RowTemplate.Height = 23;
-			this.dgvChannels.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgvChannels.Size = new System.Drawing.Size(1110, 457);
-			this.dgvChannels.TabIndex = 9;
-			this.dgvChannels.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvChannels_RowHeaderMouseDoubleClick);
-			this.dgvChannels.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.NligzloMrR);
-			this.dgvChannels.SelectionChanged += new System.EventHandler(this.dgvChannels_SelectionChanged);
-			// 
-			// btnImportClear
-			// 
-			this.btnImportClear.Location = new System.Drawing.Point(772, 12);
-			this.btnImportClear.Name = "btnImportClear";
-			this.btnImportClear.Size = new System.Drawing.Size(125, 23);
-			this.btnImportClear.TabIndex = 13;
-			this.btnImportClear.Text = "Clear and Import";
-			this.btnImportClear.UseVisualStyleBackColor = true;
-			this.btnImportClear.Visible = false;
-			this.btnImportClear.Click += new System.EventHandler(this.btnImportClear_Click);
 			// 
 			// txtTxFreq
 			// 
@@ -984,6 +977,30 @@ namespace DMR
 			this.txtName.Visible = false;
 			this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
 			// 
+			// cmbPower
+			// 
+			this.cmbPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbPower.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.cmbPower.FormattingEnabled = true;
+			this.cmbPower.Location = new System.Drawing.Point(1061, 12);
+			this.cmbPower.Name = "cmbPower";
+			this.cmbPower.Size = new System.Drawing.Size(61, 24);
+			this.cmbPower.TabIndex = 8;
+			this.cmbPower.Visible = false;
+			this.cmbPower.Leave += new System.EventHandler(this.cmbPower_Leave);
+			// 
+			// cmbChMode
+			// 
+			this.cmbChMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbChMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.cmbChMode.FormattingEnabled = true;
+			this.cmbChMode.Location = new System.Drawing.Point(994, 12);
+			this.cmbChMode.Name = "cmbChMode";
+			this.cmbChMode.Size = new System.Drawing.Size(61, 24);
+			this.cmbChMode.TabIndex = 7;
+			this.cmbChMode.Visible = false;
+			this.cmbChMode.Leave += new System.EventHandler(this.cmbChMode_Leave);
+			// 
 			// cmbAddChMode
 			// 
 			this.cmbAddChMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -992,6 +1009,43 @@ namespace DMR
 			this.cmbAddChMode.Name = "cmbAddChMode";
 			this.cmbAddChMode.Size = new System.Drawing.Size(109, 24);
 			this.cmbAddChMode.TabIndex = 0;
+			// 
+			// btnAdd
+			// 
+			this.btnAdd.Location = new System.Drawing.Point(139, 11);
+			this.btnAdd.Name = "btnAdd";
+			this.btnAdd.Size = new System.Drawing.Size(75, 23);
+			this.btnAdd.TabIndex = 1;
+			this.btnAdd.Text = "Add";
+			this.btnAdd.UseVisualStyleBackColor = true;
+			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+			// 
+			// dgvChannels
+			// 
+			this.dgvChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.dgvChannels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgvChannels.Location = new System.Drawing.Point(12, 42);
+			this.dgvChannels.Name = "dgvChannels";
+			this.dgvChannels.ReadOnly = true;
+			this.dgvChannels.RowHeadersWidth = 50;
+			this.dgvChannels.RowTemplate.Height = 23;
+			this.dgvChannels.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.dgvChannels.Size = new System.Drawing.Size(1110, 457);
+			this.dgvChannels.TabIndex = 9;
+			this.dgvChannels.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvChannels_RowHeaderMouseDoubleClick);
+			this.dgvChannels.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.NligzloMrR);
+			this.dgvChannels.SelectionChanged += new System.EventHandler(this.dgvChannels_SelectionChanged);
+			// 
+			// btnImportClearAll
+			// 
+			this.btnImportClearAll.Location = new System.Drawing.Point(772, 12);
+			this.btnImportClearAll.Name = "btnImportClearAll";
+			this.btnImportClearAll.Size = new System.Drawing.Size(190, 23);
+			this.btnImportClearAll.TabIndex = 13;
+			this.btnImportClearAll.Text = "Clear and Import";
+			this.btnImportClearAll.UseVisualStyleBackColor = true;
+			this.btnImportClearAll.Click += new System.EventHandler(this.btnImportClearAll_Click);
 			// 
 			// dataGridViewTextBoxColumn1
 			// 
@@ -1026,7 +1080,7 @@ namespace DMR
 			// ChannelsForm
 			// 
 			this.ClientSize = new System.Drawing.Size(1136, 531);
-			this.Controls.Add(this.btnImportClear);
+			this.Controls.Add(this.btnImportClearAll);
 			this.Controls.Add(this.pnlChannel);
 			this.Font = new System.Drawing.Font("Arial", 10F);
 			this.Name = "ChannelsForm";

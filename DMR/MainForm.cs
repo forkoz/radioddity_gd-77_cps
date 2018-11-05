@@ -2268,16 +2268,19 @@ namespace DMR
 					{
 						if (treeNodeItem.Index + 1 == ZoneForm.data.FstZoneFstCh)
 						{
-							this.tsmiDel.Visible = false;
+							this.tsmiDel.Visible = true;
+							//this.tsmiDel.Visible = false;
 						}
 						else
 						{
-							this.tsmiDel.Visible = (selectedNode.Parent.Nodes.Count != 1 && selectedNode.Index != 0);
+							this.tsmiDel.Visible = true;
+							//this.tsmiDel.Visible = (selectedNode.Parent.Nodes.Count != 1 && selectedNode.Index != 0);
 						}
 					}
 					else
 					{
-						this.tsmiDel.Visible = (selectedNode.Parent.Nodes.Count != 1 && selectedNode.Index != 0);
+						this.tsmiDel.Visible = true;
+						//this.tsmiDel.Visible = (selectedNode.Parent.Nodes.Count != 1 && selectedNode.Index != 0);
 					}
 					this.tsmiPaste.Visible = (this.CopyItem != null && this.CopyItem != treeNodeItem && this.CopyItem.Type == treeNodeItem.Type);
 				}
@@ -2301,9 +2304,9 @@ namespace DMR
 				treeNode = selectedNode.Parent;
 				treeNodeItem = (selectedNode.Tag as TreeNodeItem);
 				this.method_2();
-				if (treeNodeItem != null && treeNode.Nodes.Count > 1 && treeNodeItem.Cms == this.cmsSub && selectedNode.Index != 0)
+				if (treeNodeItem != null && treeNode.Nodes.Count > 0 && treeNodeItem.Cms == this.cmsSub)// && selectedNode.Index != 0)
 				{
-					if (treeNodeItem.Type == typeof(ChannelForm) && treeNodeItem.Index + 1 == ZoneForm.data.FstZoneFstCh)
+					if (false && treeNodeItem.Type == typeof(ChannelForm) && treeNodeItem.Index + 1 == ZoneForm.data.FstZoneFstCh)
 					{
 						MessageBox.Show(Settings.dicCommon["FirstChNotDelete"]);
 					}
@@ -2353,8 +2356,8 @@ namespace DMR
                         if (treeNodeItem.Type == typeof(ZoneForm))
                         {
                             ZoneForm.CompactZones();
-                            parentNode.Nodes.Clear();
-                            this.InitZones(parentNode);
+                        //    parentNode.Nodes.Clear();
+                        //    this.InitZones(parentNode);
                         }
                     }
 				}

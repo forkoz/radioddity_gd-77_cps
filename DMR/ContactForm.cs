@@ -974,6 +974,10 @@ namespace DMR
 				try
 				{
 					int index = Convert.ToInt32(base.Tag);
+					if (index == -1)
+					{
+						return;
+					}
 					if (this.txtName.Focused)
 					{
 						this.txtName_Leave(this.txtName, null);
@@ -999,6 +1003,11 @@ namespace DMR
 			try
 			{
 				int num = Convert.ToInt32(base.Tag);
+				if (num == -1)
+				{
+					this.Close();
+					return;
+				}
 				if (!ContactForm.data.DataIsValid(num))
 				{
 					num = ContactForm.data.FindNextValidIndex(num);

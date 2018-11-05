@@ -137,8 +137,9 @@
 	</ChannelForm>
 	<ChannelsForm Text="Channels">
 			<Controls>
-			<Control Id="btnImport" Text="Import" />
-			<Control Id="btnExport" Text="Export selected rows" />
+			<Control Id="btnImport" Text="Import Update/Append" />
+      <Control Id="btnImportClearAll" Text="Import Clear All!"/>
+      <Control Id="btnExport" Text="Export selected rows" />
 			<Control Id="btnDeleteSelect" Text="Delete selected rows" />
 			<Control Id="btnClear" Text="Clear all" />
 			<Control Id="btnDelete" Text="Delete" />

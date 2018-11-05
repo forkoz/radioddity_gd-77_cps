@@ -221,6 +221,10 @@ namespace DMR
 			try
 			{
 				num3 = Convert.ToInt32(base.Tag);
+				if (num3 == -1)
+				{
+					return;
+				}
 				if (this.txtName.Focused)
 				{
 					this.txtName_Leave(this.txtName, null);
@@ -254,6 +258,11 @@ namespace DMR
 			try
 			{
 				num2 = Convert.ToInt32(base.Tag);
+				if (num2 == -1)
+				{
+					this.Close();
+					return;
+				}
 				this.txtName.Text = RxGroupListForm.data[num2].Name;
 				this.lstSelected.Items.Clear();
 				num4 = RxGroupListForm.data.GetContactCntByIndex(num2);

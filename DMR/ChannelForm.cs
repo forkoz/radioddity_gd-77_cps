@@ -1843,7 +1843,7 @@ namespace DMR
 
 			public bool DataIsValid(int index)
 			{
-				if (index < 1024)
+				if (index > -1 && index < 1024)
 				{
 					BitArray bitArray = new BitArray(this.chIndex);
 					return bitArray[index];
@@ -1853,7 +1853,7 @@ namespace DMR
 
 			public bool IsGroupCall(int index)
 			{
-				if (index < 1024 && ChannelForm.data.DataIsValid(index) && this.chList[index].ChMode == 1)
+				if (index > -1 && index < 1024 && ChannelForm.data.DataIsValid(index) && this.chList[index].ChMode == 1)
 				{
 					int contact = this.chList[index].Contact;
 					if (contact >= 1 && contact <= ContactForm.data.Count)
@@ -2597,7 +2597,12 @@ namespace DMR
 		public void SaveData()
 		{
 			int num = Convert.ToInt32(base.Tag);
+			if (num == -1)
+			{
+				return;
+			}
 			int index = num % 1024;
+
 			this.ValidateChildren();
 			ChannelOne value = new ChannelOne(num);
 			if (this.txtName.Focused)
@@ -2660,6 +2665,11 @@ namespace DMR
 		public void DispData()
 		{
 			int num = Convert.ToInt32(base.Tag);
+			if (num == -1)
+			{
+				this.Close();
+				return;
+			}
 			if (!ChannelForm.data.DataIsValid(num))
 			{
 				num = ChannelForm.data.FindNextValidIndex(num);
@@ -2728,7 +2738,7 @@ namespace DMR
 			this.method_13();
 			this.method_14();
 			this.method_15();
-			this.method_16();
+			this.configureNavigationButtons();
 			this.RefreshByUserMode();
             this.ValidateChildren();
 		}
@@ -3551,7 +3561,7 @@ namespace DMR
 			}
 		}
 
-		private void method_16()
+		private void configureNavigationButtons()
 		{
 			this.tsbtnAdd.Enabled = (this.Node.Parent.Nodes.Count != ChannelForm.CurCntCh);
 			this.tsbtnDel.Enabled = (this.Node.Parent.Nodes.Count != 1 && this.Node.Index != 0 && !this.method_17());

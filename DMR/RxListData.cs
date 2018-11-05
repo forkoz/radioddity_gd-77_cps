@@ -173,7 +173,7 @@ namespace DMR
 
 		public int GetContactsCountForIndex(int index)
 		{
-			return this.rxListIndex[index]-1;
+			return Math.Max(0,this.rxListIndex[index]-1);
 		}
 
 		public void ClearIndex(int index)
@@ -241,6 +241,11 @@ namespace DMR
 
 		public void Default(int index)
 		{
+			/* Roger Clark. Its potentially best to initialise the Rx list with an array with worst case size
+			if (this.rxList[index].ContactList.Length != 32)
+			{
+				this.rxList[index].ContactList = new ushort[32];
+			}*/
 			this.rxList[index].ContactList.Fill((ushort)0);
 		}
 

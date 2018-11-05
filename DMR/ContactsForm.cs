@@ -455,7 +455,7 @@ namespace DMR
 			{
 				num = this.dgvContacts.SelectedRows[0].Index;
 				num2 = (int)this.dgvContacts.SelectedRows[0].Tag;
-				if (num != 0)
+				//if (num != 0)
 				{
 					this.dgvContacts.Rows.Remove(this.dgvContacts.SelectedRows[0]);
 					ContactForm.data.ClearIndex(num2);
@@ -467,7 +467,7 @@ namespace DMR
 					}
 					continue;
 				}
-				MessageBox.Show(Settings.dicCommon["FirstNotDelete"]);
+			//	MessageBox.Show(Settings.dicCommon["FirstNotDelete"]);
 				break;
 			}
 			this.method_1();
@@ -561,7 +561,14 @@ namespace DMR
 
 		private void method_1()
 		{
-			this.btnDelete.Enabled = !this.dgvContacts.SelectedRows.Contains(this.dgvContacts.Rows[0]);
+			if (this.dgvContacts.Rows.Count > 0)
+			{
+				this.btnDelete.Enabled = !this.dgvContacts.SelectedRows.Contains(this.dgvContacts.Rows[0]);
+			}
+			else
+			{
+				this.btnDelete.Enabled = false;
+			}
 			this.btnAdd.Enabled = (this.dgvContacts.RowCount < ContactForm.data.Count);
 		}
 

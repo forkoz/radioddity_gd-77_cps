@@ -533,7 +533,7 @@ namespace DMR
 			{
 				zn = ZoneForm.data.ZoneList[i];
 				srcIsValid = ZoneForm.data.DataIsValid(i);
-				ZoneForm.data.ZoneList[destZoneNum] = zn;// new ZoneOne(zn);
+				ZoneForm.data.ZoneList[destZoneNum] =  new ZoneOne(zn);// Roger Clark. Had to reinstate using the copy constructor, because just assigning objects could cause all Zones to point to (use) the same zone object.
 				if (srcIsValid)
 				{
 					ZoneForm.data.SetIndex(destZoneNum, 1);
@@ -552,10 +552,10 @@ namespace DMR
 		public static void CompactZones()
 		{
 			int nextFreeIndex = -1;
-			ZoneOne zn;
+			//ZoneOne zn;
 			for (int i = 0; i < ZoneForm.data.ZoneList.Length;i++)
 			{
-				zn = ZoneForm.data.ZoneList[i];
+				//zn = ZoneForm.data.ZoneList[i];
 
 				if (nextFreeIndex == -1 && !ZoneForm.data.DataIsValid(i))
 				{
@@ -1159,6 +1159,10 @@ namespace DMR
 			try
 			{
 				num3 = Convert.ToInt32(base.Tag);
+				if (num3 == -1)
+				{
+					return;
+				}
 				ZoneOne value = new ZoneOne(num3);
 				if (this.txtName.Focused)
 				{
@@ -1219,6 +1223,11 @@ namespace DMR
 			try
 			{
 				num3 = Convert.ToInt32(base.Tag);
+				if (num3 == -1)
+				{
+					this.Close();
+					return;
+				}
 				ZoneOne zoneOne = ZoneForm.data[num3];
 				this.txtName.Text = zoneOne.Name;
 				this.lstSelected.Items.Clear();
