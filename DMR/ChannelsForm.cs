@@ -357,12 +357,27 @@ namespace DMR
 						// This does not work yet
 						if (clearFirst)
 						{
+							// Need to prevent the TG's used by the VFO from being cleared, because their data is not part of the channels import
+							int [] vfoTGs = new int[2];
+							vfoTGs[0] = -1;
+							vfoTGs[1] = -1;
+							if (VfoForm.data[0].ChMode == 1)
+							{
+								vfoTGs[0] = VfoForm.data[0].Contact - 1;
+							}
 
+							if (VfoForm.data[1].ChMode == 1)
+							{
+								vfoTGs[1] = VfoForm.data[1].Contact - 1;
+							}
 
 							for (int num = 0; num < ContactForm.data.Count; num++)
 							{
-								ContactForm.data.ClearIndex(num);
-								ContactForm.data.Default(num);
+								if (vfoTGs[0] != num && vfoTGs[1] != num)
+								{
+									ContactForm.data.ClearIndex(num);
+									ContactForm.data.Default(num);
+								}
 							}
 
 							for (int num = 0; num < RxGroupListForm.data.Count; num++)
@@ -371,6 +386,8 @@ namespace DMR
 								RxGroupListForm.data.Default(num);
 							}
 							/*
+							 * For some reason. If I delete all Zones, the underlying code has problems. 
+							 * Hence this is disabled until I work out why this happens
 							for (int num = 0; num < ZoneForm.data.Count; num++)
 							{
 								ZoneForm.data.ClearIndex(num);
