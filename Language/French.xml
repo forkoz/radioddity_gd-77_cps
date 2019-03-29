@@ -796,7 +796,7 @@
     <Item Id="EnableMemoryAccessMode" Text ="The GD-77 does not seem to be in Memory Access modeHold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver, and try again" />
     <Item Id="dataRead" Text="Reading data from GD-77"/>
     <Item Id="dataWrite" Text="Writing data to GD-77"/>
-    <Item Id="DMRIdContcatsTotal" Text="Total number of IDs = {0}. Max of 10920 can be uploaded" />
+    <Item Id="DMRIdContcatsTotal" Text="Total number of IDs = {0}. Max of {1} can be uploaded" />
     <Item Id="ErrorParsingData" Text="Error while parsing data" />
   </Commons>
 </Resource>

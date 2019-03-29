@@ -15,13 +15,15 @@ namespace DMR
 		private enum EncryptType
 		{
 			None,
-			Basic
+			Basic,
+			Enhanced
 		}
 
 		private enum KeyLen
 		{
 			Length32,
-			Length64
+			Length64,
+			Length40
 		}
 
 		[Serializable]
@@ -616,10 +618,12 @@ namespace DMR
 			this.lblType.TextAlign = ContentAlignment.MiddleRight;
 			this.cmbType.DropDownStyle = ComboBoxStyle.DropDownList;
 			this.cmbType.FormattingEnabled = true;
-			this.cmbType.Items.AddRange(new object[2]
+			this.cmbType.Items.AddRange(new object[3]
 			{
 				"None",
-				"Basic"
+				"Basic",
+				"Enhanced"
+
 			});
 			this.cmbType.Location = new Point(168, 41);
 			this.cmbType.Name = "cmbType";
@@ -634,10 +638,11 @@ namespace DMR
 			this.lblKeyLen.TextAlign = ContentAlignment.MiddleRight;
 			this.cmbKeyLen.DropDownStyle = ComboBoxStyle.DropDownList;
 			this.cmbKeyLen.FormattingEnabled = true;
-			this.cmbKeyLen.Items.AddRange(new object[2]
+			this.cmbKeyLen.Items.AddRange(new object[3]
 			{
 				"32",
-				"64"
+				"64",
+				"40"
 			});
 			this.cmbKeyLen.Location = new Point(168, 71);
 			this.cmbKeyLen.Name = "cmbKeyLen";
@@ -705,15 +710,17 @@ namespace DMR
 		static EncryptForm()
 		{
 			
-			EncryptForm.SZ_ENCRYPT_TYPE = new string[2]
+			EncryptForm.SZ_ENCRYPT_TYPE = new string[3]
 			{
 				"None",
-				"Basic"
+				"Basic",
+				"Ehnanced"
 			};
-			EncryptForm.SZ_KEY_LEN = new string[2]
+			EncryptForm.SZ_KEY_LEN = new string[3]
 			{
 				"32",
-				"64"
+				"64",
+				"40"
 			};
 			EncryptForm.data = new Encrypt();
 		}

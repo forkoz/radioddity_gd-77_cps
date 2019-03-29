@@ -14,27 +14,34 @@ namespace DMR
 {
 	public partial class DMRIDForm : Form
 	{
-		public static byte[] DMRIDBuffer = new byte[0x20000];
+		public static byte[] DMRIDBuffer = new byte[0x40000];
 
 		static  List<DMRDataItem> DataList = null;
 		private static byte[] SIG_PATTERN_BYTES;
 		private WebClient _wc;
 		private bool _isDownloading = false;
-		const int MAX_RECORDS = 10920;
+		//private int MAX_RECORDS = 10920;
+		private int _stringLength = 8;
+		const int HEADER_LENGTH = 12;
 
 		public static void ClearStaticData()
 		{
-			DMRIDBuffer = new byte[0x20000];
+			DMRIDBuffer = new byte[0x40000];
 		}
 
 		public DMRIDForm()
 		{
 			SIG_PATTERN_BYTES = new byte[] { 0x49, 0x44, 0x2D, 0x56, 0x30, 0x30, 0x31, 0x00 };
 			InitializeComponent();
+			//cmbStringLen.Visible = false;
+
 
 			txtRegionId.Text = (int.Parse(GeneralSetForm.data.RadioId) / 10000).ToString();
 
 			DataList = new List<DMRDataItem>();
+
+			cmbStringLen.SelectedIndex = 2;
+
 
 			dataGridView1.AutoGenerateColumns = false;
 			DataGridViewCell cell = new DataGridViewTextBoxCell();
@@ -190,7 +197,7 @@ namespace DMR
 		private void updateTotalNumberMessage()
 		{
 			string message = Settings.dicCommon["DMRIdContcatsTotal"];// "Total number of IDs = {0}. Max of MAX_RECORDS can be uploaded";
-			lblMessage.Text = string.Format(message, DataList.Count);
+			lblMessage.Text = string.Format(message, DataList.Count, MAX_RECORDS);
 		}
 
 		private void downloadProgressHandler(object sender, DownloadProgressChangedEventArgs e)
@@ -210,6 +217,7 @@ namespace DMR
 
 		private void btnReadFromGD77_Click(object sender, EventArgs e)
 		{
+
 			MainForm.CommsBuffer = new byte[0x100000];// 128k buffer
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			CommPrgForm commPrgForm = new CommPrgForm(true);// true =  close download form as soon as download is complete
@@ -231,9 +239,15 @@ namespace DMR
 
 
 			int numRecords = BitConverter.ToInt32(DMRIDForm.DMRIDBuffer, 8);
+			int stringLen = (int)DMRIDForm.DMRIDBuffer[3]-0x4a - 4;
+			if (stringLen!=8)
+			{
+				chkEnhancedFirmware.Checked=true;
+			}
+			cmbStringLen.SelectedIndex = stringLen - 6;
 			
 			CodeplugComms.startAddress = 0x30000;
-			CodeplugComms.transferLength = Math.Min(0x20000,12 + (numRecords+2)*12);
+			CodeplugComms.transferLength = Math.Min((this.chkEnhancedFirmware.Checked == true ? 0x40000 : 0x20000), HEADER_LENGTH + (numRecords + 2) * (4 + _stringLength));
 
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			result = commPrgForm.ShowDialog();
@@ -245,46 +259,41 @@ namespace DMR
 
 		private void radioToData()
 		{
-			byte []buf = new byte[12];
+			byte[] buf = new byte[(4 + _stringLength)];
 			DataList = new List<DMRDataItem>();
 			int numRecords = BitConverter.ToInt32(DMRIDForm.DMRIDBuffer, 8);
 			for (int i = 0; i < numRecords; i++)
 			{
-				Array.Copy(DMRIDForm.DMRIDBuffer, 0x0c + i*12, buf, 0, 12);
-				DataList.Add((new DMRDataItem()).FromRadio(buf));
+				Array.Copy(DMRIDForm.DMRIDBuffer, HEADER_LENGTH + i * (4 + _stringLength), buf, 0, (4 + _stringLength));
+				DataList.Add((new DMRDataItem()).FromRadio(buf, _stringLength));
 			}
 		}
 
 		public void CodeplugToData()
 		{
-			byte[] buf = new byte[12];
+			byte[] buf = new byte[(4 + _stringLength)];
 			DataList = new List<DMRDataItem>();
 			int numRecords = BitConverter.ToInt32(DMRIDForm.DMRIDBuffer, 8);// Number of records is stored at offset 8
 			for (int i = 0; i < numRecords; i++)
 			{
-				Array.Copy(DMRIDForm.DMRIDBuffer, 0x0c + i * 12, buf, 0, 12);
-				DataList.Add(new DMRDataItem(buf));
+				Array.Copy(DMRIDForm.DMRIDBuffer, HEADER_LENGTH + i * (4 + _stringLength), buf, 0, (4 + _stringLength));
+				DataList.Add(new DMRDataItem(buf, _stringLength));
 			}
 		}
 
-#if false
-		public static void DataToCodeplug()
+		private int MAX_RECORDS
 		{
-			int numRecords = Math.Min(DataList.Count,MAX_RECORDS);// max records is 109020 (as thats all that will fit in 0x20000
-			Array.Copy(SIG_PATTERN_BYTES, DMRIDBuffer, SIG_PATTERN_BYTES.Length);
-			Array.Copy(BitConverter.GetBytes(numRecords), 0, DMRIDBuffer, 8, 4);// Update number of records field
-			for (int i = 0; i< numRecords;i++)
+			get
 			{
-				Array.Copy(DataList[i].getCodeplugData(), 0, DMRIDBuffer, 0x0c + i * 12, 12);
+				return ((this.chkEnhancedFirmware.Checked==true?0x40000:0x20000) - HEADER_LENGTH) / (_stringLength + 4);
 			}
 		}
-#endif
-
 
 		private byte[] GenerateUploadData()
 		{
+
 			int numRecords = Math.Min(DataList.Count, MAX_RECORDS);
-			int dataSize = numRecords * 12 + 12;
+			int dataSize = numRecords * (4 + _stringLength) + HEADER_LENGTH;
 			dataSize = ((dataSize / 32)+1) * 32;
 			byte[] buffer = new byte[dataSize];
 
@@ -299,7 +308,7 @@ namespace DMR
 			uploadList.Sort();
 			for (int i = 0; i < numRecords; i++)
 			{
-				Array.Copy(uploadList[i].getRadioData(rbtnName.Checked), 0, buffer, 0x0c + i * 12, 12);
+				Array.Copy(uploadList[i].getRadioData(rbtnName.Checked,_stringLength), 0, buffer, HEADER_LENGTH + i * (4 + _stringLength), (4 + _stringLength));
 			}
 			return buffer;
 		}
@@ -353,6 +362,10 @@ namespace DMR
 				return;
 			}
 
+
+
+			SIG_PATTERN_BYTES[3] = (byte)(0x4a + _stringLength + 4);
+
 			byte []uploadData = GenerateUploadData();
 			Array.Copy(uploadData, 0, MainForm.CommsBuffer, 0x30000, (uploadData.Length/32)*32);
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataWrite;
@@ -372,6 +385,27 @@ namespace DMR
 		{
 			Settings.smethod_59(base.Controls);
 			Settings.smethod_68(this);// Update texts etc from language xml file
+		}
+
+		private void chkEnhancedFirmware_CheckedChanged(object sender, EventArgs e)
+		{
+			if (this.chkEnhancedFirmware.Checked == false)
+			{
+				cmbStringLen.Visible = false;
+				cmbStringLen.SelectedIndex = 2;
+			}
+			else
+			{
+				cmbStringLen.Visible = true;
+			}
+			
+			updateTotalNumberMessage();
+		}
+
+		private void cmbStringLen_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			_stringLength = cmbStringLen.SelectedIndex + 6;
+			updateTotalNumberMessage();
 		}
 	}
 }

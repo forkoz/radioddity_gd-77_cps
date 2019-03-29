@@ -41,17 +41,17 @@ namespace DMR
 		}
 
 		// Create from Data stored in the Codeplug
-		public DMRDataItem(byte []data)
+		public DMRDataItem(byte[] data, int stringLength)
 		{
-			Callsign = System.Text.Encoding.Default.GetString(data, 4, 8);
+			Callsign = System.Text.Encoding.Default.GetString(data, 4, stringLength);
 			DMRId = BitConverter.ToInt32(data, 0);
 		}
 
 		// Create from a semicolon separated string from Hamdigital
-		public DMRDataItem FromRadio(byte [] record)
+		public DMRDataItem FromRadio(byte[] record, int stringLength)
 		{
 			byte[] dmrid = new byte[4];
-			Callsign = System.Text.Encoding.Default.GetString(record, 4, 8);
+			Callsign = System.Text.Encoding.Default.GetString(record, 4, stringLength);
 
 			Array.Copy(record, dmrid, 4);
 			DMRId = 0;
@@ -78,21 +78,31 @@ namespace DMR
 		}
 
 		// Convert to format to send to the radio (GD-77)
-		public byte[] getRadioData(bool useName=false)
+		public byte[] getRadioData(bool useName, int stringLength)
 		{
-			byte [] radioData = new byte[12];
+			byte[] radioData = new byte[stringLength+4];
 			if (DMRId != 0)
 			{
 				byte[] displayBuf;
-				if (useName)
+				if (stringLength > 8)
 				{
-					displayBuf = Encoding.UTF8.GetBytes(Name);
+					displayBuf = Encoding.UTF8.GetBytes(Callsign + " " + Name); 
 				}
 				else
 				{
-					displayBuf = Encoding.UTF8.GetBytes(Callsign);
+					if (useName)
+					{
+						displayBuf = Encoding.UTF8.GetBytes(Name);
+					}
+					else
+					{
+						displayBuf = Encoding.UTF8.GetBytes(Callsign);
+					}
 				}
-				Array.Copy(displayBuf, 0, radioData, 4, Math.Min(8,displayBuf.Length));
+
+
+
+				Array.Copy(displayBuf, 0, radioData, 4, Math.Min(stringLength, displayBuf.Length));
 
 				int dmrid = DMRId;
 				for (int i = 0; i < 4; i++)
@@ -104,9 +114,9 @@ namespace DMR
 			return radioData; 
 		}
 
-		public byte[] getCodeplugData()
+		public byte[] getCodeplugData(int stringLength)
 		{
-			byte [] codeplugData = new byte[12];
+			byte[] codeplugData = new byte[4+stringLength];
 			if (DMRId != 0)
 			{
 				byte[] callsignbBuf = Encoding.UTF8.GetBytes(Callsign);
