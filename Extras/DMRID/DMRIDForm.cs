@@ -33,8 +33,9 @@ namespace DMR
 		{
 			SIG_PATTERN_BYTES = new byte[] { 0x49, 0x44, 0x2D, 0x56, 0x30, 0x30, 0x31, 0x00 };
 			InitializeComponent();
-			//cmbStringLen.Visible = false;
-
+			groupBox1.Visible = false; // This is redundant. So hide it until I have time to remove it.
+			cmbStringLen.Visible = false;
+			lblEnhancedLength.Visible = false;
 
 			txtRegionId.Text = (int.Parse(GeneralSetForm.data.RadioId) / 10000).ToString();
 
@@ -392,11 +393,21 @@ namespace DMR
 			if (this.chkEnhancedFirmware.Checked == false)
 			{
 				cmbStringLen.Visible = false;
+				lblEnhancedLength.Visible = false;
 				cmbStringLen.SelectedIndex = 2;
 			}
 			else
 			{
-				cmbStringLen.Visible = true;
+
+				if (DialogResult.Yes == MessageBox.Show("This mode only works with the experimental software.\nYou use it at your own risk.\n\nUploading the DMR ID's to the Radioddity GD-77, using this feature, could potentially damage your radio.\n\nBy clicking 'Yes' you acknoledge that you use this feature entirely at your own risk", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2))
+				{
+					cmbStringLen.Visible = true;
+					lblEnhancedLength.Visible = true;
+				}
+				else
+				{
+					this.Close();
+				}
 			}
 			
 			updateTotalNumberMessage();

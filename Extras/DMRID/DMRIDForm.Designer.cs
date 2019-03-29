@@ -44,6 +44,7 @@
 			this.rbtnCallsign = new System.Windows.Forms.RadioButton();
 			this.chkEnhancedFirmware = new System.Windows.Forms.CheckBox();
 			this.cmbStringLen = new System.Windows.Forms.ComboBox();
+			this.lblEnhancedLength = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
@@ -176,7 +177,7 @@
 			// chkEnhancedFirmware
 			// 
 			this.chkEnhancedFirmware.AutoSize = true;
-			this.chkEnhancedFirmware.Location = new System.Drawing.Point(146, 38);
+			this.chkEnhancedFirmware.Location = new System.Drawing.Point(148, 72);
 			this.chkEnhancedFirmware.Name = "chkEnhancedFirmware";
 			this.chkEnhancedFirmware.Size = new System.Drawing.Size(146, 17);
 			this.chkEnhancedFirmware.TabIndex = 9;
@@ -199,17 +200,27 @@
             "14",
             "15",
             "16"});
-			this.cmbStringLen.Location = new System.Drawing.Point(146, 70);
+			this.cmbStringLen.Location = new System.Drawing.Point(148, 43);
 			this.cmbStringLen.Name = "cmbStringLen";
-			this.cmbStringLen.Size = new System.Drawing.Size(121, 21);
+			this.cmbStringLen.Size = new System.Drawing.Size(56, 21);
 			this.cmbStringLen.TabIndex = 10;
 			this.cmbStringLen.SelectedIndexChanged += new System.EventHandler(this.cmbStringLen_SelectedIndexChanged);
+			// 
+			// lblEnhancedLength
+			// 
+			this.lblEnhancedLength.AutoSize = true;
+			this.lblEnhancedLength.Location = new System.Drawing.Point(210, 48);
+			this.lblEnhancedLength.Name = "lblEnhancedLength";
+			this.lblEnhancedLength.Size = new System.Drawing.Size(109, 13);
+			this.lblEnhancedLength.TabIndex = 11;
+			this.lblEnhancedLength.Text = "Number of characters";
 			// 
 			// DMRIDForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(526, 595);
+			this.Controls.Add(this.lblEnhancedLength);
 			this.Controls.Add(this.cmbStringLen);
 			this.Controls.Add(this.chkEnhancedFirmware);
 			this.Controls.Add(this.groupBox1);
@@ -253,5 +264,6 @@
 		private System.Windows.Forms.RadioButton rbtnCallsign;
 		private System.Windows.Forms.CheckBox chkEnhancedFirmware;
 		private System.Windows.Forms.ComboBox cmbStringLen;
+		private System.Windows.Forms.Label lblEnhancedLength;
 	}
 }
