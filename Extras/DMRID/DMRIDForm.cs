@@ -399,7 +399,7 @@ namespace DMR
 			else
 			{
 
-				if (DialogResult.Yes == MessageBox.Show("This mode only works with the experimental software.\nYou use it at your own risk.\n\nUploading the DMR ID's to the Radioddity GD-77, using this feature, could potentially damage your radio.\n\nBy clicking 'Yes' you acknoledge that you use this feature entirely at your own risk", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2))
+				if (DialogResult.Yes == MessageBox.Show("This mode ONLY works with the community firmware installed in the GD-77.\n\nDo not use this mode if you are using the official firmware\nYou use it at your own risk.\n\nUploading the DMR ID's to the Radioddity GD-77, using this feature, could potentially damage your radio.\n\nBy clicking 'Yes' you acknowledge that you use this feature entirely at your own risk", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2))
 				{
 					cmbStringLen.Visible = true;
 					lblEnhancedLength.Visible = true;
