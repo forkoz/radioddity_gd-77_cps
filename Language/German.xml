@@ -377,7 +377,7 @@
 			<TreeNode Id="DigitalContact" Text="Digitale Kontakten" />
 			<TreeNode Id="RxGroupList" Text="Empfangsgruppen" />
 			<TreeNode Id="Zone" Text="Zonen" />
-			<TreeNode Id="Channel" Text="Kanälen" />
+			<TreeNode Id="Channel" Text="Kanäle" />
 			<TreeNode Id="Scan" Text="Suchlauf" />
 			<TreeNode Id="DtmfSignal" Text="DTMF" />
 			<TreeNode Id="VFO" Text="VFO" />
