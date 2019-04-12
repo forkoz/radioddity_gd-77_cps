@@ -1501,18 +1501,21 @@ internal class Settings
 	static Settings()
 	{
 		
+		//Model Name
+		//MD-760P vs 1801
 		Settings.curUserMode = UserMode.Basic;
 		Settings.CUR_MODEL = new byte[8]
 		{
-			77,
-			68,
-			45,
-			55,
-			54,
-			48,
-			80,
+			0x31, //1
+			0x38, //8
+			0x30, //0
+			0x31, //1
+			255,
+			255,
+			255,
 			255
 		};
+		
 		Settings.SZ_NONE = "None";
 		Settings.SZ_SELECTED = "Selected";
 		Settings.SZ_ADD = "Add";
