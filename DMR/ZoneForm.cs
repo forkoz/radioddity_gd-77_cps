@@ -23,7 +23,7 @@ namespace DMR
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
 			private byte[] name;
 
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
 			private ushort[] chList;
 
 
@@ -59,7 +59,7 @@ namespace DMR
 				
 				this = default(ZoneOne);
 				this.name = new byte[16];
-				this.chList = new ushort[16];
+				this.chList = new ushort[32];
 			}
 
 			// Roger Clark. Added copy constructor
@@ -68,15 +68,15 @@ namespace DMR
 
 				this = default(ZoneOne);
 				this.name = new byte[16];
-				this.chList = new ushort[16];
+				this.chList = new ushort[32];
 				Array.Copy(zone.name, this.name, 16);
-				Array.Copy(zone.chList, this.chList, 16);
+				Array.Copy(zone.chList, this.chList, 32);
 			}
 
 			public byte[] ToEerom()
 			{
 				int num = 0;
-				byte[] array = new byte[32];
+				byte[] array = new byte[48];
 				array.Fill((byte)0);
 				Array.Copy(this.name, array, 16);
 				ushort[] array2 = this.chList;
@@ -440,7 +440,7 @@ namespace DMR
 			public byte[] ToEerom(int index, int length)
 			{
 				int num = 0;
-				byte[] array = new byte[32 * length];
+				byte[] array = new byte[48 * length];
 				for (num = 0; num < length; num++)
 				{
 					byte[] array2 = this.ZoneList[index + num].ToEerom();
@@ -770,24 +770,6 @@ namespace DMR
 				}
 			}
 		}
-		/* These constants don't seem to be used
-		public const int CNT_ZONE_GROUP = 8;
-
-		public const int CNT_ZONE_PER_ZONE_GROUP = 32;
-
-		public const int CNT_BASIC_ZONE = 2;
-
-		public const int CNT_ZONE = 250;
-
-		public const int SPACE_ZONE_INDEX = 32;
-
-		public const int CNT_ZONE_LAST_ZONE_GROUP = 26;
-
-		public const int LEN_ZONE_NAME = 16;
-
-		public const int CNT_CH_PER_ZONE = 16;
-		*/
-		//private IContainer components;
 
 		private Button btnDel;
 
@@ -1317,7 +1299,7 @@ namespace DMR
 			int count = this.lstUnselected.SelectedIndices.Count;
 			int num2 = this.lstUnselected.SelectedIndices[count - 1];
 			this.lstSelected.SelectedItems.Clear();
-			while (this.lstUnselected.SelectedItems.Count > 0 && this.lstSelected.Items.Count < 16)
+			while (this.lstUnselected.SelectedItems.Count > 0 && this.lstSelected.Items.Count < 32)
 			{
 				SelectedItemUtils @class = (SelectedItemUtils)this.lstUnselected.SelectedItems[0];
 				@class.method_1(this.lstSelected.Items.Count);
@@ -1467,7 +1449,7 @@ namespace DMR
 		private void method_5()
 		{
 			int num = Convert.ToInt32(base.Tag);
-			this.btnAdd.Enabled = (this.lstUnselected.Items.Count > 0 && this.lstSelected.Items.Count < 16);
+			this.btnAdd.Enabled = (this.lstUnselected.Items.Count > 0 && this.lstSelected.Items.Count < 32);
 			if (num == 0 && this.lstSelected.SelectedIndices.Contains(0))
 			{
 				this.btnDel.Enabled = false;
