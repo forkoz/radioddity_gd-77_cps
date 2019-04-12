@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 # SharpDevelop 5.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GD77_CPS", "GD77_CPS.csproj", "{DEF0E499-718F-45BE-9052-2D41D049A434}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1801_CPS", "1801_CPS.csproj", "{DEF0E499-718F-45BE-9052-2D41D049A434}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

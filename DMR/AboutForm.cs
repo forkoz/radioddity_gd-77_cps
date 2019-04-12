@@ -27,11 +27,9 @@ namespace DMR
 		private void AboutForm_Load(object sender, EventArgs e)
 		{
 			Settings.smethod_68(this);
-#if CP_VER_3_0_6
-			this.lblVersion.Text = "GD-77 CPS 3.0.6 Community Edition";
-#elif CP_VER_3_1_X
-			this.lblVersion.Text = "GD-77 CPS 3.1.x Community Edition";
-#endif
+
+			this.lblVersion.Text = "DM-1801 CPS 3.0.6 Community Edition";
+
 			this.lblCompany.Text += "\n\nRoger VK3KYY/G4KYF\nColin G4EML\nJason VK7ZJA\nMike DL2MF";
 		}
 
