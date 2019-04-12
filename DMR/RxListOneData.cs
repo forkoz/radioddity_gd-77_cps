@@ -13,14 +13,9 @@ namespace DMR
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public struct RxListOneData
 	{
-#if CP_VER_3_0_6
-		public const int LEN_RX_LIST_NAME = 16;
-		public const int CNT_CONTACT_PER_RX_LIST = 15;
 
-#elif CP_VER_3_1_X
 		public const int LEN_RX_LIST_NAME = 16;
 		public const int CNT_CONTACT_PER_RX_LIST = 32;
-#endif
 
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = LEN_RX_LIST_NAME)]
 		private byte[] name;
@@ -28,9 +23,6 @@ namespace DMR
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = CNT_CONTACT_PER_RX_LIST)]
 		private ushort[] contactList;
 
-#if CP_VER_3_0_6
-		private ushort reserve;					//Spare Ushort only present in 3-0-6 
-#endif
 
 		public string Name
 		{
