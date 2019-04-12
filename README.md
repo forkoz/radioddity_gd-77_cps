@@ -1,5 +1,5 @@
-# radioddity_gd-77_cps2.0.5
-Work to enhance and improve the Radioddity GD-77 CPS, based on reverse engineering the official exe
+# DM1801 CPS made from GD77 CPS
+Its brand new so there may be bugs. But I'll be testing it and having a go. DM1801 is based on the <3.0.5 code plugs.
 
 
 ## Bugs fixed
@@ -19,12 +19,11 @@ Work to enhance and improve the Radioddity GD-77 CPS, based on reverse engineeri
 * Added feature to move Zones up or down in the list, including using control key operation
 * Added language translation files supplied by various contributors, for German, Spanish and Polish
 * Removed unused DLL files from the installation
-* Added Internet download and import of Contacts from Ham-digital.org “last heard” database, based on region ID code.
 * Language XML is cached rather than being loaded every time a screen (form) is opened.
 * Message to indicate the codeplug file has been removed, and instead the callsign is displayed in the root tree node to indicate the file has been loaded
 * Codeplug Read and Write , completion popups have been removed and replaced by a message on the progress dialog.
 * Icon has been added to top left of Windows title bar rather than using the default “Dot Net” icon.
 
-## Know bugs – part of the GD-77 firmware not the CPS
+## Know bugs - May be true for 1801 too, we'll see
 
 * Scan lists using channels above number 256 cause scan list name to be incorrectly displayed on the GD-77 screen
