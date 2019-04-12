@@ -307,9 +307,6 @@
     <None Include="Default306.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Default31X.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="DockPanel.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
