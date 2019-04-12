@@ -359,7 +359,7 @@
 	<HelpForm Text="Hilfe">
 		<Controls />
 	</HelpForm>
-	<MainForm Text="Radioddity GD-77 CPS 3.0.6 Community Edition">
+	<MainForm Text="DM-1801 CPS 3.0.6 Community Edition">
 		<TreeView>
 			<TreeNode Id="Model" Text="GD-77" />
 			<TreeNode Id="BasicInfo" Text="Grundeinstellungen" />

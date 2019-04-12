@@ -7,7 +7,7 @@
 	<AboutForm Text="A propos">
 		<Controls>
 			<Control Id="lblVersion" Text="" />
-			<Control Id="lblCompany" Text="Radioddity and GD-77 Community" />
+			<Control Id="lblCompany" Text="DM-1801 and GD-77 Community" />
 			<Control Id="btnClose" Text="OK" />
 			<Control Id="lblTranslationCredit" Text="French version by Thierry - F1CXG" />
 		</Controls>
@@ -358,9 +358,9 @@
 	<HelpForm Text="HelpView">
 		<Controls />
 	</HelpForm>
-	<MainForm Text="Radioddity GD-77 CPS 3.0.X Community Edition">
+	<MainForm Text="DM-1801 CPS 3.0.X Community Edition">
 		<TreeView>
-			<TreeNode Id="Model" Text="GD-77" />
+			<TreeNode Id="Model" Text="DMR-1801" />
 			<TreeNode Id="BasicInfo" Text="Informations de base" />
 			<TreeNode Id="BootItem" Text="Eléments de Boot" />
 			<TreeNode Id="Menu" Text="Menu" />
@@ -741,8 +741,8 @@
       <Control Id="lblRegionId" Text="Region" />
       <Control Id="lblInactivityFilter" Text="Filtre d'inactivité (jours)" />
       <Control Id="btnDownload" Text="Télécharger" />
-      <Control Id="btnRead" Text="RLire de GD-77" />
-      <Control Id="btnWrite" Text="Ecrit a GD-77" />
+      <Control Id="btnRead" Text="RLire de Radio" />
+      <Control Id="btnWrite" Text="Ecrit a Radio" />
       <Control Id="btnClear" Text="Effacer la liste" />
     </Controls>
   </DMRIDForm>
@@ -793,9 +793,9 @@
     <Item Id="IdOutOfRange" Text="ID out of range!" />
     <Item Id="IdNotEmpty" Text="ID can not be empty!" />
     <Item Id="ContactNameDuplicate" Text="Warning. Duplicate contact name." />
-    <Item Id="EnableMemoryAccessMode" Text ="The GD-77 does not seem to be in Memory Access modeHold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver, and try again" />
-    <Item Id="dataRead" Text="Reading data from GD-77"/>
-    <Item Id="dataWrite" Text="Writing data to GD-77"/>
+    <Item Id="EnableMemoryAccessMode" Text ="The Radio does not seem to be in Memory Access modeHold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver, and try again" />
+    <Item Id="dataRead" Text="Reading data from Radio"/>
+    <Item Id="dataWrite" Text="Writing data to Radio"/>
     <Item Id="DMRIdContcatsTotal" Text="Total number of IDs = {0}. Max of {1} can be uploaded" />
     <Item Id="ErrorParsingData" Text="Error while parsing data" />
   </Commons>

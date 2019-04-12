@@ -7,7 +7,7 @@
 	<AboutForm Text="About">
 		<Controls>
 			<Control Id="lblVersion" Text="" />
-			<Control Id="lblCompany" Text="Radioddity and GD-77 Community" />
+			<Control Id="lblCompany" Text="DM-1801 and GD-77 Community" />
 			<Control Id="btnClose" Text="OK" />
       <Control Id="lblTranslationCredit" Text="" />
 		</Controls>
@@ -360,9 +360,9 @@
 	<HelpForm Text="HelpView">
 		<Controls />
 	</HelpForm>
-	<MainForm Text="Radioddity GD-77 CPS 3.0.6 Community Edition">
+	<MainForm Text="DM-1801 CPS 3.0.6 Community Edition">
 		<TreeView>
-			<TreeNode Id="Model" Text="GD-77" />
+			<TreeNode Id="Model" Text="DM-1801" />
 			<TreeNode Id="BasicInfo" Text="Basic Information" />
 			<TreeNode Id="BootItem" Text="Boot Item" />
 			<TreeNode Id="Menu" Text="Menu" />
@@ -825,8 +825,8 @@
       <Control Id="lblRegionId" Text="Region" />
       <Control Id="lblInactivityFilter" Text="Inactivity filter (days)" />      
       <Control Id="btnDownload" Text="Download" />
-      <Control Id="btnRead" Text="Read from GD-77" />
-      <Control Id="btnWrite" Text="Write to GD-77" />
+      <Control Id="btnRead" Text="Read from Radio" />
+      <Control Id="btnWrite" Text="Write to Radio" />
       <Control Id="btnClear" Text="Clear" />      
     </Controls>
   </DMRIDForm>
@@ -859,8 +859,8 @@
 		<Item Id="CommError" Text="Communication error" />
 		<Item Id="Add" Text="Add: " />
 		<Item Id="ScanSelected" Text="Unable to operate selected" />
-		<Item Id="codePlugReadConfirm"  Text="Are you sure you want to read the codeplug from the GD-77?.This will overwrite the current codeplug." />
-		<Item Id="codePlugWriteConfirm"  Text="Are you sure you want to write this codeplug to the GD-77?.This will overwrite codeplug currently in the GD-77" />
+		<Item Id="codePlugReadConfirm"  Text="Are you sure you want to read the codeplug from the Radio?.This will overwrite the current codeplug." />
+		<Item Id="codePlugWriteConfirm"  Text="Are you sure you want to write this codeplug to the Radio?.This will overwrite codeplug currently in the Radio" />
 		<Item Id="pleaseConfirm"  Text="Please confirm" />
     <Item Id="userAgreement"  Text="This software is supplied 'as is' with no warranties. You use it at your own risk to both your PC and to your DMR Radio. By pressing the  Yes   button you agree and understand." />
     <Item Id="DownloadContactsMessageAdded" Text="There are {0} new ID's which are not already in your contacts" />
@@ -873,19 +873,19 @@
     <Item Id="DownloadContactsImportComplete" Text="Import complete" />
     <Item Id="CodeplugUpgradeNotice" Text="This appears to be a V3.0.6 Codeplug. It will be converted to V3.1.x" />
     <Item Id="CodeplugUpgradeWarningToManyRxGroups" Text="Version 3.1.x can only have 76 Rx Groups. Additional Rx Groups have been ignored" />
-    <Item Id="CodeplugRead" Text="Reading codeplug from GD-77" />
-    <Item Id="CodeplugWrite" Text="Writing codeplug to GD-77" />
-    <Item Id="DMRIDRead" Text="Reading DMR ID database from GD-77" />
-    <Item Id="DMRIDWrite" Text="Writing DMR ID database to GD-77" />
-    <Item Id="CalibrationRead" Text="Reading calibration data from GD-77" />
-    <Item Id="CalibrationWrite" Text="Writing calibration data to GD-77" />
+    <Item Id="CodeplugRead" Text="Reading codeplug from Radio" />
+    <Item Id="CodeplugWrite" Text="Writing codeplug to Radio" />
+    <Item Id="DMRIDRead" Text="Reading DMR ID database from Radio" />
+    <Item Id="DMRIDWrite" Text="Writing DMR ID database to Radio" />
+    <Item Id="CalibrationRead" Text="Reading calibration data from Radio" />
+    <Item Id="CalibrationWrite" Text="Writing calibration data to Radio" />
     <Item Id="IdAlreadyExists" Text="ID already exists！" />
     <Item Id="IdOutOfRange" Text="ID out of range!" />
     <Item Id="IdNotEmpty" Text="ID can not be empty!" />
     <Item Id="ContactNameDuplicate" Text="Warning. Duplicate contact name." />
-    <Item Id="EnableMemoryAccessMode" Text ="The GD-77 does not seem to be in Memory Access mode.Hold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver, and try again" />
-    <Item Id="dataRead" Text="Reading data from GD-77"/>
-    <Item Id="dataWrite" Text="Writing data to GD-77"/>
+    <Item Id="EnableMemoryAccessMode" Text ="The Radio does not seem to be in Memory Access mode.Hold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver, and try again" />
+    <Item Id="dataRead" Text="Reading data from Radio"/>
+    <Item Id="dataWrite" Text="Writing data to Radio"/>
     <Item Id="DMRIdContcatsTotal" Text="Total number of IDs = {0}. Max of {1} can be uploaded" />
     <Item Id="ErrorParsingData" Text="Error while parsing data" />
   </Commons>

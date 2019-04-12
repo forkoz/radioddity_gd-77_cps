@@ -839,8 +839,8 @@ namespace DMR
 			this.tsmiAllCall.Size = new Size(231, 22);
 			this.tsmiAllCall.Text = "All Call";
 			this.tsmiAllCall.Click += this.tsmiAllCall_Click;
-			this.ofdMain.Filter = "GD-77 codeplug (*.dat,*.g77)|*.dat;*.g77";
-			this.sfdMain.Filter = "GD-77 codeplug (*.dat,*.g77)|*.dat;*.g77";
+			this.ofdMain.Filter = "DM-1801 codeplug (*.dat,*.g77)|*.dat;*.g77";
+			this.sfdMain.Filter = "DM-1801 codeplug (*.dat,*.g77)|*.dat;*.g77";
 			this.cmsTree.Items.AddRange(new ToolStripItem[2]
 			{
 				this.tsmiCollapseAll,
@@ -1691,11 +1691,11 @@ namespace DMR
 			int num = 0;
 			try
 			{
-				for (num = 0; num < 250; num++)
+				for (num = 0; num < 150; num++)
 				{
 					if (ZoneForm.data.DataIsValid(num))
 					{
-						this.AddTreeViewNode(parentNode.Nodes, ZoneForm.data.GetName(num), new TreeNodeItem(this.cmsSub, typeof(ZoneForm), null, 250, num, 25, ZoneForm.data));
+						this.AddTreeViewNode(parentNode.Nodes, ZoneForm.data.GetName(num), new TreeNodeItem(this.cmsSub, typeof(ZoneForm), null, 150, num, 25, ZoneForm.data));
 					}
 				}
 			}
@@ -3698,7 +3698,7 @@ namespace DMR
 			this.lstTreeNodeItem.Add(new TreeNodeItem(null, typeof(DtmfContactForm), null, 0, -1, 49, null));
 			this.lstTreeNodeItem.Add(new TreeNodeItem(this.cmsGroupContact, typeof(ContactsForm), typeof(ContactForm), 1024, -1, 17, ContactForm.data));
 			this.lstTreeNodeItem.Add(new TreeNodeItem(this.cmsGroup, null, typeof(RxGroupListForm), RxListData.CNT_RX_LIST, -1, 17, RxGroupListForm.data));
-			this.lstTreeNodeItem.Add(new TreeNodeItem(this.cmsGroup, typeof(ZoneBasicForm), typeof(ZoneForm), 250, -1, 16, ZoneForm.data));
+			this.lstTreeNodeItem.Add(new TreeNodeItem(this.cmsGroup, typeof(ZoneBasicForm), typeof(ZoneForm), 150, -1, 16, ZoneForm.data));
 			this.lstTreeNodeItem.Add(new TreeNodeItem(this.cmsGroup, typeof(ChannelsForm), typeof(ChannelForm), ChannelForm.CurCntCh, -1, 17, ChannelForm.data));
 			this.lstTreeNodeItem.Add(new TreeNodeItem(this.cmsGroup, typeof(ScanBasicForm), typeof(NormalScanForm), 64, -1, 16, NormalScanForm.data));
 			this.lstTreeNodeItem.Add(new TreeNodeItem(null, null, null, 0, -1, 17, null));

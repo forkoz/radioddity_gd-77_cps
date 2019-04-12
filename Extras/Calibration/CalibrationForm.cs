@@ -31,7 +31,7 @@ namespace DMR
 
 		private void btnWrite_Click(object sender, EventArgs e)
 		{
-			if (DialogResult.Yes != MessageBox.Show("Writing the calibration data to Radioddity GD-77 or any other compatible radio, could potentially damage your radio. By clicking 'Yes' you acknowledge that you use this feature entirely at your own risk", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2))
+			if (DialogResult.Yes != MessageBox.Show("Writing the calibration data to Radio or any other compatible radio, could potentially damage your radio. By clicking 'Yes' you acknowledge that you use this feature entirely at your own risk", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2))
 			{
 				return;
 			}

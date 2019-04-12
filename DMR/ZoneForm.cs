@@ -135,7 +135,7 @@ namespace DMR
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
 			private byte[] zoneIndex;
 
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 250)]
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 150)]
 			private ZoneOne[] zoneList;
 
 			public byte[] ZoneIndex
@@ -178,7 +178,7 @@ namespace DMR
 			{
 				get
 				{
-					return 250;
+					return 150;
 				}
 			}
 
@@ -242,7 +242,7 @@ namespace DMR
 			{
 				int num = 0;
 				this.zoneIndex = new byte[32];
-				this.zoneList = new ZoneOne[250];
+				this.zoneList = new ZoneOne[150];
 				for (num = 0; num < this.zoneList.Length; num++)
 				{
 					this.zoneList[num] = new ZoneOne(num);
@@ -328,7 +328,7 @@ namespace DMR
 
 			public bool DataIsValid(int index)
 			{
-				if (index < 250)
+				if (index < 150)
 				{
 					BitArray bitArray = new BitArray(this.zoneIndex);
 					return bitArray[index];
@@ -338,7 +338,7 @@ namespace DMR
 
 			public bool ZoneChIsValid(int index)
 			{
-				if (index < 250)
+				if (index < 150)
 				{
 					BitArray bitArray = new BitArray(this.zoneIndex);
 					if (bitArray[index] && this.zoneList[index].ChList[0] != 0)
@@ -592,7 +592,7 @@ namespace DMR
 			{
 				get
 				{
-					if (this.curZone < 250)
+					if (this.curZone < 150)
 					{
 						if (ZoneForm.data.ZoneChIsValid(this.curZone))
 						{
@@ -604,7 +604,7 @@ namespace DMR
 				}
 				set
 				{
-					if (value < 250)
+					if (value < 150)
 					{
 						this.curZone = (ushort)value;
 					}
@@ -653,7 +653,7 @@ namespace DMR
 			{
 				get
 				{
-					if (this.subZone < 250)
+					if (this.subZone < 150)
 					{
 						if (ZoneForm.data.ZoneChIsValid(this.subZone))
 						{
@@ -665,7 +665,7 @@ namespace DMR
 				}
 				set
 				{
-					if (value < 250)
+					if (value < 150)
 					{
 						this.subZone = (ushort)value;
 					}
@@ -1536,7 +1536,7 @@ namespace DMR
 
 		private void tsmiAdd_Click(object sender, EventArgs e)
 		{
-			if (this.Node.Parent.Nodes.Count < 250)
+			if (this.Node.Parent.Nodes.Count < 150)
 			{
 				this.SaveData();
 				TreeNodeItem treeNodeItem = this.Node.Tag as TreeNodeItem;
@@ -1580,7 +1580,7 @@ namespace DMR
 
 		private void method_6()
 		{
-			this.tsbtnAdd.Enabled = (this.Node.Parent.Nodes.Count != 250);
+			this.tsbtnAdd.Enabled = (this.Node.Parent.Nodes.Count != 150);
 			this.tsbtnDel.Enabled = (this.Node.Parent.Nodes.Count != 1 && this.Node.Index != 0);
 			this.tsbtnFirst.Enabled = (this.Node != this.Node.Parent.FirstNode);
 			this.tsbtnPrev.Enabled = (this.Node != this.Node.Parent.FirstNode);

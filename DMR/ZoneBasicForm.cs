@@ -108,7 +108,7 @@ namespace DMR
 		{
 			int num = 0;
 			class4_0.method_0();
-			for (num = 0; num <= 250; num++)
+			for (num = 0; num <= 150; num++)
 			{
 				if (ZoneForm.data.ZoneChIsValid(num))
 				{

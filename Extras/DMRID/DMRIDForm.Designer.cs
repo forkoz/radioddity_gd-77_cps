@@ -65,7 +65,7 @@
 			this.btnReadFromGD77.Name = "btnReadFromGD77";
 			this.btnReadFromGD77.Size = new System.Drawing.Size(123, 23);
 			this.btnReadFromGD77.TabIndex = 1;
-			this.btnReadFromGD77.Text = "Read from GD-77";
+			this.btnReadFromGD77.Text = "Read from Radio";
 			this.btnReadFromGD77.UseVisualStyleBackColor = true;
 			this.btnReadFromGD77.Click += new System.EventHandler(this.btnReadFromGD77_Click);
 			// 
@@ -75,7 +75,7 @@
 			this.btnWriteToGD77.Name = "btnWriteToGD77";
 			this.btnWriteToGD77.Size = new System.Drawing.Size(123, 23);
 			this.btnWriteToGD77.TabIndex = 2;
-			this.btnWriteToGD77.Text = "Write to GD-77";
+			this.btnWriteToGD77.Text = "Write to Radio";
 			this.btnWriteToGD77.UseVisualStyleBackColor = true;
 			this.btnWriteToGD77.Click += new System.EventHandler(this.btnWriteToGD77_Click);
 			// 

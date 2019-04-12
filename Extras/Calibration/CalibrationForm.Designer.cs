@@ -97,7 +97,7 @@ namespace DMR
 			this.btnWrite.Name = "btnWrite";
 			this.btnWrite.Size = new System.Drawing.Size(102, 23);
 			this.btnWrite.TabIndex = 1;
-			this.btnWrite.Text = "Write to GD-77";
+			this.btnWrite.Text = "Write to Radio";
 			this.btnWrite.UseVisualStyleBackColor = true;
 			this.btnWrite.Visible = false;
 			this.btnWrite.Click += new System.EventHandler(this.btnWrite_Click);

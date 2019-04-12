@@ -181,17 +181,17 @@ internal class Settings
 	public static string SZ_CODEPLUG_UPGRADE_NOTICE = "This appears to be a V3.0.6 Codeplug. It will be converted to V3.1.x";
 	public static string SZ_CODEPLUG_UPGRADE_WARNING_TO_MANY_RX_GROUPS = "Version 3.1.x can only have 76 Rx Groups. Additional Rx Groups have been ignored";
 
-	public static string SZ_CODEPLUG_READ = "Reading codeplug from GD-77";
-	public static string SZ_CODEPLUG_WRITE = "Writing codeplug to GD-77";
-	public static string SZ_DMRID_READ = "Reading DMR ID database from GD-77";
-	public static string SZ_DMRID_WRITE = "Writing DMR ID database to GD-77";
-	public static string SZ_CALIBRATION_READ = "Reading calibration data from GD-77";
-	public static string SZ_CALIBRATION_WRITE = "Writing calibration data to GD-77";
+	public static string SZ_CODEPLUG_READ = "Reading codeplug from Radio";
+	public static string SZ_CODEPLUG_WRITE = "Writing codeplug to Radio";
+	public static string SZ_DMRID_READ = "Reading DMR ID database from Radio";
+	public static string SZ_DMRID_WRITE = "Writing DMR ID database to Radio";
+	public static string SZ_CALIBRATION_READ = "Reading calibration data from Radio";
+	public static string SZ_CALIBRATION_WRITE = "Writing calibration data to Radio";
 	public static string SZ_CONTACT_DUPLICATE_NAME = "Warning. Duplicate contact name.";
 
-	public static string SZ_EnableMemoryAccessMode = "The GD-77 does not seem to be in Memory Access mode\nHold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver.\nand try again";
-    public static string SZ_dataRead = "Reading data from GD-77";
-    public static string SZ_dataWrite  ="Writing data to GD-77";
+	public static string SZ_EnableMemoryAccessMode = "The Radio does not seem to be in Memory Access mode\nHold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver.\nand try again";
+    public static string SZ_dataRead = "Reading data from Radio";
+    public static string SZ_dataWrite  ="Writing data to Radio";
     public static string SZ_DMRIdContcatsTotal = "Total number of IDs = {0}. Max of 10920 can be uploaded";
     public static string SZ_ErrorParsingData = "Error while parsing data";
     public static string SZ_DMRIdIntroMessage = "Data is downloaded from Ham-digital.org and appended any existing data";
@@ -1528,8 +1528,8 @@ internal class Settings
 		Settings.SZ_WRITE = "Write";
 		Settings.SZ_READ_COMPLETE = "Read Complete";
 		Settings.SZ_WRITE_COMPLETE = "Write Complete";
-        Settings.SZ_CODEPLUG_READ_CONFIRM = "Are you sure you want to read the codeplug from the GD-77?\nThis will overwrite the current codeplug.";
-        Settings.SZ_CODEPLUG_WRITE_CONFIRM = "Are you sure you want to write this codeplug to the GD-77?\nThis will overwrite codeplug currently in the GD-77";
+        Settings.SZ_CODEPLUG_READ_CONFIRM = "Are you sure you want to read the codeplug from the Radio?\nThis will overwrite the current codeplug.";
+        Settings.SZ_CODEPLUG_WRITE_CONFIRM = "Are you sure you want to write this codeplug to the Radio?\nThis will overwrite codeplug currently in the Radio";
         Settings.SZ_PLEASE_CONFIRM = "Please confirm";
 
 

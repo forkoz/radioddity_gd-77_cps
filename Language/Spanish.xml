@@ -359,7 +359,7 @@
 	<HelpForm Text="Visor de Ayuda (Sistema de Ayuda pendiente de traducción)">
 		<Controls />
 	</HelpForm>
-	<MainForm Text="Radioddity GD-77 CPS 3.0.6 Community Edition - Traducción al español de EA4ALX">
+	<MainForm Text="DM-1801 CPS 3.0.6 Community Edition - Traducción al español de EA4ALX">
 		<TreeView>
 			<TreeNode Id="Model" Text="GD-77" />
 			<TreeNode Id="BasicInfo" Text="Información Básica" />
