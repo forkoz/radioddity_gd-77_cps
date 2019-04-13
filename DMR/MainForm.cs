@@ -204,9 +204,9 @@ namespace DMR
 
 		private ToolStripMenuItem tsmiExtras;
         //Not Available Yet
-		//private ToolStripMenuItem tsmiContactsDownload;
-		//private ToolStripMenuItem tsmiDMRID;
-		private ToolStripMenuItem tsmiCalibration;
+		private ToolStripMenuItem tsmiContactsDownload;
+		private ToolStripMenuItem tsmiDMRID;
+		//private ToolStripMenuItem tsmiCalibration;
 
 
 		private DeserializeDockContent m_deserializeDockContent;
@@ -332,9 +332,9 @@ namespace DMR
 			this.tsmiStatusBar = new ToolStripMenuItem();
 			this.tsmiLanguage = new ToolStripMenuItem();
 			this.tsmiExtras = new ToolStripMenuItem();
-			//this.tsmiContactsDownload = new ToolStripMenuItem();
-			//this.tsmiDMRID = new ToolStripMenuItem();
-			this.tsmiCalibration = new ToolStripMenuItem();
+			this.tsmiContactsDownload = new ToolStripMenuItem();
+			this.tsmiDMRID = new ToolStripMenuItem();
+			//this.tsmiCalibration = new ToolStripMenuItem();
 			
 			this.tsmiWindow = new ToolStripMenuItem();
 			this.tsmiCascade = new ToolStripMenuItem();
@@ -681,32 +681,32 @@ namespace DMR
 			this.tsmiExtras.Name = "tsmiExtras";
 			this.tsmiExtras.Size = new Size(77, 21);
 			this.tsmiExtras.Text = "Extras";
-			this.tsmiExtras.DropDownItems.AddRange(new ToolStripItem[1] //3
+			this.tsmiExtras.DropDownItems.AddRange(new ToolStripItem[2] //3
 			{
-				//this.tsmiContactsDownload,
-				this.tsmiCalibration,
-				//this.tsmiDMRID,
+				this.tsmiContactsDownload,
+				//this.tsmiCalibration,
+				this.tsmiDMRID,
 			});
 
-			//this.tsmiContactsDownload.Name = "tsmiContactsDownload";
-			//this.tsmiContactsDownload.ShortcutKeys = (Keys)131154;
-		//	this.tsmiContactsDownload.Size = new Size(156, 22);
-		//	this.tsmiContactsDownload.Text = "Download contacts";
-		//	this.tsmiContactsDownload.Click += this.tsbtnContactsDownload_Click;
+			this.tsmiContactsDownload.Name = "tsmiContactsDownload";
+			this.tsmiContactsDownload.ShortcutKeys = (Keys)131154;
+			this.tsmiContactsDownload.Size = new Size(156, 22);
+			this.tsmiContactsDownload.Text = "Download contacts";
+			this.tsmiContactsDownload.Click += this.tsbtnContactsDownload_Click;
 
-			//this.tsmiDMRID.Name = "tsmiDMRID";
-			//this.tsmiContactsDownload.ShortcutKeys = (Keys)131154;
-		//	this.tsmiDMRID.Size = new Size(156, 22);
-		//	this.tsmiDMRID.Text = "DMR ID";
-		//	this.tsmiDMRID.Enabled = true;
-		//	this.tsmiDMRID.Click += this.tsbtnDMRID_Click;
+			this.tsmiDMRID.Name = "tsmiDMRID";
+			this.tsmiContactsDownload.ShortcutKeys = (Keys)131154;
+			this.tsmiDMRID.Size = new Size(156, 22);
+			this.tsmiDMRID.Text = "DMR ID";
+			this.tsmiDMRID.Enabled = true;
+			this.tsmiDMRID.Click += this.tsbtnDMRID_Click;
 
-			this.tsmiCalibration.Name = "tsmiCalibration";
+			//this.tsmiCalibration.Name = "tsmiCalibration";
 			//this.tsmiCalibration.ShortcutKeys = (Keys)131154;
-			this.tsmiCalibration.Size = new Size(156, 22);
-			this.tsmiCalibration.Text = "Calibration viewer";
-			this.tsmiCalibration.Enabled = true;
-			this.tsmiCalibration.Click += new EventHandler(this.tsbtnCalibration_Click);
+			//this.tsmiCalibration.Size = new Size(156, 22);
+			//this.tsmiCalibration.Text = "Calibration viewer";
+			//this.tsmiCalibration.Enabled = true;
+			//this.tsmiCalibration.Click += new EventHandler(this.tsbtnCalibration_Click);
 
 
 			this.tsmiWindow.DropDownItems.AddRange(new ToolStripItem[4]
