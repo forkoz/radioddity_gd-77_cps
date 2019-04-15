@@ -222,7 +222,7 @@
 			this.ClientSize = new System.Drawing.Size(526, 595);
 			this.Controls.Add(this.lblEnhancedLength);
 			this.Controls.Add(this.cmbStringLen);
-			this.Controls.Add(this.chkEnhancedFirmware);
+			//this.Controls.Add(this.chkEnhancedFirmware);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.lblInactivityFilter);
 			this.Controls.Add(this.lblRegionId);

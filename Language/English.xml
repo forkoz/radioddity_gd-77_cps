@@ -883,7 +883,7 @@
     <Item Id="IdOutOfRange" Text="ID out of range!" />
     <Item Id="IdNotEmpty" Text="ID can not be empty!" />
     <Item Id="ContactNameDuplicate" Text="Warning. Duplicate contact name." />
-    <Item Id="EnableMemoryAccessMode" Text ="The Radio does not seem to be in Memory Access mode.Hold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver, and try again" />
+    <Item Id="EnableMemoryAccessMode" Text ="The Radio does not seem to be in Memory Access mode.Hold keys SK2 (bottom side key) and 0 when turning on the transceiver, and try again" />
     <Item Id="dataRead" Text="Reading data from Radio"/>
     <Item Id="dataWrite" Text="Writing data to Radio"/>
     <Item Id="DMRIdContcatsTotal" Text="Total number of IDs = {0}. Max of {1} can be uploaded" />

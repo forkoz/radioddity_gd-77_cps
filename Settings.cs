@@ -189,7 +189,7 @@ internal class Settings
 	public static string SZ_CALIBRATION_WRITE = "Writing calibration data to Radio";
 	public static string SZ_CONTACT_DUPLICATE_NAME = "Warning. Duplicate contact name.";
 
-	public static string SZ_EnableMemoryAccessMode = "The Radio does not seem to be in Memory Access mode\nHold keys SK2 (Blue side key), Green Menu and * when turning on the transceiver.\nand try again";
+	public static string SZ_EnableMemoryAccessMode = "The Radio does not seem to be in Memory Access mode\nHold keys SK2 (bottom side key) and 0 when turning on the transceiver.\nand try again";
     public static string SZ_dataRead = "Reading data from Radio";
     public static string SZ_dataWrite  ="Writing data to Radio";
     public static string SZ_DMRIdContcatsTotal = "Total number of IDs = {0}. Max of 10920 can be uploaded";
