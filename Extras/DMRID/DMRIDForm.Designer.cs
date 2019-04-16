@@ -42,7 +42,7 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.rbtnName = new System.Windows.Forms.RadioButton();
 			this.rbtnCallsign = new System.Windows.Forms.RadioButton();
-			this.chkEnhancedFirmware = new System.Windows.Forms.CheckBox();
+			this.chkEnhancedFirmware = new System.Windows.Forms.Label();
 			this.cmbStringLen = new System.Windows.Forms.ComboBox();
 			this.lblEnhancedLength = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -179,11 +179,12 @@
 			this.chkEnhancedFirmware.AutoSize = true;
 			this.chkEnhancedFirmware.Location = new System.Drawing.Point(148, 72);
 			this.chkEnhancedFirmware.Name = "chkEnhancedFirmware";
-			this.chkEnhancedFirmware.Size = new System.Drawing.Size(146, 17);
+			this.chkEnhancedFirmware.Size = new System.Drawing.Size(146, 20);
+			this.chkEnhancedFirmware.ForeColor = System.Drawing.Color.Red;
 			this.chkEnhancedFirmware.TabIndex = 9;
-			this.chkEnhancedFirmware.Text = "Enhanced firmware mode";
-			this.chkEnhancedFirmware.UseVisualStyleBackColor = true;
-			this.chkEnhancedFirmware.CheckedChanged += new System.EventHandler(this.chkEnhancedFirmware_CheckedChanged);
+			this.chkEnhancedFirmware.Text = "Expanded ID: Ensure FW DMR.IDV02 or later";
+			//this.chkEnhancedFirmware.UseVisualStyleBackColor = true;
+			//this.chkEnhancedFirmware.CheckedChanged += new System.EventHandler(this.chkEnhancedFirmware_CheckedChanged);
 			// 
 			// cmbStringLen
 			// 
@@ -222,7 +223,7 @@
 			this.ClientSize = new System.Drawing.Size(526, 595);
 			this.Controls.Add(this.lblEnhancedLength);
 			this.Controls.Add(this.cmbStringLen);
-			//this.Controls.Add(this.chkEnhancedFirmware);
+			this.Controls.Add(this.chkEnhancedFirmware);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.lblInactivityFilter);
 			this.Controls.Add(this.lblRegionId);
@@ -262,7 +263,7 @@
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.RadioButton rbtnName;
 		private System.Windows.Forms.RadioButton rbtnCallsign;
-		private System.Windows.Forms.CheckBox chkEnhancedFirmware;
+		private System.Windows.Forms.Label chkEnhancedFirmware;
 		private System.Windows.Forms.ComboBox cmbStringLen;
 		private System.Windows.Forms.Label lblEnhancedLength;
 	}
