@@ -33,9 +33,9 @@ namespace DMR
 		{
 			SIG_PATTERN_BYTES = new byte[] { 0x49, 0x44, 0x2D, 0x56, 0x30, 0x30, 0x31, 0x00 };
 			InitializeComponent();
-			groupBox1.Visible = false; // This is redundant. So hide it until I have time to remove it.
-			cmbStringLen.Visible = true;
-			lblEnhancedLength.Visible = true;
+			groupBox1.Visible = true; // Name or callsign
+			cmbStringLen.Visible = false; //not done yet
+			lblEnhancedLength.Visible = false;
 
 			txtRegionId.Text = (int.Parse(GeneralSetForm.data.RadioId) / 10000).ToString();
 
