@@ -34,8 +34,8 @@ namespace DMR
 			SIG_PATTERN_BYTES = new byte[] { 0x49, 0x44, 0x2D, 0x56, 0x30, 0x30, 0x31, 0x00 };
 			InitializeComponent();
 			groupBox1.Visible = true; // Name or callsign
-			cmbStringLen.Visible = false; //not done yet
-			lblEnhancedLength.Visible = false;
+			cmbStringLen.Visible = true; 
+			lblEnhancedLength.Visible = true;
 
 			txtRegionId.Text = (int.Parse(GeneralSetForm.data.RadioId) / 10000).ToString();
 
@@ -256,7 +256,7 @@ namespace DMR
 			
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			result = commPrgForm.ShowDialog();
-			///Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, CodeplugComms.transferLength);
+			//Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, CodeplugComms.transferLength);
 			Array.Copy(MainForm.CommsBuffer, 0x10000, DMRIDForm.DMRIDBuffer, 0, CodeplugComms.transferLength);
 			radioToData();
 			rebindData();
