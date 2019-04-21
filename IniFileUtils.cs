@@ -9,7 +9,7 @@ using Microsoft.Win32;
 internal class IniFileUtils
 {
 	private static string iniPath;
-	static string keyName = "HKEY_CURRENT_USER\\Software\\RadioddityCommunity\\GD77CPS306";
+	static string keyName = "HKEY_CURRENT_USER\\Software\\RadioddityCommunity\\1801CPS306";
 
 	[DllImport("kernel32.dll", CharSet = CharSet.Auto)]
 	private static extern long WritePrivateProfileString(string string_0, string string_1, string string_2, string string_3);
