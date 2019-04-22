@@ -87,13 +87,11 @@ internal class CodeplugComms
 				this.thread = new Thread(this.writeCodeplug);
 				break;
 			case CommunicationType.DMRIDRead:
-				//startAddress = 0x30000;
-				startAddress = 0x10000;
+				startAddress = 0x30000;
 				transferLength = 0x20000;
 				this.thread = new Thread(this.readData);
 				break;
 			case CommunicationType.DMRIDWrite:
-				//startAddress = 0x30000;
 				startAddress = 0x10000;
 				transferLength = 0x20000;
 				this.thread = new Thread(writeData);

@@ -14,7 +14,7 @@ namespace DMR
 {
 	public partial class DMRIDForm : Form
 	{
-		public static byte[] DMRIDBuffer = new byte[0x40000];
+		public static byte[] DMRIDBuffer = new byte[0xA0000];
 
 		static  List<DMRDataItem> DataList = null;
 		private static byte[] SIG_PATTERN_BYTES;
@@ -26,7 +26,7 @@ namespace DMR
 
 		public static void ClearStaticData()
 		{
-			DMRIDBuffer = new byte[0x40000];
+			DMRIDBuffer = new byte[0xA0000];
 		}
 
 		public DMRIDForm()
@@ -223,22 +223,21 @@ namespace DMR
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			CommPrgForm commPrgForm = new CommPrgForm(true);// true =  close download form as soon as download is complete
 			commPrgForm.StartPosition = FormStartPosition.CenterParent;
-			CodeplugComms.startAddress = 0x50100;
+			CodeplugComms.startAddress = 0xD0100;
 			CodeplugComms.transferLength = 0x20;
 			DialogResult result = commPrgForm.ShowDialog();
-			Array.Copy(MainForm.CommsBuffer, 0x50100, DMRIDForm.DMRIDBuffer, 0, 0x20);
+			Array.Copy(MainForm.CommsBuffer, 0xD0100, DMRIDForm.DMRIDBuffer, 0, 0x20);
 			if (!isInMemoryAccessMode(DMRIDForm.DMRIDBuffer))
 			{
 				MessageBox.Show(Settings.dicCommon["EnableMemoryAccessMode"]);
 				return;
 			}
 
-			//CodeplugComms.startAddress = 0x30000;
-			CodeplugComms.startAddress = 0x10000;
+			CodeplugComms.startAddress = 0x30000;
 			CodeplugComms.transferLength = 0x20;
 			result = commPrgForm.ShowDialog();
-			//Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, 0x20);
-            Array.Copy(MainForm.CommsBuffer, 0x10000, DMRIDForm.DMRIDBuffer, 0, 0x20);
+			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, 0x20);
+            
 
 			int numRecords = BitConverter.ToInt32(DMRIDForm.DMRIDBuffer, 8);
 			int stringLen = (int)DMRIDForm.DMRIDBuffer[3]-0x4a - 4;
@@ -248,16 +247,14 @@ namespace DMR
 			}*/
 			cmbStringLen.SelectedIndex = stringLen - 6;
 			
-			//CodeplugComms.startAddress = 0x30000;
-			//CodeplugComms.transferLength = Math.Min((this.chkEnhancedFirmware.Checked == true ? 0x40000 : 0x20000), HEADER_LENGTH + (numRecords + 2) * (4 + _stringLength));
-            CodeplugComms.startAddress = 0x10000;
-			CodeplugComms.transferLength = Math.Min(0x40000, HEADER_LENGTH + (numRecords + 2) * (4 + _stringLength));
+			CodeplugComms.startAddress = 0x30000;
+			CodeplugComms.transferLength = Math.Min(0xA0000, HEADER_LENGTH + (numRecords + 2) * (4 + _stringLength));
 
 			
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			result = commPrgForm.ShowDialog();
-			//Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, CodeplugComms.transferLength);
-			Array.Copy(MainForm.CommsBuffer, 0x10000, DMRIDForm.DMRIDBuffer, 0, CodeplugComms.transferLength);
+			Array.Copy(MainForm.CommsBuffer, 0x30000, DMRIDForm.DMRIDBuffer, 0, CodeplugComms.transferLength);
+			
 			radioToData();
 			rebindData();
 			//DataToCodeplug();
@@ -291,7 +288,7 @@ namespace DMR
 		{
 			get
 			{
-				return (0x40000 - HEADER_LENGTH) / (_stringLength + 4);
+				return (0xA0000 - HEADER_LENGTH) / (_stringLength + 4);
 			}
 		}
 
@@ -358,10 +355,10 @@ namespace DMR
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
 			CommPrgForm commPrgForm = new CommPrgForm(true);// true =  close download form as soon as download is complete
 			commPrgForm.StartPosition = FormStartPosition.CenterParent;
-			CodeplugComms.startAddress = 0x50100;
+			CodeplugComms.startAddress = 0xD0100;
 			CodeplugComms.transferLength = 0x20;
 			DialogResult result = commPrgForm.ShowDialog();
-			Array.Copy(MainForm.CommsBuffer, 0x50100, DMRIDForm.DMRIDBuffer, 0, 0x20);
+			Array.Copy(MainForm.CommsBuffer, 0xD0100, DMRIDForm.DMRIDBuffer, 0, 0x20);
 			if (!isInMemoryAccessMode(DMRIDForm.DMRIDBuffer))
 			{
 				MessageBox.Show(Settings.dicCommon["EnableMemoryAccessMode"]); 
@@ -373,14 +370,12 @@ namespace DMR
 			SIG_PATTERN_BYTES[3] = (byte)(0x4a + _stringLength + 4);
 
 			byte []uploadData = GenerateUploadData();
-			//Array.Copy(uploadData, 0, MainForm.CommsBuffer, 0x30000, (uploadData.Length/32)*32);
-			Array.Copy(uploadData, 0, MainForm.CommsBuffer, 0x10000, (uploadData.Length/32)*32);
+			Array.Copy(uploadData, 0, MainForm.CommsBuffer, 0x30000, (uploadData.Length/32)*32);
 			
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataWrite;
 
-		//	CodeplugComms.startAddress = 0x30000;
-			CodeplugComms.startAddress = 0x10000;
-		
+			CodeplugComms.startAddress = 0x30000;
+			
 			CodeplugComms.transferLength = (uploadData.Length/32)*32;
 			commPrgForm.StartPosition = FormStartPosition.CenterParent;
 			result = commPrgForm.ShowDialog();
