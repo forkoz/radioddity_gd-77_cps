@@ -728,7 +728,7 @@
       <Control Id="btnImport" Text="Import selected" />
       <Control Id="btnSelectAll" Text="Select all" />      
       <Control Id="btnDownload" Text="Download from URL" />
-      <Control Id="btnDownloadDMRMARC" Text="Download from DRM MARC" />      
+      <Control Id="btnDownloadDMRMARC" Text="Download from DMR MARC" />      
       <Control Id="lblIDStart" Text="Region Prefix code" />
       <Control Id="lblMessageDownloading" Text="Downloading" />
       <Control Id="dgvDownloadeContacts" Text="ID,Callsign,Name,Last heard">

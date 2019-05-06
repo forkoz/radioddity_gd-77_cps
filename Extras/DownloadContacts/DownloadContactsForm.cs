@@ -181,7 +181,7 @@ namespace DMR
 				Application.DoEvents();
 				_wc.DownloadStringCompleted += new DownloadStringCompletedEventHandler(DMRMARCDownloadCompleteHandler);
 				_wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(downloadProgressHandler);
-				_wc.DownloadStringAsync(new Uri("http://radioid.net/static/users_quoted.csv"));
+				_wc.DownloadStringAsync(new Uri("http://radioid.net/static/user.csv"));
 			}
 			catch (Exception)
 			{

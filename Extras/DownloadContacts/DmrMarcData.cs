@@ -25,13 +25,16 @@ namespace DMR
 
 		public string Callsign { get; set; }
 		public string Name { get; set; }
+		public string LastName { get; set; }
 		public string City { get; set; }
 		public string State { get; set; }
 		public string Country { get; set; }
 		public string Remarks { get; set; }
 		public string ToString()
 		{
-			return Id + " " + " " + Callsign + " " + Name + " " +  City + " " + State + " " + Country + " " + Remarks;
+		
+			return Id + Callsign + Name + LastName + City + State + Country + Remarks;
+		
 		}
 
 		public static DmrMarcDataDataItem FromCsv(string csvLine)
@@ -44,13 +47,14 @@ namespace DMR
 				DmrMarcDataDataItem value = new DmrMarcDataDataItem();
 
 				values = csvLine.Split(',');
-				value.Id = values[0].Trim('"') ;
-				value.Callsign = values[1].Trim('"');
-				value.Name = values[2].Trim('"');
-				value.City = values[3].Trim('"');
-				value.State = values[4].Trim('"');
-				value.Country = values[5].Trim('"');
-				value.Remarks = values[6].Trim('"');
+				value.Id = values[0];
+				value.Callsign = values[1];
+				value.Name = values[2];
+				value.LastName=values[3];
+				value.City = values[4];
+				value.State = values[5];
+				value.Country = values[6];
+				value.Remarks = values[7];
 				return value;
 			}
 			else
