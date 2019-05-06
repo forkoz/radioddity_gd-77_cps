@@ -20,11 +20,8 @@ namespace DMR
 	public class MainForm : Form
 	{
 
-#if CP_VER_3_0_6
 		private const string DEFAULT_DATA_FILE_NAME = "Default306.dat";
-#elif CP_VER_3_1_X
-		private const string DEFAULT_DATA_FILE_NAME = "Default31X.dat";
-#endif
+
 
 		public static byte[] CommsBuffer=null;// = new byte[0x10000];
 
@@ -1302,7 +1299,13 @@ namespace DMR
 
 		private string getMainTitleStub()
 		{
-			return MainForm.PRODUCT_NAME + " (Build v" + AssemblyName.GetAssemblyName(System.Reflection.Assembly.GetExecutingAssembly().Location).Version.ToString() + ")";
+			//return MainForm.PRODUCT_NAME + " (Build v" + AssemblyName.GetAssemblyName(System.Reflection.Assembly.GetExecutingAssembly().Location).Version.ToString() + ")";
+		    Version ver = AssemblyName.GetAssemblyName(System.Reflection.Assembly.GetExecutingAssembly().Location).Version;//.ToString();
+			DateTime dt = new DateTime(2000, 1, 1, 0, 0, 0).AddDays(ver.Build).AddSeconds(ver.Revision * 2);
+			string retStr = MainForm.PRODUCT_NAME + " (Build date " + dt.ToString("yyyyMMdd")+ ")";
+
+
+			return retStr;
 		}
 
 		private void MainForm_MdiChildActivate(object sender, EventArgs e)
