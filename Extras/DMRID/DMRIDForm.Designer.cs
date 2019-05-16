@@ -182,7 +182,7 @@
 			this.chkEnhancedFirmware.Size = new System.Drawing.Size(146, 20);
 			this.chkEnhancedFirmware.ForeColor = System.Drawing.Color.Red;
 			this.chkEnhancedFirmware.TabIndex = 9;
-			this.chkEnhancedFirmware.Text = "Expanded ID: Ensure FW DMR.IDV04 or later";
+			this.chkEnhancedFirmware.Text = "Expanded ID: Ensure FW DMR.IDV5 or later";
 			//this.chkEnhancedFirmware.UseVisualStyleBackColor = true;
 			//this.chkEnhancedFirmware.CheckedChanged += new System.EventHandler(this.chkEnhancedFirmware_CheckedChanged);
 			// 

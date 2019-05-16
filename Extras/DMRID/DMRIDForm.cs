@@ -14,7 +14,7 @@ namespace DMR
 {
 	public partial class DMRIDForm : Form
 	{
-		public static byte[] DMRIDBuffer = new byte[0xA0000];
+		public static byte[] DMRIDBuffer = new byte[0xC0000];
 
 		static  List<DMRDataItem> DataList = null;
 		private static byte[] SIG_PATTERN_BYTES;
@@ -26,7 +26,7 @@ namespace DMR
 
 		public static void ClearStaticData()
 		{
-			DMRIDBuffer = new byte[0xA0000];
+			DMRIDBuffer = new byte[0xC0000];
 		}
 
 		public DMRIDForm()
@@ -248,7 +248,7 @@ namespace DMR
 			cmbStringLen.SelectedIndex = stringLen - 6;
 			
 			CodeplugComms.startAddress = 0x30000;
-			CodeplugComms.transferLength = Math.Min(0xA0000, HEADER_LENGTH + (numRecords + 2) * (4 + _stringLength));
+			CodeplugComms.transferLength = Math.Min(0xC0000, HEADER_LENGTH + (numRecords + 2) * (4 + _stringLength));
 
 			
 			CodeplugComms.CommunicationMode = CodeplugComms.CommunicationType.dataRead;
@@ -288,7 +288,7 @@ namespace DMR
 		{
 			get
 			{
-				return (0xA0000 - HEADER_LENGTH) / (_stringLength + 4);
+				return (0xC0000 - HEADER_LENGTH) / (_stringLength + 4);
 			}
 		}
 
